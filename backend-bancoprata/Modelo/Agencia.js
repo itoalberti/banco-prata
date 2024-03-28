@@ -52,10 +52,46 @@ export default class Agencia {
   // FUNÇÕES
 
   // ----------------------CADASTRAR----------------------
+  async cadastrarBD() {
+    const agenciaBD = new AgenciaBD();
+    this.cod_ag = await agenciaBD.cadastrar(this);
+  }
 
   // ----------------------ALTERAR----------------------
-
+  async alterarBD() {
+    const agenciaBD = new AgenciaBD();
+    await agenciaBD.alterar(this);
+  }
   // ----------------------EXCLUIR----------------------
-
+  async excluirBD() {
+    const agenciaBD = new AgenciaBD();
+    await agenciaBD.excluir(this);
+  }
   // ----------------------CONSULTAR----------------------
+  async consultarBD(cod_ag) {
+    if (cod_ag == undefined) {
+      const conexao = await conectar();
+      const sql = 'SELECT * FROM Agencia';
+      const parametros = ['%'];
+      const [rows] = await conexao.query(sql, parametros);
+      const listaAgencias = [];
+      for (const row of rows) {
+        const agencia = new Agencia(row['cod_ag'], row['endereco'], row['cidade'], row['uf']);
+        listaAgencias.push(agencia);
+      }
+      return listaAgencias;
+    } else {
+      const conexao = await conectar();
+      const sql = 'SELECT * FROM Agencia WHERE cod_ag=?';
+      const parametros = [cod_ag];
+      const [rows] = await conexao.query(sql, parametros);
+      const listaAgencias = [];
+      for (const row of rows) {
+        const agencia = new Agencia(row['cod_ag'], row['endereco'], row['cidade'], row['uf']);
+        listaAgencias.push(agencia);
+      }
+      // PQ RETORNA [0] ?
+      return listaAgencias[0];
+    }
+  }
 }
