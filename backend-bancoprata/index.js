@@ -1,9 +1,10 @@
+// ► ► ► ► ► ► ► ► ► ►  OK ◄ ◄ ◄ ◄ ◄ ◄ ◄ ◄ ◄ ◄
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import session from 'express-session';
 // import rotaCliente from './Rotas/rotaCliente.js';
-// import rotaAgencia from './Rotas/rotaAgencia.js';
+import rotaAgencia from './Rotas/rotaAgencia.js';
 // import rotaProduto from './Rotas/rotaProduto.js';
 // import rotaLogin from './Rotas/rotaLogin.js';
 // import { verificarAcesso } from './Seguranca/Autenticacao.js';
@@ -17,17 +18,17 @@ const app = express();
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(
-  session({
-    secret: process.env.SEGREDO,
-    resave: false,
-    saveUninitialized: true,
-    maxAge: 1000 * 60 * 5,
-  })
-);
+// app.use(
+//   session({
+//     secret: process.env.SEGREDO,
+//     resave: false,
+//     saveUninitialized: true,
+//     maxAge: 1000 * 60 * 5,
+//   })
+// );
 
 // app.use('/login', rotaLogin);
-// app.use('/agencia', /* verificarAcesso,*/ rotaAgencia);
+app.use('/agencia', /* verificarAcesso,*/ rotaAgencia);
 // app.use('/cliente', /*/verificarAcesso,*/ rotaCliente);
 // app.use('/produto', /*/verificarAcesso,*/ rotaProduto);
 

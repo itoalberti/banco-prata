@@ -1,7 +1,9 @@
+// ► ► ► ► ► ► ► ► ► ►  OK ◄ ◄ ◄ ◄ ◄ ◄ ◄ ◄ ◄ ◄
 import Agencia from '../Modelo/Agencia.js';
 
 export default class AgenciaCtrl {
-  // ----------------------CADASTRAR----------------------
+  //
+  // ----------------------CADASTRAR AGÊNCIA----------------------
   cadastrar(req, resp) {
     resp.type('application/json');
     if (req.method === 'POST' && req.is('application/json')) {
@@ -19,7 +21,7 @@ export default class AgenciaCtrl {
             resp.status(200).json({
               status: true,
               cod_ag: agencia.cod_ag,
-              msg: 'Agência criada com sucesso!',
+              msg: `Agência criada com sucesso!`,
             });
           })
           .catch((erro) => {
@@ -41,10 +43,11 @@ export default class AgenciaCtrl {
       });
     }
   }
-  // ----------------------ALTERAR----------------------
+
+  // ----------------------ALTERAR AGÊNCIA----------------------
   alterar(req, resp) {
     resp.type('application/json');
-    if (req.method === 'PUT' && req.is('application/json')) {
+    if ((req.method === 'PUT' || req.method === 'PATCH') && req.is('application/json')) {
       const dados = req.body;
       const cod_ag = dados.cod_ag;
       const endereco = dados.endereco;
@@ -61,7 +64,7 @@ export default class AgenciaCtrl {
           .then(() => {
             resp.status(200).json({
               status: true,
-              msg: 'Endereço da agência alterado com sucesso!',
+              msg: `Endereço da agência ${cod_ag} alterado com sucesso!`,
             });
           })
           .catch((erro) => {
@@ -73,7 +76,7 @@ export default class AgenciaCtrl {
       } else {
         resp.status(400).json({
           status: false,
-          msg: 'Informe o novo endereço da agência.',
+          msg: `Informe o novo endereço da agência ${cod_ag}.`,
         });
       }
     } else {
@@ -85,21 +88,21 @@ export default class AgenciaCtrl {
     }
   }
 
-  // ----------------------EXCLUIR----------------------
+  // ----------------------EXCLUIR AGÊNCIA----------------------
   excluir(req, resp) {
     resp.type('application/json');
     if (req.method === 'DELETE' && req.is('application/json')) {
       const dados = req.body;
-      // const codigo = dados.codigo;
+      // const cod_ag = dados.cod_ag;
       if (dados.cod_ag) {
-        const agencia = new Agencia();
-        agencia.cod_ag = dados.cod_ag;
+        const agencia = new Agencia(dados.cod_ag);
+        // agencia.cod_ag = dados.cod_ag;
         agencia
           .excluirBD()
           .then(() => {
             resp.status(200).json({
               status: true,
-              msg: 'Agência excluída com sucesso!',
+              msg: `Agência ${agencia.cod_ag} excluída com sucesso!`,
             });
           })
           .catch((erro) => {
@@ -122,7 +125,8 @@ export default class AgenciaCtrl {
       });
     }
   }
-  // ----------------------CONSULTAR----------------------
+
+  // ----------------------CONSULTAR AGÊNCIAS----------------------
   consultar(req, resp) {
     resp.type('application/json');
 

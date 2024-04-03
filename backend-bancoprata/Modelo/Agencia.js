@@ -1,3 +1,5 @@
+import AgenciaBD from '../Persistencia/AgenciaBD.js';
+
 export default class Agencia {
   #cod_ag;
   #endereco;
@@ -54,18 +56,18 @@ export default class Agencia {
   // ----------------------CADASTRAR----------------------
   async cadastrarBD() {
     const agenciaBD = new AgenciaBD();
-    this.cod_ag = await agenciaBD.cadastrar(this);
+    this.cod_ag = await agenciaBD.cadastrarBD(this);
   }
 
   // ----------------------ALTERAR----------------------
   async alterarBD() {
     const agenciaBD = new AgenciaBD();
-    await agenciaBD.alterar(this);
+    await agenciaBD.alterarBD(this);
   }
   // ----------------------EXCLUIR----------------------
   async excluirBD() {
     const agenciaBD = new AgenciaBD();
-    await agenciaBD.excluir(this);
+    await agenciaBD.excluirBD(this);
   }
   // ----------------------CONSULTAR----------------------
   async consultarBD(cod_ag) {
