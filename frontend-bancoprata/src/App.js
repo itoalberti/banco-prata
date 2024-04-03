@@ -1,15 +1,14 @@
 // import logo from './logo.svg';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import TelaAlterarAgencia from './telas/TelaAlterarAgencia.jsx';
 import TelaInicial from './telas/TelaInicial';
 import Tela404 from './telas/Tela404.jsx';
-import TelaExibirAgencias from './telas/TelaExibirAgencias.jsx';
 import TelaCadastrarAgencia from './telas/TelaCadastrarAgencia';
 import TelaCadastrarCliente from './telas/TelaCadastrarCliente.jsx';
-import TelaExibirClientes from './telas/TelaExibirClientes.jsx';
 import TelaCadastrarProduto from './telas/TelaCadastrarProduto.jsx';
-import TelaExibirProdutos from './telas/TelaExibirProdutos.jsx';
+import TelaExibirAgencias from './tabelas/TelaExibirAgencias.jsx';
+import TelaExibirClientes from './tabelas/TelaExibirClientes.jsx';
+import TelaExibirProdutos from './tabelas/TelaExibirProdutos.jsx';
 
 function App() {
   return (

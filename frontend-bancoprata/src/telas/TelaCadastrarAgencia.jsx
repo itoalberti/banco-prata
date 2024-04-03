@@ -3,8 +3,16 @@ import Pagina from '../templates/Pagina';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useState } from 'react';
 
+const port = 4000;
+const hostname = 'localhost';
+
+const urlAgencia = 'https://' + hostname + ':' + port + '/agencia';
+
 export default function TelaCadastrarAgencia(props) {
   const [validado, setValidado] = useState(false);
+  const [exibirTabela, setExibirTabela] = useState(true);
+  const [listaAgencias, setListaAgencias] = useState([]);
+  const [atualizando, setAtualizando] = useState(false);
   const [agencia, setAgencia] = useState({
     cod_ag: '',
     endereco: '',
@@ -51,7 +59,7 @@ export default function TelaCadastrarAgencia(props) {
           {/********************** CIDADE **********************/}
           <Form.Group className='mb-3' controlId='cidade' style={{ width: '340px' }}>
             <Form.Label>Cidade:</Form.Label>
-            <Form.Control required type='email' id='cidade' value={agencia.cidade} onChange={manipularMudanca} />
+            <Form.Control required type='text' id='cidade' value={agencia.cidade} onChange={manipularMudanca} />
             <Form.Control.Feedback type='invalid'>Informe a cidade da agência!</Form.Control.Feedback>
           </Form.Group>
 
@@ -61,67 +69,90 @@ export default function TelaCadastrarAgencia(props) {
               <Form.Group className='mb-3' controlId='uf'>
                 <Form.Label style={{ width: '50px' }}>UF:</Form.Label>
                 <select className='mb-3' style={{ width: '60px' }} id='uf'>
-                  <option></option>
-                  <option value='AC'>AC</option>
-                  <option value='AL'>AL</option>
-                  <option value='AP'>AP</option>
-                  <option value='AM'>AM</option>
-                  <option value='BA'>BA</option>
-                  <option value='CE'>CE</option>
-                  <option value='ES'>ES</option>
-                  <option value='GO'>GO</option>
-                  <option value='MA'>MA</option>
-                  <option value='MT'>MT</option>
-                  <option value='MS'>MS</option>
-                  <option value='MG'>MG</option>
-                  <option value='PA'>PA</option>
-                  <option value='PB'>PB</option>
-                  <option value='PR'>PR</option>
-                  <option value='PE'>PE</option>
-                  <option value='PI'>PI</option>
-                  <option value='RJ'>RJ</option>
-                  <option value='RN'>RN</option>
-                  <option value='RS'>RS</option>
-                  <option value='RO'>RO</option>
-                  <option value='RR'>RR</option>
-                  <option value='SC'>SC</option>
-                  <option value='SP'>SP</option>
-                  <option value='SE'>SE</option>
-                  <option value='TO'>TO</option>
-                  <option value='DF'>DF</option>
+                  <option value='invalid'></option>
+                  <option required type='text' value={agencia.uf}>
+                    AC
+                  </option>
+                  <option required type='text' value={agencia.uf}>
+                    AL
+                  </option>
+                  <option required type='text' value={agencia.uf}>
+                    AP
+                  </option>
+                  <option required type='text' value={agencia.uf}>
+                    AM
+                  </option>
+                  <option required type='text' value={agencia.uf}>
+                    BA
+                  </option>
+                  <option required type='text' value={agencia.uf}>
+                    CE
+                  </option>
+                  <option required type='text' value={agencia.uf}>
+                    ES
+                  </option>
+                  <option required type='text' value={agencia.uf}>
+                    GO
+                  </option>
+                  <option required type='text' value={agencia.uf}>
+                    MA
+                  </option>
+                  <option required type='text' value={agencia.uf}>
+                    MT
+                  </option>
+                  <option required type='text' value={agencia.uf}>
+                    MS
+                  </option>
+                  <option required type='text' value={agencia.uf}>
+                    MG
+                  </option>
+                  <option required type='text' value={agencia.uf}>
+                    PA
+                  </option>
+                  <option required type='text' value={agencia.uf}>
+                    PB
+                  </option>
+                  <option required type='text' value={agencia.uf}>
+                    PR
+                  </option>
+                  <option required type='text' value={agencia.uf}>
+                    PE
+                  </option>
+                  <option required type='text' value={agencia.uf}>
+                    PI
+                  </option>
+                  <option required type='text' value={agencia.uf}>
+                    RJ
+                  </option>
+                  <option required type='text' value={agencia.uf}>
+                    RN
+                  </option>
+                  <option required type='text' value={agencia.uf}>
+                    RS
+                  </option>
+                  <option required type='text' value={agencia.uf}>
+                    RO
+                  </option>
+                  <option required type='text' value={agencia.uf}>
+                    RR
+                  </option>
+                  <option required type='text' value={agencia.uf}>
+                    SC
+                  </option>
+                  <option required type='text' value={agencia.uf}>
+                    SP
+                  </option>
+                  <option required type='text' value={agencia.uf}>
+                    SE
+                  </option>
+                  <option required type='text' value={agencia.uf}>
+                    TO
+                  </option>
+                  <option required type='text' value={agencia.uf}>
+                    DF
+                  </option>
+                  {/* <option value='DF'>DF</option> */}
                 </select>
-                {/* <Dropdown.Toggle required id='uf'>
-                  akjsdh
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item href='AC'>AC</Dropdown.Item>
-                  <Dropdown.Item>AL</Dropdown.Item>
-                  <Dropdown.Item>AP</Dropdown.Item>
-                  <Dropdown.Item>AM</Dropdown.Item>
-                  <Dropdown.Item>BA</Dropdown.Item>
-                  <Dropdown.Item>CE</Dropdown.Item>
-                  <Dropdown.Item>ES</Dropdown.Item>
-                  <Dropdown.Item>GO</Dropdown.Item>
-                  <Dropdown.Item>MA</Dropdown.Item>
-                  <Dropdown.Item>MT</Dropdown.Item>
-                  <Dropdown.Item>MS</Dropdown.Item>
-                  <Dropdown.Item>MG</Dropdown.Item>
-                  <Dropdown.Item>PA</Dropdown.Item>
-                  <Dropdown.Item>PB</Dropdown.Item>
-                  <Dropdown.Item>PR</Dropdown.Item>
-                  <Dropdown.Item>PE</Dropdown.Item>
-                  <Dropdown.Item>PI</Dropdown.Item>
-                  <Dropdown.Item>RJ</Dropdown.Item>
-                  <Dropdown.Item>RN</Dropdown.Item>
-                  <Dropdown.Item>RS</Dropdown.Item>
-                  <Dropdown.Item>RO</Dropdown.Item>
-                  <Dropdown.Item>RR</Dropdown.Item>
-                  <Dropdown.Item>SC</Dropdown.Item>
-                  <Dropdown.Item>SP</Dropdown.Item>
-                  <Dropdown.Item>SE</Dropdown.Item>
-                  <Dropdown.Item>TO</Dropdown.Item>
-                  <Dropdown.Item>DF</Dropdown.Item>
-                </Dropdown.Menu> */}
                 <Form.Control.Feedback type='invalid'>Informe o estado da agência!</Form.Control.Feedback>
               </Form.Group>
             </Col>
@@ -131,7 +162,13 @@ export default function TelaCadastrarAgencia(props) {
           <Row>
             {/* BOTÃO DE CADASTRAR */}
             <Col xs='auto'>
-              <Button variant='dark' type='submit'>
+              <Button
+                variant='dark'
+                type='submit'
+                onClick={() => {
+                  setExibirTabela(false);
+                }}
+              >
                 Cadastrar agência
               </Button>
             </Col>
