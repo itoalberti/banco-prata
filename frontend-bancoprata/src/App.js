@@ -6,6 +6,8 @@ import TelaInicial from './telas/TelaInicial';
 import Tela404 from './telas/Tela404.jsx';
 import TelaExibirAgencias from './telas/TelaExibirAgencias.jsx';
 import TelaCadastrarAgencia from './telas/TelaCadastrarAgencia';
+import TelaCadastrarCliente from './telas/TelaCadastrarCliente.jsx';
+import TelaExibirClientes from './telas/TelaExibirClientes.jsx';
 
 function App() {
   return (
@@ -23,10 +25,18 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
+          {/* HOME */}
           <Route path='/' element={<TelaInicial />} />
+
+          {/* AGÊNCIAS */}
           <Route path='/cadastraragencia' element={<TelaCadastrarAgencia />} />
-          <Route path='/alteraragencia' element={<TelaAlterarAgencia />} />
+          {/* <Route path='/alteraragencia' element={<TelaAlterarAgencia />} /> */}
           <Route path='/exibiragencias' element={<TelaExibirAgencias />} />
+
+          {/* CLIENTES */}
+          <Route path='/cadastrarcliente' element={<TelaCadastrarCliente />} />
+          <Route path='/exibirclientes' element={<TelaExibirClientes />} />
+
           <Route path='*' element={<Tela404 />} />
         </Routes>
       </BrowserRouter>

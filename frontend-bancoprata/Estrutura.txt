@@ -1,14 +1,14 @@
                                 FRONTEND            BACKEND
 
 CLIENTES
-    Cadastrar
-    Exibir
+    Cadastrar				OK
+    Exibir					OK (implementar editar e deletar)
     Alterar
     Excluir
     Contratar produto
 
 AGÊNCIAS
-    Cadastrar
+    Cadastrar				OK
     Exibir
     Alterar
     Excluir
