@@ -9,13 +9,13 @@ CLIENTES
 
 AGÊNCIAS
     Cadastrar				OK
-    Exibir
+    Exibir					OK (implementar editar)
     Alterar
     Excluir
 
 PRODUTOS
-    Cadastrar
-    Exibir
+    Cadastrar				OK
+    Exibir					OK
     Alterar
     Excluir
     Cadastrar produto em agência

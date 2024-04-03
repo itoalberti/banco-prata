@@ -8,6 +8,8 @@ import TelaExibirAgencias from './telas/TelaExibirAgencias.jsx';
 import TelaCadastrarAgencia from './telas/TelaCadastrarAgencia';
 import TelaCadastrarCliente from './telas/TelaCadastrarCliente.jsx';
 import TelaExibirClientes from './telas/TelaExibirClientes.jsx';
+import TelaCadastrarProduto from './telas/TelaCadastrarProduto.jsx';
+import TelaExibirProdutos from './telas/TelaExibirProdutos.jsx';
 
 function App() {
   return (
@@ -36,6 +38,10 @@ function App() {
           {/* CLIENTES */}
           <Route path='/cadastrarcliente' element={<TelaCadastrarCliente />} />
           <Route path='/exibirclientes' element={<TelaExibirClientes />} />
+
+          {/* PRODUTOS */}
+          <Route path='/cadastrarproduto' element={<TelaCadastrarProduto />} />
+          <Route path='/exibirprodutos' element={<TelaExibirProdutos />} />
 
           <Route path='*' element={<Tela404 />} />
         </Routes>
