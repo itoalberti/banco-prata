@@ -3,6 +3,10 @@ import Pagina from '../templates/Pagina';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useState } from 'react';
 
+const port = 4000;
+const hostname = 'localhost';
+const urlCliente = `http://${hostname}:${port}/cliente'`;
+
 export default function TelaCadastrarCliente(props) {
   const [validado, setValidado] = useState(false);
   const [cliente, setCliente] = useState({
@@ -181,12 +185,12 @@ export default function TelaCadastrarCliente(props) {
           </Form.Group>
 
           <Row style={{ width: '350px' }}>
-            {/* SENHA */}
+            {/* AGÊNCIA */}
             <Col>
-              <Form.Group className='mb-3' controlId='senha' style={{ width: '120px' }}>
-                <Form.Label>Senha:</Form.Label>
-                <Form.Control required type='password' id='senha' value={cliente.senha} onChange={manipularMudanca} />
-                <Form.Control.Feedback type='invalid'>Informe a senha da nova conta!</Form.Control.Feedback>
+              <Form.Group className='mb-3' controlId='cod_ag' style={{ width: '120px' }}>
+                <Form.Label>Agência:</Form.Label>
+                <Form.Control required type='number' id='cod_ag' value={cliente.cod_ag} onChange={manipularMudanca} />
+                <Form.Control.Feedback type='invalid'>Informe a agência da nova conta!</Form.Control.Feedback>
               </Form.Group>
             </Col>
 

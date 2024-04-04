@@ -33,10 +33,10 @@ app.use('/cliente', /*/verificarAcesso,*/ rotaCliente);
 app.use('/produto', /*/verificarAcesso,*/ rotaProduto);
 
 const hostname = '0.0.0.0';
-const porta = 4000;
+const port = 4000;
 
-app.listen(porta, hostname, () => {
-  console.log(`Backend ouvindo em http://${hostname}:${porta}`);
+app.listen(port, hostname, () => {
+  console.log(`Backend ouvindo em http://${hostname}:${port}`);
 });
 
 // AGÊNCIA:

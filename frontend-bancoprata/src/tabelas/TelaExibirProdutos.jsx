@@ -2,7 +2,10 @@ import { Button, Col, Container, Form, Row, Table } from 'react-bootstrap';
 import Pagina from '../templates/Pagina';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useState } from 'react';
+import { hostname, port } from '../dados/dados';
 import listaProdutos from '../dados/mockProdutos';
+
+const urlProduto = `http://${hostname}:${port}/produto`;
 
 export default function TelaExibirProdutos(props) {
   const [produtos, setProdutos] = useState([]);

@@ -1,8 +1,4 @@
 DÚVIDAS BACKEND:
-- Como alterar:
-	- Somente o endereço da agência sem permitir alterar o código, cidade e UF
-	- Somente o email, telefone, cidade e UF do cliente
-
 - Como associar:
 	- cliente a agência (N:1)
 	- produto a agência (N:N)
@@ -10,10 +6,12 @@ DÚVIDAS BACKEND:
 - Pool not defined?
 
 DÚVIDAS FRONTEND:
-- implementar botão de editar e excluir:
+- implementar botão de alterar e excluir:
 	- agência (e com isso, excluir todos os clientes da agência)
 	- cliente
-	- produto (e com isso excluir os produtos das agências e clientes)
+	- produto (apenas excluir. Excluir os produtos das agências e clientes)
+- como puxar as agências existentes em uma tabela/popup/dropdown na tela de cadastro de cliente?
+- como coletar o valor da UF do dropdown para o backend?
 
 AGENCIA
 	exibir		OK

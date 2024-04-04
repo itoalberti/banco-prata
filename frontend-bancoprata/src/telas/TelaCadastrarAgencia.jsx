@@ -6,7 +6,7 @@ import { useState } from 'react';
 const port = 4000;
 const hostname = 'localhost';
 
-const urlAgencia = 'https://' + hostname + ':' + port + '/agencia';
+const urlAgencia = `http://${hostname}:${port}/agencia`;
 
 export default function TelaCadastrarAgencia(props) {
   const [validado, setValidado] = useState(false);
