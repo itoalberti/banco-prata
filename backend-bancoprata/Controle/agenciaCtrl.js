@@ -1,9 +1,8 @@
-// ► ► ► ► ► ► ► ► ► ►  OK ◄ ◄ ◄ ◄ ◄ ◄ ◄ ◄ ◄ ◄
 import Agencia from '../Modelo/Agencia.js';
+// import Agencia_Produto from '../Modelo/Agencia_Produto.js';
 
 export default class AgenciaCtrl {
-  //
-  // ----------------------CADASTRAR AGÊNCIA----------------------
+  // ------------------------GRAVAR A AGÊNCIA NO BANCO DE DADOS------------------------
   cadastrar(req, resp) {
     resp.type('application/json');
     if (req.method === 'POST' && req.is('application/json')) {
@@ -14,14 +13,13 @@ export default class AgenciaCtrl {
 
       if (endereco && cidade && uf) {
         const agencia = new Agencia(0, endereco, cidade, uf);
-
         agencia
           .cadastrarBD()
           .then(() => {
             resp.status(200).json({
               status: true,
               cod_ag: agencia.cod_ag,
-              msg: `Agência criada com sucesso!`,
+              msg: 'Agência criada com sucesso!',
             });
           })
           .catch((erro) => {
@@ -33,21 +31,22 @@ export default class AgenciaCtrl {
       } else {
         resp.status(400).json({
           status: false,
-          msg: 'Informe todos os dados da agencia: endereço, cidade e UF',
+          msg: 'Informe todos os dados da agência: endereço, cidade e UF',
         });
       }
     } else {
+      // 4xx = 'Client error'
       resp.status(400).json({
         status: false,
-        msg: 'O método não é permitido ou a agência no formato JSON não foi fornecida.',
+        msg: 'O método não é permitido ou agência no formato JSON não foi fornecida. Consulte a documentação da API!',
       });
     }
   }
 
-  // ----------------------ALTERAR AGÊNCIA----------------------
+  // ------------------------ALTERAR A AGÊNCIA NO BANCO DE DADOS------------------------
   alterar(req, resp) {
     resp.type('application/json');
-    if ((req.method === 'PUT' || req.method === 'PATCH') && req.is('application/json')) {
+    if (req.method === 'PUT' && req.is('application/json')) {
       const dados = req.body;
       const cod_ag = dados.cod_ag;
       const endereco = dados.endereco;
@@ -76,7 +75,7 @@ export default class AgenciaCtrl {
       } else {
         resp.status(400).json({
           status: false,
-          msg: `Informe o novo endereço da agência ${cod_ag}.`,
+          msg: 'Informe o novo endereço da agência.',
         });
       }
     } else {
@@ -88,21 +87,21 @@ export default class AgenciaCtrl {
     }
   }
 
-  // ----------------------EXCLUIR AGÊNCIA----------------------
+  // ------------------------EXCLUIR A AGÊNCIA DO BANCO DE DADOS------------------------
   excluir(req, resp) {
     resp.type('application/json');
     if (req.method === 'DELETE' && req.is('application/json')) {
       const dados = req.body;
-      // const cod_ag = dados.cod_ag;
+      // const codigo = dados.codigo;
       if (dados.cod_ag) {
-        const agencia = new Agencia(dados.cod_ag);
-        // agencia.cod_ag = dados.cod_ag;
+        const agencia = new Agencia();
+        agencia.cod_ag = dados.cod_ag;
         agencia
           .excluirBD()
           .then(() => {
             resp.status(200).json({
               status: true,
-              msg: `Agência ${agencia.cod_ag} excluída com sucesso!`,
+              msg: 'Agência excluída com sucesso!',
             });
           })
           .catch((erro) => {
@@ -126,7 +125,7 @@ export default class AgenciaCtrl {
     }
   }
 
-  // ----------------------CONSULTAR AGÊNCIAS----------------------
+  // ------------------------LISTAR TODAS AS AGÊNCIAS------------------------
   consultar(req, resp) {
     resp.type('application/json');
 
@@ -151,4 +150,77 @@ export default class AgenciaCtrl {
       });
     }
   }
+
+  // ------------------------ASSOCIAR PRODUTO A AGÊNCIA------------------------
+  // associarProduto(req, resp) {
+  //   resp.type('application/json');
+  //   if (req.method === 'POST' && req.is('application/json')) {
+  //     const dados = req.body;
+  //     const cod_ag = dados.cod_ag;
+  //     const cod_prod = dados.cod_prod;
+
+  //     if (cod_ag && cod_prod) {
+  //       // const agencia = new Agencia(0, endereco, cidade);
+  //       // CRIAR MODELO AGENCIAPRODUTO
+  //       const agencia_produto = new Agencia_Produto(cod_ag, cod_prod);
+  //       // console.log('Agência cadastrada (endereço) / cidade:', agencia.endereco, agencia.cidade);
+
+  //       agencia_produto
+  //         .cadastrarBD()
+  //         .then(() => {
+  //           resp.status(200).json({
+  //             status: true,
+  //             cod_ag: agencia_produto.cod_ag, //nao retirar
+  //             cod_prod: agencia_produto.cod_prod,
+  //             msg: 'Agência criada com sucesso!',
+  //           });
+  //         })
+  //         .catch((erro) => {
+  //           resp.status(500).json({
+  //             status: false,
+  //             msg: erro.message,
+  //           });
+  //         });
+  //     } else {
+  //       resp.status(400).json({
+  //         status: false,
+  //         msg: 'Informe todos os dados da agência: endereço, cidade e UF',
+  //       });
+  //     }
+  //   } else {
+  //     // 4xx = 'Client error'
+  //     resp.status(400).json({
+  //       status: false,
+  //       msg: 'O método não é permitido ou agência no formato JSON não foi fornecida. Consulte a documentação da API!',
+  //     });
+  //   }
+  // }
+
+  // ------------------------CONSULTAR PARA ALTERAR AGÊNCIA------------------------
+  // consultarParaAlterar(req, resp) {
+  //   resp.type('application/json');
+
+  //   if (req.method === 'GET') {
+  //     const cod_ag = req.params.cod_ag;
+  //     const agencia = new Agencia();
+  //     // // método assíncrono consultar da camada de persistência
+  //     agencia
+  //       .consultarBD(cod_ag)
+  //       .then((agencias) => {
+  //         resp.status(200).json(agencias);
+  //       })
+  //       .catch((erro) => {
+  //         resp.status(500).json({
+  //           status: false,
+  //           msg: erro.message,
+  //         });
+  //       });
+  //     // console.log('backend funcionando para GET');
+  //   } else {
+  //     resp.status(400).json({
+  //       status: false,
+  //       msg: 'O método não é permitido! Consulte a documentação da API!',
+  //     });
+  //   }
+  // }
 }

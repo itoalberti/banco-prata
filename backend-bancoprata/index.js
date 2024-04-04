@@ -38,3 +38,6 @@ const porta = 4000;
 app.listen(porta, hostname, () => {
   console.log(`Backend ouvindo em http://${hostname}:${porta}`);
 });
+
+// AGÊNCIA:
+// cadastrar, alterar, excluir e consultar → OK!

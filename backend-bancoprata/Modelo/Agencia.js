@@ -1,3 +1,4 @@
+import conectar from '../Persistencia/Conexao.js';
 import AgenciaBD from '../Persistencia/AgenciaBD.js';
 
 export default class Agencia {
@@ -13,28 +14,33 @@ export default class Agencia {
     this.#uf = uf;
   }
 
-  // CÓDIGO
+  // MÉTODOS PÚBLICOS
+
+  // CÓDIGO DA AGÊNCIA
   get cod_ag() {
     return this.#cod_ag;
   }
   set cod_ag(novoCodigo) {
     this.#cod_ag = novoCodigo;
   }
-  // ENDEREÇO
+
+  // ENDEREÇO DA AGÊNCIA
   get endereco() {
     return this.#endereco;
   }
   set endereco(novoEndereco) {
     this.#endereco = novoEndereco;
   }
-  // CIDADE
+
+  // CIDADE DA AGÊNCIA
   get cidade() {
     return this.#cidade;
   }
   set cidade(novaCidade) {
     this.#cidade = novaCidade;
   }
-  // UF
+
+  // UF DA AGÊNCIA
   get uf() {
     return this.#uf;
   }
@@ -51,25 +57,24 @@ export default class Agencia {
     };
   }
 
-  // FUNÇÕES
-
-  // ----------------------CADASTRAR----------------------
+  // ------------------------------------CADASTRAR AGÊNCIA------------------------------------
   async cadastrarBD() {
     const agenciaBD = new AgenciaBD();
-    this.cod_ag = await agenciaBD.cadastrarBD(this);
+    this.cod_ag = await agenciaBD.cadastrar(this);
   }
 
-  // ----------------------ALTERAR----------------------
+  // ------------------------------------ALTERAR AGÊNCIA ------------------------------------
   async alterarBD() {
     const agenciaBD = new AgenciaBD();
-    await agenciaBD.alterarBD(this);
+    await agenciaBD.alterar(this);
   }
-  // ----------------------EXCLUIR----------------------
+  // ------------------------------------EXCLUIR AGÊNCIA------------------------------------
   async excluirBD() {
     const agenciaBD = new AgenciaBD();
-    await agenciaBD.excluirBD(this);
+    await agenciaBD.excluir(this);
   }
-  // ----------------------CONSULTAR----------------------
+
+  // ------------------------------------CONSULTAR AGÊNCIAS------------------------------------
   async consultarBD(cod_ag) {
     if (cod_ag == undefined) {
       const conexao = await conectar();
@@ -92,7 +97,6 @@ export default class Agencia {
         const agencia = new Agencia(row['cod_ag'], row['endereco'], row['cidade'], row['uf']);
         listaAgencias.push(agencia);
       }
-      // PQ RETORNA [0] ?
       return listaAgencias[0];
     }
   }
