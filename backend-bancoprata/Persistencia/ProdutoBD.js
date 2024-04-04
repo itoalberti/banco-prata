@@ -1,0 +1,62 @@
+import conectar from './Conexao.js';
+
+export default class ProdutoBD {
+  // ------------------------------------CADASTRAR AGÊNCIA NO BANCO DE DADOS------------------------------------
+  async cadastrar(produto) {
+    if (produto instanceof Agencia) {
+      const conexao = await conectar();
+      const sql = 'INSERT INTO Agencia (endereco, cidade, uf) VALUES(?,?,?)';
+      const parametros = [produto.endereco, produto.cidade, produto.uf];
+      const resultado = await conexao.query(sql, parametros);
+      return await resultado[0].insertId;
+    }
+    pool.releaseConnection(conexao);
+  }
+
+  // ------------------------------------ALTERAR AGÊNCIA NO BANCO DE DADOS------------------------------------
+  async alterar(agencia) {
+    if (agencia instanceof Agencia) {
+      const conexao = await conectar();
+      const sql = 'UPDATE Agencia SET endereco=? WHERE cod_ag=?';
+      const parametros = [agencia.endereco, agencia.cod_ag];
+      await conexao.query(sql, parametros);
+      pool.releaseConnection();
+    }
+  }
+
+  // ------------------------------------EXCLUIR AGÊNCIA DO BANCO DE DADOS------------------------------------
+  async excluir(agencia) {
+    if (agencia instanceof Agencia) {
+      const conexao = await conectar();
+      const sql = 'DELETE FROM Agencia WHERE cod_ag=?';
+      const parametros = [agencia.cod_ag];
+      await conexao.query(sql, parametros);
+      pool.releaseConnection(conexao);
+    }
+  }
+
+  // ------------------------------------CONSULTAR AGÊNCIAS NO BANCO DE DADOS------------------------------------
+  async consultar() {
+    const conexao = await conectar();
+    const sql = 'SELECT * FROM Agencia';
+    const parametros = ['%'];
+    const [rows] = await conexao.query(sql, parametros);
+    const listaAgencias = [];
+    for (const row of rows) {
+      const agencia = new Agencia(row['cod_ag'], row['endereco'], row['cidade'], row['uf']);
+      listaAgencias.push(agencia);
+    }
+    pool.releaseConnection(conexao);
+    return listaAgencias;
+  }
+
+  // ------------------------------------ASSOCIAR PRODUTO A AGÊNCIA------------------------------------
+  // async associarProdutoAgencia(agencia_produto) {
+  //   if (agencia_produto instanceof Agencia_Produto) {
+  //     const conexao = await conectar();
+  //     const sql = 'INSERT INTO Agencia_Produto (cod_ag, cod_prod) VALUES(?,?)';
+  //     const parametros = [agencia_produto.cod_ag, agencia_produto.cod_prod];
+  //     await conexao.query(sql, parametros);
+  //   }
+  // }
+}
