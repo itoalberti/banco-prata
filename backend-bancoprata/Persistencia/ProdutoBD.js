@@ -1,56 +1,57 @@
+import Produto from '../Modelo/Produto.js';
 import conectar from './Conexao.js';
 
 export default class ProdutoBD {
-  // ------------------------------------CADASTRAR AGÊNCIA NO BANCO DE DADOS------------------------------------
+  // ------------------------------------CADASTRAR PRODUTO NO BANCO DE DADOS------------------------------------
   async cadastrar(produto) {
-    if (produto instanceof Agencia) {
+    if (produto instanceof Produto) {
       const conexao = await conectar();
-      const sql = 'INSERT INTO Agencia (endereco, cidade, uf) VALUES(?,?,?)';
-      const parametros = [produto.endereco, produto.cidade, produto.uf];
+      const sql = 'INSERT INTO Produto (nome) VALUE(?)';
+      const parametros = [produto.nome];
       const resultado = await conexao.query(sql, parametros);
       return await resultado[0].insertId;
     }
     pool.releaseConnection(conexao);
   }
 
-  // ------------------------------------ALTERAR AGÊNCIA NO BANCO DE DADOS------------------------------------
-  async alterar(agencia) {
-    if (agencia instanceof Agencia) {
+  // ------------------------------------EXCLUIR PRODUTO DO BANCO DE DADOS------------------------------------
+  async excluir(produto) {
+    if (produto instanceof Produto) {
       const conexao = await conectar();
-      const sql = 'UPDATE Agencia SET endereco=? WHERE cod_ag=?';
-      const parametros = [agencia.endereco, agencia.cod_ag];
-      await conexao.query(sql, parametros);
-      pool.releaseConnection();
-    }
-  }
-
-  // ------------------------------------EXCLUIR AGÊNCIA DO BANCO DE DADOS------------------------------------
-  async excluir(agencia) {
-    if (agencia instanceof Agencia) {
-      const conexao = await conectar();
-      const sql = 'DELETE FROM Agencia WHERE cod_ag=?';
-      const parametros = [agencia.cod_ag];
+      const sql = 'DELETE FROM Produto WHERE cod_prod=?';
+      const parametros = [produto.cod_prod];
       await conexao.query(sql, parametros);
       pool.releaseConnection(conexao);
     }
   }
 
-  // ------------------------------------CONSULTAR AGÊNCIAS NO BANCO DE DADOS------------------------------------
+  // ------------------------------------CONSULTAR PRODUTOS NO BANCO DE DADOS------------------------------------
   async consultar() {
     const conexao = await conectar();
-    const sql = 'SELECT * FROM Agencia';
+    const sql = 'SELECT * FROM Produto';
     const parametros = ['%'];
     const [rows] = await conexao.query(sql, parametros);
-    const listaAgencias = [];
+    const listaProdutos = [];
     for (const row of rows) {
-      const agencia = new Agencia(row['cod_ag'], row['endereco'], row['cidade'], row['uf']);
-      listaAgencias.push(agencia);
+      const produto = new Produto(row['cod_prod'], row['nome']);
+      listaProdutos.push(produto);
     }
     pool.releaseConnection(conexao);
-    return listaAgencias;
+    return listaProdutos;
   }
 
-  // ------------------------------------ASSOCIAR PRODUTO A AGÊNCIA------------------------------------
+  // ------------------------------------ALTERAR PRODUTO NO BANCO DE DADOS------------------------------------
+  // async alterar(produto) {
+  //   if (produto instanceof Produto) {
+  //     const conexao = await conectar();
+  //     const sql = 'UPDATE Produto SET endereco=? WHERE cod_ag=?';
+  //     const parametros = [produto.endereco, produto.cod_ag];
+  //     await conexao.query(sql, parametros);
+  //     pool.releaseConnection();
+  //   }
+  // }
+
+  // ------------------------------------ASSOCIAR PRODUTO A PRODUTO------------------------------------
   // async associarProdutoAgencia(agencia_produto) {
   //   if (agencia_produto instanceof Agencia_Produto) {
   //     const conexao = await conectar();

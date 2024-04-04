@@ -1,3 +1,4 @@
+import conectar from '../Persistencia/Conexao.js';
 import ClienteBD from '../Persistencia/ClienteBD.js';
 
 export default class Cliente {
@@ -154,7 +155,7 @@ export default class Cliente {
       return listaClientes;
     } else {
       const conexao = await conectar();
-      const sql = 'SELECT * FROM cliente WHERE cod_cli=?';
+      const sql = 'SELECT * FROM Cliente WHERE cod_cli=?';
       const parametros = [cod_cli];
       const [rows] = await conexao.query(sql, parametros);
       const listaClientes = [];

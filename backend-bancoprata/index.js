@@ -3,9 +3,9 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import session from 'express-session';
-// import rotaCliente from './Rotas/rotaCliente.js';
+import rotaCliente from './Rotas/rotaCliente.js';
 import rotaAgencia from './Rotas/rotaAgencia.js';
-// import rotaProduto from './Rotas/rotaProduto.js';
+import rotaProduto from './Rotas/rotaProduto.js';
 // import rotaLogin from './Rotas/rotaLogin.js';
 // import { verificarAcesso } from './Seguranca/Autenticacao.js';
 
@@ -29,8 +29,8 @@ app.use(express.json());
 
 // app.use('/login', rotaLogin);
 app.use('/agencia', /* verificarAcesso,*/ rotaAgencia);
-// app.use('/cliente', /*/verificarAcesso,*/ rotaCliente);
-// app.use('/produto', /*/verificarAcesso,*/ rotaProduto);
+app.use('/cliente', /*/verificarAcesso,*/ rotaCliente);
+app.use('/produto', /*/verificarAcesso,*/ rotaProduto);
 
 const hostname = '0.0.0.0';
 const porta = 4000;

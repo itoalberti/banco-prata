@@ -1,4 +1,4 @@
-import Produto from '../Modelo/Produto';
+import Produto from '../Modelo/Produto.js';
 
 export default class ProdutoCtrl {
   // ------------------------GRAVAR PRODUTO NO BANCO DE DADOS------------------------
@@ -39,47 +39,6 @@ export default class ProdutoCtrl {
       });
     }
   }
-
-  // ------------------------ALTERAR O PRODUTO NO BANCO DE DADOS------------------------
-  // alterar(req, resp) {
-  //   resp.type('application/json');
-  //   if (req.method === 'PUT' && req.is('application/json')) {
-  //     const dados = req.body;
-  //     const cod_prod = dados.cod_prod;
-  //     const nome = dados.nome;
-
-  //     if (cod_prod && nome) {
-  //       // alterar as informações do produto
-  //       const produto = new Produto(cod_prod, nome);
-  //       // chamando o método assíncrono alterar da camada de persistência
-  //       produto
-  //         .alterarBD()
-  //         .then(() => {
-  //           resp.status(200).json({
-  //             status: true,
-  //             msg: `Nome do produto ${cod_prod} alterado com sucesso!`,
-  //           });
-  //         })
-  //         .catch((erro) => {
-  //           resp.status(500).json({
-  //             status: false,
-  //             msg: erro.message,
-  //           });
-  //         });
-  //     } else {
-  //       resp.status(400).json({
-  //         status: false,
-  //         msg: 'Informe o novo nome do produto.',
-  //       });
-  //     }
-  //   } else {
-  //     // 4xx = 'Client error'
-  //     resp.status(400).json({
-  //       status: false,
-  //       msg: 'O método não é permitido ou produto no formato JSON não foi fornecido. Consulte a documentação da API!',
-  //     });
-  //   }
-  // }
 
   // ------------------------EXCLUIR PRODUTO DO BANCO DE DADOS------------------------
   excluir(req, resp) {
@@ -187,6 +146,47 @@ export default class ProdutoCtrl {
   //     resp.status(400).json({
   //       status: false,
   //       msg: 'O método não é permitido ou agência no formato JSON não foi fornecida. Consulte a documentação da API!',
+  //     });
+  //   }
+  // }
+
+  // ------------------------ALTERAR O PRODUTO NO BANCO DE DADOS------------------------
+  // alterar(req, resp) {
+  //   resp.type('application/json');
+  //   if (req.method === 'PUT' && req.is('application/json')) {
+  //     const dados = req.body;
+  //     const cod_prod = dados.cod_prod;
+  //     const nome = dados.nome;
+
+  //     if (cod_prod && nome) {
+  //       // alterar as informações do produto
+  //       const produto = new Produto(cod_prod, nome);
+  //       // chamando o método assíncrono alterar da camada de persistência
+  //       produto
+  //         .alterarBD()
+  //         .then(() => {
+  //           resp.status(200).json({
+  //             status: true,
+  //             msg: `Nome do produto ${cod_prod} alterado com sucesso!`,
+  //           });
+  //         })
+  //         .catch((erro) => {
+  //           resp.status(500).json({
+  //             status: false,
+  //             msg: erro.message,
+  //           });
+  //         });
+  //     } else {
+  //       resp.status(400).json({
+  //         status: false,
+  //         msg: 'Informe o novo nome do produto.',
+  //       });
+  //     }
+  //   } else {
+  //     // 4xx = 'Client error'
+  //     resp.status(400).json({
+  //       status: false,
+  //       msg: 'O método não é permitido ou produto no formato JSON não foi fornecido. Consulte a documentação da API!',
   //     });
   //   }
   // }

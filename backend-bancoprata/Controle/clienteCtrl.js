@@ -61,6 +61,7 @@ export default class ClienteCtrl {
       const endereco = dados.endereco;
       const cidade = dados.cidade;
       const uf = dados.uf;
+      const cod_ag = dados.cod_ag;
 
       if (cod_cli && nome && cpf && dataNasc && email && telefone && cidade && uf && cod_ag) {
         const cliente = new Cliente(cod_cli, nome, cpf, dataNasc, email, telefone, endereco, cidade, uf, cod_ag);

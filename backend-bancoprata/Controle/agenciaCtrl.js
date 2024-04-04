@@ -131,7 +131,6 @@ export default class AgenciaCtrl {
 
     if (req.method === 'GET') {
       const agencia = new Agencia();
-      // // método assíncrono consultar da camada de persistência
       agencia
         .consultarBD()
         .then((agencias) => {

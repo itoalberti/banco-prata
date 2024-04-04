@@ -1,0 +1,29 @@
+DÚVIDAS BACKEND:
+- Como alterar:
+	- Somente o endereço da agência sem permitir alterar o código, cidade e UF
+	- Somente o email, telefone, cidade e UF do cliente
+
+- Como associar:
+	- cliente a agência (N:1)
+	- produto a agência (N:N)
+	- produto a cliente (N:N)
+- Pool not defined?
+
+DÚVIDAS FRONTEND:
+
+
+AGENCIA
+	exibir		OK
+	cadastrar	OK
+	alterar		OK
+	excluir		OK
+CLIENTE
+	exibir		OK
+	cadastrar	OK
+	alterar		OK
+	excluir		OK
+
+PRODUTO
+	exibir		OK
+	cadastrar	OK
+	excluir		OK

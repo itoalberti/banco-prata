@@ -1,3 +1,6 @@
+import ProdutoBD from '../Persistencia/ProdutoBD.js';
+import conectar from '../Persistencia/Conexao.js';
+
 export default class Produto {
   #cod_prod;
   #nome;
