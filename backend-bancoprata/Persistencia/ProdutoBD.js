@@ -26,7 +26,7 @@ export default class ProdutoBD {
   }
 
   // ------------------------------------CONSULTAR PRODUTOS NO BANCO DE DADOS------------------------------------
-  async consultar() {
+  async listar() {
     const conexao = await conectar();
     const sql = 'SELECT * FROM Produto';
     const parametros = ['%'];

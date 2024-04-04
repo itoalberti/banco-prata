@@ -5,6 +5,10 @@ import { useState } from 'react';
 import listaAgencias from '../dados/mockAgencias';
 import { Link, useNavigate } from 'react-router-dom';
 
+const port = 4000;
+const hostname = 'localhost';
+const urlCliente = `http://${hostname}:${port}/cliente`;
+
 export default function TelaExibirAgencias(props) {
   const [agencias, setAgencias] = useState([]);
   const [selecionado, setSelecionado] = useState([]);

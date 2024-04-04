@@ -53,7 +53,7 @@ export default class Produto {
   }
 
   // ------------------------------------CONSULTAR PRODUTOS------------------------------------
-  async consultarBD(cod_prod) {
+  async listarBD(cod_prod) {
     if (cod_prod == undefined) {
       const conexao = await conectar();
       const sql = 'SELECT * FROM Produto';

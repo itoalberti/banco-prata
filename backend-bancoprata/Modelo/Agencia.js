@@ -74,8 +74,8 @@ export default class Agencia {
     await agenciaBD.excluir(this);
   }
 
-  // ------------------------------------CONSULTAR AGÊNCIAS------------------------------------
-  async consultarBD(cod_ag) {
+  // ------------------------------------LISTAR AGÊNCIAS------------------------------------
+  async listarBD(cod_ag) {
     if (cod_ag == undefined) {
       const conexao = await conectar();
       const sql = 'SELECT * FROM Agencia';

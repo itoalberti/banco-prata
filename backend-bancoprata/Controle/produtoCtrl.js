@@ -79,14 +79,14 @@ export default class ProdutoCtrl {
   }
 
   // ------------------------LISTAR TODOS OS PRODUTOS------------------------
-  consultar(req, resp) {
+  listar(req, resp) {
     resp.type('application/json');
 
     if (req.method === 'GET') {
       const produto = new Produto();
-      // método assíncrono consultar da camada de persistência
+      // método assíncrono listar da camada de persistência
       produto
-        .consultarBD()
+        .listarBD()
         .then((produtos) => {
           resp.status(200).json(produtos);
         })

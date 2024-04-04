@@ -126,13 +126,13 @@ export default class AgenciaCtrl {
   }
 
   // ------------------------LISTAR TODAS AS AGÊNCIAS------------------------
-  consultar(req, resp) {
+  listar(req, resp) {
     resp.type('application/json');
 
     if (req.method === 'GET') {
       const agencia = new Agencia();
       agencia
-        .consultarBD()
+        .listarBD()
         .then((agencias) => {
           resp.status(200).json(agencias);
         })
@@ -195,16 +195,16 @@ export default class AgenciaCtrl {
   //   }
   // }
 
-  // ------------------------CONSULTAR PARA ALTERAR AGÊNCIA------------------------
-  // consultarParaAlterar(req, resp) {
+  // ------------------------LISTAR PARA ALTERAR AGÊNCIA------------------------
+  // listarParaAlterar(req, resp) {
   //   resp.type('application/json');
 
   //   if (req.method === 'GET') {
   //     const cod_ag = req.params.cod_ag;
   //     const agencia = new Agencia();
-  //     // // método assíncrono consultar da camada de persistência
+  //     // // método assíncrono listar da camada de persistência
   //     agencia
-  //       .consultarBD(cod_ag)
+  //       .listarBD(cod_ag)
   //       .then((agencias) => {
   //         resp.status(200).json(agencias);
   //       })

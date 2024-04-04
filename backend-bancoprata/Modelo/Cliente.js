@@ -141,7 +141,7 @@ export default class Cliente {
   }
 
   // ------------------------------------CONSULTAR CLIENTES------------------------------------
-  async consultarBD(cod_cli) {
+  async listarBD(cod_cli) {
     if (cod_cli == undefined) {
       const conexao = await conectar();
       const sql = 'SELECT * FROM Cliente';

@@ -132,13 +132,13 @@ export default class ClienteCtrl {
   }
 
   // ------------------------LISTAR TODOS OS CLIENTES------------------------
-  consultar(req, resp) {
+  listar(req, resp) {
     resp.type('application/json');
 
     if (req.method === 'GET') {
       const cliente = new Cliente();
       cliente
-        .consultarBD()
+        .listarBD()
         .then((clientes) => {
           resp.status(200).json(clientes);
         })

@@ -40,4 +40,4 @@ app.listen(porta, hostname, () => {
 });
 
 // AGÊNCIA:
-// cadastrar, alterar, excluir e consultar → OK!
+// cadastrar, alterar, excluir e listar → OK!

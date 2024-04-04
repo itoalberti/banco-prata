@@ -38,7 +38,7 @@ export default class ClienteBD {
   }
 
   // ------------------------------------CONSULTAR CLIENTES NO BANCO DE DADOS------------------------------------
-  async consultar() {
+  async listar() {
     const conexao = await conectar();
     const sql = 'SELECT * FROM Cliente';
     const parametros = ['%'];

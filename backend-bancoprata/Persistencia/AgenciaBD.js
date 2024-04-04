@@ -36,8 +36,8 @@ export default class AgenciaBD {
     }
   }
 
-  // ------------------------------------CONSULTAR AGÊNCIAS NO BANCO DE DADOS------------------------------------
-  async consultar() {
+  // ------------------------------------LISTAR AGÊNCIAS NO BANCO DE DADOS------------------------------------
+  async listar() {
     const conexao = await conectar();
     const sql = 'SELECT * FROM Agencia';
     const parametros = ['%'];
