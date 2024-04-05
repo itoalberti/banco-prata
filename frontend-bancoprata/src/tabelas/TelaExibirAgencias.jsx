@@ -3,89 +3,20 @@ import Pagina from '../templates/Pagina';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useEffect, useState } from 'react';
 import { hostname, port } from '../dados/dados';
-// import listaAgencias from '../dados/mockAgencias';
+import listaAgencias from '../dados/mockAgencias';
 import { Link, useNavigate } from 'react-router-dom';
 
 const urlAgencia = `http://${hostname}:${port}/agencia`;
 
 export default function TelaExibirAgencias(props) {
-  const [exibirTabela, setExibirTabela] = useState(true);
-  const [listaAgencias, setListaAgencias] = useState([]);
-  const [atualizar, setAtualizar] = useState(false);
-  const [agencia, setAgencia] = useState({
-    cod_ag: 0,
-    endereco: '',
-    cidade: '',
-    uf: '',
-  });
+  const [agencias, setAgencias] = useState([]);
+  const [selecionado, setSelecionado] = useState([]);
 
-  // ------------------------------------LISTAR AGÊNCIAS------------------------------------
-  async function listarAgencias() {
-    await fetch(urlAgencia, { method: 'GET' })
-      .then((resp) => resp.json())
-      .then((output) => {
-        if (output.status) {
-          setListaAgencias(output.listaAgencias);
-        } else {
-          alert(output.msg);
-        }
-      })
-      .catch((erro) => {
-        alert(`Erro: ${erro.message}`);
-      });
-  }
-  useEffect(() => {
-    if (exibirTabela) listarAgencias();
-  }, [exibirTabela]);
-
-  // ------------------------------------CADASTRAR AGÊNCIA------------------------------------
-  async function cadastrarAgencia(agencia) {
-    if (!atualizando) {
-      await fetch(urlCliente, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(cliente),
-      })
-        .then((resposta) => resposta.json())
-        .then((retorno) => {
-          if (retorno.status) {
-            alert(retorno.mensagem + ' Código do cliente: ' + retorno.codigoGerado);
-          } else {
-            alert(retorno.mensagem);
-          }
-        })
-        .catch((erro) => {
-          alert('Erro: ' + erro.message);
-        });
-    } else {
-      await fetch(urlCliente, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(cliente),
-      })
-        .then((resposta) => resposta.json())
-        .then((retorno) => {
-          if (retorno.status) {
-            alert(retorno.mensagem);
-          } else {
-            alert(retorno.mensagem);
-          }
-        })
-        .catch((erro) => {
-          alert('Erro: ' + erro.message);
-        });
-      setAtualizando(false);
-    }
-    setExibirTabela(true);
-    setClienteAtual(clienteVazio);
-  }
-
-  // ------------------------------------ALTERAR AGÊNCIA------------------------------------
-  // ------------------------------------EXCLUIR AGÊNCIA------------------------------------
+  let navigate = useNavigate();
+  const routeChange = () => {
+    let path = `newPath`;
+    navigate(path);
+  };
 
   return (
     <Pagina>
@@ -179,16 +110,85 @@ export default function TelaExibirAgencias(props) {
 //   setAgencias();
 // }
 
-// // ************************  BACKUP  ************************
+// // ************************************************  BACKUP  ************************************************
 // export default function TelaExibirAgencias(props) {
-//   const [agencias, setAgencias] = useState([]);
-//   const [selecionado, setSelecionado] = useState([]);
+//   const [exibirTabela, setExibirTabela] = useState(true);
+//   const [listaAgencias, setListaAgencias] = useState([]);
+//   const [atualizar, setAtualizar] = useState(false);
+//   const [agencia, setAgencia] = useState({
+//     cod_ag: 0,
+//     endereco: '',
+//     cidade: '',
+//     uf: '',
+//   });
 
-//   let navigate = useNavigate();
-//   const routeChange = () => {
-//     let path = `newPath`;
-//     navigate(path);
-//   };
+//   // ------------------------------------LISTAR AGÊNCIAS------------------------------------
+//   async function listarAgencias() {
+//     await fetch(urlAgencia, { method: 'GET' })
+//       .then((resp) => resp.json())
+//       .then((output) => {
+//         if (output.status) {
+//           setListaAgencias(output.listaAgencias);
+//         } else {
+//           alert(output.msg);
+//         }
+//       })
+//       .catch((erro) => {
+//         alert(`Erro: ${erro.message}`);
+//       });
+//   }
+//   useEffect(() => {
+//     if (exibirTabela) listarAgencias();
+//   }, [exibirTabela]);
+
+//   // ------------------------------------CADASTRAR AGÊNCIA------------------------------------
+//   async function cadastrarAgencia(agencia) {
+//     if (!atualizando) {
+//       await fetch(urlCliente, {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify(cliente),
+//       })
+//         .then((resposta) => resposta.json())
+//         .then((retorno) => {
+//           if (retorno.status) {
+//             alert(retorno.mensagem + ' Código do cliente: ' + retorno.codigoGerado);
+//           } else {
+//             alert(retorno.mensagem);
+//           }
+//         })
+//         .catch((erro) => {
+//           alert('Erro: ' + erro.message);
+//         });
+//     } else {
+//       await fetch(urlCliente, {
+//         method: 'PUT',
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify(cliente),
+//       })
+//         .then((resposta) => resposta.json())
+//         .then((retorno) => {
+//           if (retorno.status) {
+//             alert(retorno.mensagem);
+//           } else {
+//             alert(retorno.mensagem);
+//           }
+//         })
+//         .catch((erro) => {
+//           alert('Erro: ' + erro.message);
+//         });
+//       setAtualizando(false);
+//     }
+//     setExibirTabela(true);
+//     setClienteAtual(clienteVazio);
+//   }
+
+//   // ------------------------------------ALTERAR AGÊNCIA------------------------------------
+//   // ------------------------------------EXCLUIR AGÊNCIA------------------------------------
 
 //   return (
 //     <Pagina>
@@ -281,4 +281,3 @@ export default function TelaExibirAgencias(props) {
 // //     });
 // //   setAgencias();
 // // }
-// // ************************  BACKUP  ************************

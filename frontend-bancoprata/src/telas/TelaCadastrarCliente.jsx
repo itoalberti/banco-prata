@@ -1,11 +1,12 @@
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import Pagina from '../templates/Pagina';
 import { LinkContainer } from 'react-router-bootstrap';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const port = 4000;
 const hostname = 'localhost';
-const urlCliente = `http://${hostname}:${port}/cliente'`;
+const urlCliente = `http://${hostname}:${port}/cliente`;
+const urlAgencia = `http://${hostname}:${port}/agencia`;
 
 export default function TelaCadastrarCliente(props) {
   const [validado, setValidado] = useState(false);
@@ -20,13 +21,25 @@ export default function TelaCadastrarCliente(props) {
     uf: '',
     email: '',
     telefone: '',
-    cod_ag: '',
+    cod_ag: 0,
   });
+
+  // disable: criar if (éEdição) e dar disable no campo cidade/uf
+  // varável e método que vai setar o valor pra variável listaAgencias
+  //
+  const [listaAgencias, setListaAgencias] = useState([]);
+  useEffect(() => {
+    fetch(urlAgencia)
+      .then((resp) => resp.json())
+      .then((data) => setListaAgencias(data))
+      .catch((erro) => console.error('Erro ao buscar agências', erro));
+  }, []);
 
   function manipularMudanca(e) {
     const elemForm = e.currentTarget;
     const id = elemForm.id;
     const valor = elemForm.value;
+    console.log('teste: ', valor);
     setCliente({ ...cliente, [id]: valor });
   }
 
@@ -34,12 +47,17 @@ export default function TelaCadastrarCliente(props) {
     const form = e.currentTarget;
     if (form.checkValidity()) {
       // dados válidos → proceder com o cadastro
-      let clientes = props.listaClientes;
-      clientes.push(cliente);
-      props.setCliente(clientes);
+      // let clientes = props.listaClientes;
+      // clientes.push(cliente);
+      // props.setCliente(clientes);
+      console.log(cliente);
+      fetch(urlCliente, { method: 'POST' })
+        .then((resp) => resp.json())
+        .then((data) => setListaAgencias(data))
+        .catch((erro) => console.error('Erro ao buscar agências', erro));
       setValidado(false);
       // não encontrei exibirTabela em nenhum lugar
-      props.exibirTabela(true);
+      // props.exibirTabela(true);
     } else {
       setValidado(true);
     }
@@ -105,7 +123,7 @@ export default function TelaCadastrarCliente(props) {
               <Form.Group className='mb-3' controlId='uf'>
                 <Form.Label style={{ width: '50px' }}>UF:</Form.Label>
                 <br />
-                <select className='mb-3' id='uf'>
+                <select className='mb-3' id='uf' onChange={manipularMudanca} value={cliente.uf}>
                   <option></option>
                   <option value='AC'>AC</option>
                   <option value='AL'>AL</option>
@@ -187,9 +205,16 @@ export default function TelaCadastrarCliente(props) {
           <Row style={{ width: '350px' }}>
             {/* AGÊNCIA */}
             <Col>
-              <Form.Group className='mb-3' controlId='cod_ag' style={{ width: '120px' }}>
+              <Form.Group className='mb-3' style={{ width: '120px' }}>
                 <Form.Label>Agência:</Form.Label>
-                <Form.Control required type='number' id='cod_ag' value={cliente.cod_ag} onChange={manipularMudanca} />
+                {/* <Form.Control required type='number' id='cod_ag' value={cliente.cod_ag} onChange={manipularMudanca} /> */}
+                <select onChange={manipularMudanca} value={cliente.cod_ag} id='cod_ag'>
+                  {listaAgencias.map((agencia) => (
+                    <option key={agencia.cod_ag} value={agencia.cod_ag}>
+                      Código: {agencia.cod_ag} | Cidade: {agencia.cidade} | UF: {agencia.uf}
+                    </option>
+                  ))}
+                </select>
                 <Form.Control.Feedback type='invalid'>Informe a agência da nova conta!</Form.Control.Feedback>
               </Form.Group>
             </Col>
