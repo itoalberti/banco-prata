@@ -1,0 +1,33 @@
+DÚVIDAS BACKEND:
+exibir agencias	OK
+exibir produtos	OK
+exibir clientes	OK
+- Como associar:
+	- cliente a agência (N:1)	OK
+	- produto a agência (N:N)
+	- produto a cliente (N:N)
+- Pool not defined?
+
+DÚVIDAS FRONTEND:
+- implementar botão de alterar e excluir:
+	- agência (e com isso, excluir todos os clientes da agência)
+	- cliente
+	- produto (apenas excluir. Excluir os produtos das agências e clientes)
+- como puxar as agências existentes em uma tabela/popup/dropdown na tela de cadastro de cliente?
+- como coletar o valor da UF do dropdown para o backend?
+
+AGENCIA
+	exibir		OK
+	cadastrar	OK
+	alterar		OK
+	excluir		OK
+CLIENTE
+	exibir		OK
+	cadastrar	OK
+	alterar		OK
+	excluir		OK
+
+PRODUTO
+	exibir		OK
+	cadastrar	OK
+	excluir		OK
