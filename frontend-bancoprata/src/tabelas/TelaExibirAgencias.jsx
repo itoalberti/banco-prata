@@ -9,8 +9,14 @@ import { Link, useNavigate } from 'react-router-dom';
 const urlAgencia = `http://${hostname}:${port}/agencia`;
 
 export default function TelaExibirAgencias(props) {
-  const [agencias, setAgencias] = useState([]);
   const [selecionado, setSelecionado] = useState([]);
+  const [listaAgencias, setListaAgencias] = useState([]);
+  useEffect(() => {
+    fetch(urlAgencia)
+      .then((resp) => resp.json())
+      .then((data) => setListaAgencias(data))
+      .catch((erro) => console.error('Erro ao buscar agências', erro));
+  }, []);
 
   let navigate = useNavigate();
   const routeChange = () => {

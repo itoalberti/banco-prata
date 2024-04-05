@@ -1,14 +1,19 @@
 import { Button, Col, Container, Form, Row, Table } from 'react-bootstrap';
 import Pagina from '../templates/Pagina';
 import { LinkContainer } from 'react-router-bootstrap';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { hostname, port } from '../dados/dados';
-import listaClientes from '../dados/mockClientes';
 
 const urlCliente = `http://${hostname}:${port}/cliente`;
 
 export default function TelaExibirClientes(props) {
-  const [clientes, setClientes] = useState([]);
+  const [listaClientes, setListaClientes] = useState([]);
+  useEffect(() => {
+    fetch(urlCliente)
+      .then((resp) => resp.json())
+      .then((data) => setListaClientes(data))
+      .catch((erro) => console.error('Erro ao buscar clientes', erro));
+  }, []);
 
   return (
     <Pagina>
