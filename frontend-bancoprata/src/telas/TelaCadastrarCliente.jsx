@@ -1,4 +1,3 @@
-// NADAVER
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import Pagina from '../templates/Pagina';
 import { LinkContainer } from 'react-router-bootstrap';

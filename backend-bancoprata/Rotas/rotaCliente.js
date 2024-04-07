@@ -1,4 +1,3 @@
-// NADAVER
 import { Router } from 'express';
 import ClienteCtrl from '../Controle/clienteCtrl.js';
 

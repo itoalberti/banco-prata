@@ -1,4 +1,3 @@
-// NADAVER
 import conectar from '../Persistencia/Conexao.js';
 import AgenciaBD from '../Persistencia/AgenciaBD.js';
 

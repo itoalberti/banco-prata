@@ -1,4 +1,3 @@
-// NADAVER
 import Agencia from '../Modelo/Agencia.js';
 import conectar from './Conexao.js';
 

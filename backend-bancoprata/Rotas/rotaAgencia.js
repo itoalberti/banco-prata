@@ -1,4 +1,3 @@
-// NADAVER
 import { Router } from 'express';
 import AgenciaCtrl from '../Controle/agenciaCtrl.js';
 

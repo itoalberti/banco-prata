@@ -1,4 +1,3 @@
-// NADAVER
 import { Col, Image } from 'react-bootstrap';
 import Pagina from '../templates/Pagina';
 import 'bootstrap/dist/css/bootstrap.min.css';
