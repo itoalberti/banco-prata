@@ -33,9 +33,7 @@ app.use('/cliente', /*/verificarAcesso,*/ rotaCliente);
 app.use('/produto', /*/verificarAcesso,*/ rotaProduto);
 
 const hostname = '0.0.0.0';
-const port = 3306;
-// APÓS PROBLEMA NO CLOUDPANEL
-// const port = 4001;
+const port = 4000;
 
 app.listen(port, hostname, () => {
   console.log(`Backend ouvindo em http://${hostname}:${port}`);

@@ -3,7 +3,6 @@ import Pagina from '../templates/Pagina';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useEffect, useState } from 'react';
 import { hostname, port } from '../dados/dados';
-// import mockAgencias from '../dados/mockAgencias.js';
 // import { useNavigate } from 'react-router-dom';
 
 const urlAgencia = `http://${hostname}:${port}/agencia`;
@@ -44,7 +43,7 @@ export default function TelaExibirAgencias(props) {
           </thead>
           <tbody>
             {/* ? →  método map só será chamado se listaClientes for um atributo válido */}
-            {props.listaAgencias?.map((agencia) => {
+            {listaAgencias?.map((agencia) => {
               return (
                 //   necessário identificar cada linha da tabela usando "key"
                 // key → ajuda o React na rendereização dos componentes no DOM virtual
