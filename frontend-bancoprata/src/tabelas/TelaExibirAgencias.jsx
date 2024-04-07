@@ -1,14 +1,15 @@
-import { Button, Container, Table } from 'react-bootstrap';
+import { Button, Col, Container, Table } from 'react-bootstrap';
 import Pagina from '../templates/Pagina';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useEffect, useState } from 'react';
 import { hostname, port } from '../dados/dados';
-// import { useNavigate } from 'react-router-dom';
+import listaAgencias from '../dados/mockAgencias';
+import { Link, useNavigate } from 'react-router-dom';
 
 const urlAgencia = `http://${hostname}:${port}/agencia`;
 
 export default function TelaExibirAgencias(props) {
-  // const [selecionado, setSelecionado] = useState([]);
+  const [selecionado, setSelecionado] = useState([]);
   const [listaAgencias, setListaAgencias] = useState([]);
   useEffect(() => {
     fetch(urlAgencia)
@@ -17,11 +18,11 @@ export default function TelaExibirAgencias(props) {
       .catch((erro) => console.error('Erro ao buscar agências', erro));
   }, []);
 
-  // let navigate = useNavigate();
-  // const routeChange = () => {
-  //   let path = `newPath`;
-  //   navigate(path);
-  // };
+  let navigate = useNavigate();
+  const routeChange = () => {
+    let path = `newPath`;
+    navigate(path);
+  };
 
   return (
     <Pagina>
