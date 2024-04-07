@@ -8,8 +8,7 @@ const hostname = 'localhost';
 const urlCliente = `http://${hostname}:${port}/cliente`;
 const urlAgencia = `http://${hostname}:${port}/agencia`;
 
-// COMENTARIO BESTA
-
+// comentario inutil
 export default function TelaCadastrarCliente(props) {
   const [validado, setValidado] = useState(false);
   const [cliente, setCliente] = useState({

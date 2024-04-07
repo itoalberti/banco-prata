@@ -4,7 +4,7 @@ import AgenciaCtrl from '../Controle/agenciaCtrl.js';
 const rotaAgencia = new Router();
 const agenciaCtrl = new AgenciaCtrl();
 
-// COMENTARIO BESTA
+// comentario pena
 
 rotaAgencia.get('/', agenciaCtrl.listar).post('/', agenciaCtrl.cadastrar).put('/', agenciaCtrl.alterar).delete('/', agenciaCtrl.excluir);
 // rotaAgencia.post('/associarProdutoAgencia', agenciaCtrl.associarProduto);
