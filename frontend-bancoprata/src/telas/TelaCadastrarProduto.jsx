@@ -3,9 +3,8 @@ import { Button, Col, Dropdown, Form, Row } from 'react-bootstrap';
 import Pagina from '../templates/Pagina';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useState } from 'react';
+import { hostname, port } from '../dados/dados';
 
-const port = 4000;
-const hostname = 'localhost';
 const urlProduto = `http://${hostname}:${port}/produto`;
 
 export default function TelaCadastrarProduto(props) {

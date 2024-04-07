@@ -3,9 +3,7 @@ import { Button, Col, Dropdown, Form, Row } from 'react-bootstrap';
 import Pagina from '../templates/Pagina';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useState } from 'react';
-
-const port = 4000;
-const hostname = 'localhost';
+import { hostname, port } from '../dados/dados';
 
 const urlAgencia = `http://${hostname}:${port}/agencia`;
 

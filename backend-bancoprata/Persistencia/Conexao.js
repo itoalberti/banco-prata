@@ -7,10 +7,13 @@ export default async function conectar() {
   // }
   const pool = mysql.createPool({
     // PARA USAR O BANCO LOCAL:
-    host: '129.146.68.51',
+    // host: '129.146.68.51',
+    host: 'localhost',
     user: process.env.USUARIO_BD,
     password: process.env.SENHA_BD,
-    database: 'bancoprata',
+    // database: 'bancoprata',
+    // PROBLEMA CLOUDPANEL:
+    database: 'bancoteste',
     waitForConnections: true,
     connectionLimit: 10,
     maxIdle: 10,
