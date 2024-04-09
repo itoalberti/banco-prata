@@ -1,4 +1,4 @@
-var listaClientes = [
+var mockClientes = [
   {
     cod_cli: 1,
     nome: 'Pedro Bento',
@@ -50,4 +50,4 @@ var listaClientes = [
   },
 ];
 
-export default listaClientes;
+export default mockClientes;

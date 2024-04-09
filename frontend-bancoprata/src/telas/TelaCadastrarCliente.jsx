@@ -2,10 +2,7 @@ import { Button, Col, Form, Row } from 'react-bootstrap';
 import Pagina from '../templates/Pagina';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useEffect, useState } from 'react';
-
-const port = 4000;
-// const port = 3306;
-const hostname = 'localhost';
+import { hostname, port } from '../dados/dados';
 
 const urlCliente = `http://${hostname}:${port}/cliente`;
 const urlAgencia = `http://${hostname}:${port}/agencia`;
@@ -49,27 +46,57 @@ export default function TelaCadastrarCliente(props) {
     setCliente({ ...cliente, [id]: valor });
   }
 
+  // function manipulaSubmissao(e) {
+  //   const form = e.currentTarget;
+  //   if (form.checkValidity()) {
+  //     // dados válidos → proceder com o cadastro
+  //     // let clientes = props.listaClientes;
+  //     // clientes.push(cliente);
+  //     // props.setCliente(clientes);
+  //     console.log(cliente);
+  //     // fetch(urlCliente, { method: 'POST' })
+  //     fetch(urlCliente, { method: 'POST', body: JSON.stringify(cliente), headers: { 'Content-Type': 'application/json' } })
+  //       .then((resp) => resp.json())
+  //       .then((data) => setListaAgencias(data))
+  //       .catch((erro) => console.error('Erro ao buscar agências', erro));
+  //     setValidado(false);
+  //     // não encontrei exibirTabela em nenhum lugar
+  //     // props.exibirTabela(true);
+  //   } else {
+  //     setValidado(true);
+  //   }
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  // }
+
+  // CÓDIGO NOVO
   function manipulaSubmissao(e) {
     const form = e.currentTarget;
     if (form.checkValidity()) {
       // dados válidos → proceder com o cadastro
-      // let clientes = props.listaClientes;
-      // clientes.push(cliente);
-      // props.setCliente(clientes);
-      console.log(cliente);
-      fetch(urlCliente, { method: 'POST' })
+      fetch(urlCliente, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(cliente),
+      })
         .then((resp) => resp.json())
-        .then((data) => setListaAgencias(data))
-        .catch((erro) => console.error('Erro ao buscar agências', erro));
-      setValidado(false);
-      // não encontrei exibirTabela em nenhum lugar
-      // props.exibirTabela(true);
+        .then((data) => {
+          // Adicionar o produto à lista de produtos após cadastrá-lo no backend
+          let novosClientes = [...props.listaClientes, data];
+          props.setCliente(novosClientes);
+          setValidado(false);
+          props.exibirTabela(true);
+        })
+        .catch((error) => console.error('Erro ao cadastrar cliente:', error));
     } else {
       setValidado(true);
     }
     e.preventDefault();
     e.stopPropagation();
   }
+  // CÓDIGO NOVO
 
   //
   // RETURN

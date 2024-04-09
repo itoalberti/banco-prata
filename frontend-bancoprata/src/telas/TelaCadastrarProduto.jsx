@@ -2,11 +2,8 @@ import { Button, Col, Form, Row } from 'react-bootstrap';
 import Pagina from '../templates/Pagina';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useState } from 'react';
+import { hostname, port } from '../dados/dados';
 
-// const port = 4000;
-const port = 3306;
-
-const hostname = 'localhost';
 const urlProduto = `http://${hostname}:${port}/produto`;
 
 export default function TelaCadastrarProduto(props) {
@@ -23,22 +20,51 @@ export default function TelaCadastrarProduto(props) {
     setProduto({ ...produto, [id]: valor });
   }
 
+  // function manipulaSubmissao(e) {
+  //   const form = e.currentTarget;
+  //   if (form.checkValidity()) {
+
+  //     let produtos = props.listaProdutos;
+  //     produtos.push(produto);
+  //     props.setProduto(produtos);
+  //     setValidado(false);
+  //     // não encontrei exibirTabela em nenhum lugar
+  //     props.exibirTabela(true);
+  //   } else {
+  //     setValidado(true);
+  //   }
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  // }
+
+  // CÓDIGO NOVO
   function manipulaSubmissao(e) {
     const form = e.currentTarget;
     if (form.checkValidity()) {
       // dados válidos → proceder com o cadastro
-      let produtos = props.listaProdutos;
-      produtos.push(produto);
-      props.setProduto(produtos);
-      setValidado(false);
-      // não encontrei exibirTabela em nenhum lugar
-      props.exibirTabela(true);
+      fetch(urlProduto, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(produto),
+      })
+        .then((resp) => resp.json())
+        .then((data) => {
+          // Adicionar o produto à lista de produtos após cadastrá-lo no backend
+          let novosProdutos = [...props.listaProdutos, data];
+          props.setProduto(novosProdutos);
+          setValidado(false);
+          props.exibirTabela(true);
+        })
+        .catch((error) => console.error('Erro ao cadastrar produto:', error));
     } else {
       setValidado(true);
     }
     e.preventDefault();
     e.stopPropagation();
   }
+  // CÓDIGO NOVO
 
   //
   // RETURN
@@ -50,14 +76,6 @@ export default function TelaCadastrarProduto(props) {
         <br />
         <Form noValidate validated={validado} onSubmit={manipulaSubmissao}>
           <Row>
-            {/* CÓDIGO */}
-            {/* <Col xs={2}>
-              <Form.Group controlId='cod_prod'>
-                <Form.Label>Código:</Form.Label>
-                <Form.Control required type='number' id='cod_prod' value={produto.cod_prod} onChange={manipularMudanca} />
-                <Form.Control.Feedback type='invalid'>Informe o código do produto!</Form.Control.Feedback>
-              </Form.Group>
-            </Col> */}
             {/* NOME */}
             <Col xs={4}>
               <Form.Group controlId='nome'>

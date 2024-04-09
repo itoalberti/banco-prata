@@ -1,4 +1,4 @@
-var listaProdutos = [
+var mockProdutos = [
   { cod_prod: 1, nome: 'Seguro de Vida' },
   { cod_prod: 2, nome: 'Seguro Residencial' },
   { cod_prod: 3, nome: 'Seguro de Veículo' },
@@ -8,4 +8,4 @@ var listaProdutos = [
   { cod_prod: 7, nome: 'Empréstimo' },
 ];
 
-export default listaProdutos;
+export default mockProdutos;
