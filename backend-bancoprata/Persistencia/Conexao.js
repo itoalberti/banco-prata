@@ -6,9 +6,14 @@ export default async function conectar() {
   // }
   const pool = mysql.createPool({
     // PARA USAR O BANCO LOCAL:
-    host: '129.146.68.51',
-    user: process.env.USUARIO_BD,
-    password: process.env.SENHA_BD,
+    // host: '129.146.68.51',
+    // user: process.env.USUARIO_BD,
+    // password: process.env.SENHA_BD,
+
+    //PARA USAR O BANCO LOCAL
+    host: 'localhost',
+    user: 'root',
+    password: '',
     database: 'bancoprata',
     waitForConnections: true,
     connectionLimit: 10,

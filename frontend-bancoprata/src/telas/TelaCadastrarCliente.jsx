@@ -4,7 +4,9 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { useEffect, useState } from 'react';
 
 const port = 4000;
+// const port = 3306;
 const hostname = 'localhost';
+
 const urlCliente = `http://${hostname}:${port}/cliente`;
 const urlAgencia = `http://${hostname}:${port}/agencia`;
 
@@ -31,7 +33,11 @@ export default function TelaCadastrarCliente(props) {
   useEffect(() => {
     fetch(urlAgencia)
       .then((resp) => resp.json())
-      .then((data) => setListaAgencias(data))
+      .then((data) => {
+        console.log('console.log(data):');
+        console.log(data);
+        setListaAgencias(data);
+      })
       .catch((erro) => console.error('Erro ao buscar agências', erro));
   }, []);
 
@@ -153,37 +159,6 @@ export default function TelaCadastrarCliente(props) {
                   <option value='TO'>TO</option>
                   <option value='DF'>DF</option>
                 </select>
-                {/* <Dropdown.Toggle required id='uf'>
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item href='AC'>AC</Dropdown.Item>
-                  <Dropdown.Item>AL</Dropdown.Item>
-                  <Dropdown.Item>AP</Dropdown.Item>
-                  <Dropdown.Item>AM</Dropdown.Item>
-                  <Dropdown.Item>BA</Dropdown.Item>
-                  <Dropdown.Item>CE</Dropdown.Item>
-                  <Dropdown.Item>ES</Dropdown.Item>
-                  <Dropdown.Item>GO</Dropdown.Item>
-                  <Dropdown.Item>MA</Dropdown.Item>
-                  <Dropdown.Item>MT</Dropdown.Item>
-                  <Dropdown.Item>MS</Dropdown.Item>
-                  <Dropdown.Item>MG</Dropdown.Item>
-                  <Dropdown.Item>PA</Dropdown.Item>
-                  <Dropdown.Item>PB</Dropdown.Item>
-                  <Dropdown.Item>PR</Dropdown.Item>
-                  <Dropdown.Item>PE</Dropdown.Item>
-                  <Dropdown.Item>PI</Dropdown.Item>
-                  <Dropdown.Item>RJ</Dropdown.Item>
-                  <Dropdown.Item>RN</Dropdown.Item>
-                  <Dropdown.Item>RS</Dropdown.Item>
-                  <Dropdown.Item>RO</Dropdown.Item>
-                  <Dropdown.Item>RR</Dropdown.Item>
-                  <Dropdown.Item>SC</Dropdown.Item>
-                  <Dropdown.Item>SP</Dropdown.Item>
-                  <Dropdown.Item>SE</Dropdown.Item>
-                  <Dropdown.Item>TO</Dropdown.Item>
-                  <Dropdown.Item>DF</Dropdown.Item>
-                </Dropdown.Menu> */}
                 <Form.Control.Feedback type='invalid'>Informe o estado da agência!</Form.Control.Feedback>
               </Form.Group>
             </Col>
@@ -218,7 +193,6 @@ export default function TelaCadastrarCliente(props) {
                 <Form.Control.Feedback type='invalid'>Informe a agência da nova conta!</Form.Control.Feedback>
               </Form.Group>
             </Col>
-
             {/* REPETIR A SENHA */}
             {/* <Col>
               <Form.Group className='mb-3' controlId='senha' style={{ width: '120px' }}>
