@@ -1,3 +1,25 @@
+====================ESTRUTURA====================
+AGÊNCIA
+    	cod_ag  AUTO INCREMENT
+    	endereco
+    	cidade
+	uf
+    	*produtos
+CLIENTE
+	cod_cli	AUTO INCREMENT
+	nome
+	cpf
+	email
+	telefone
+	endereco
+	cidade
+	uf
+	*cod_ag
+PRODUTO
+	cod_prod AUTO INCREMENT
+	nome
+
+====================OPERAÇÕES====================
 AGENCIA
     cadastrar
     alterar
