@@ -59,9 +59,10 @@ export default function TelaCadastrarAgencia(props) {
             {/********************** UF **********************/}
             <Col md='2'>
               <Form.Group className='mb-3' controlId='uf'>
-                <Form.Label style={{ width: '50px' }}>UF:</Form.Label>
-                <select className='mb-3' style={{ width: '60px' }} id='uf'>
-                  <option></option>
+                <Form.Label>UF:</Form.Label>
+                {/* <Form.Label style={{ width: '50px' }}>UF:</Form.Label> */}
+                <Form.Select className='mb-3' style={{ width: '100px' }} id='uf'>
+                  <option value=''></option>
                   <option value='AC'>AC</option>
                   <option value='AL'>AL</option>
                   <option value='AP'>AP</option>
@@ -89,7 +90,7 @@ export default function TelaCadastrarAgencia(props) {
                   <option value='SE'>SE</option>
                   <option value='TO'>TO</option>
                   <option value='DF'>DF</option>
-                </select>
+                </Form.Select>
                 {/* <Dropdown.Toggle required id='uf'>
                   akjsdh
                 </Dropdown.Toggle>

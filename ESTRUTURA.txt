@@ -1,0 +1,16 @@
+AGENCIA
+    cadastrar
+    alterar
+    exibir
+    excluir
+    associar produto
+CLIENTE
+    cadastrar
+    alterar
+    exibir
+    excluir
+    contratar produto
+PRODUTO
+    cadastrar
+    exibir
+    excluir
