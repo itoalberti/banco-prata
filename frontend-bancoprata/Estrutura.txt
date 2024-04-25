@@ -1,3 +1,54 @@
+==================FUNÇÕES==================
+AGENCIA
+	cadastrar	OK
+	exibir		OK
+	alterar		OK
+	excluir
+	associar produto
+CLIENTE
+	cadastrar	OK	
+	exibir		OK
+	alterar
+	excluir
+	contratar produto
+PRODUTO
+	cadastrar
+	exibir
+	alterar
+	excluir
+
+==================ESTRUTURAS DAS CLASSES==================
+AGÊNCIA
+	cod_ag → AUTOINCREMENT
+	endereço
+    	cidade
+    	uf
+CLIENTE
+	cod_cli → AUTOINCREMENT
+    	nome
+    	cpf
+	dataNasc
+    	endereço
+    	cidade
+    	uf
+    	telefone
+    	email
+    	senha
+    	cod_ag
+PRODUTO
+	cod_prod → AUTOINCREMENT
+	nome
+
+(18) 98195-4446
+
+
+
+
+
+
+
+
+**********************************************************************
                                 FRONTEND            BACKEND
 
 CLIENTES

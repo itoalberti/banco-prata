@@ -1,9 +1,9 @@
 import { Button, Col, Form, Row } from 'react-bootstrap';
-import Pagina from '../templates/Pagina';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useState } from 'react';
 import { hostname, port } from '../dados/dados';
 
+import Pagina from '../templates/Pagina';
 const urlAgencia = `http://${hostname}:${port}/agencia`;
 
 export default function TelaCadastrarAgencia(props) {
@@ -46,6 +46,7 @@ export default function TelaCadastrarAgencia(props) {
     }
     e.preventDefault();
     e.stopPropagation();
+    alert('Agência cadastrada com sucesso!');
   }
 
   return (
@@ -54,26 +55,28 @@ export default function TelaCadastrarAgencia(props) {
         <h2>Cadastro de nova agência</h2>
         <br />
         <Form noValidate validated={validado} onSubmit={manipulaSubmissao}>
-          {/********************** ENDEREÇO *********************/}
-          <Form.Group className='mb-3' style={{ width: '340px' }} controlId='endereco'>
-            <Form.Label>Endereço:</Form.Label>
-            <Form.Control required type='text' id='endereco' value={agencia.endereco} onChange={manipularMudanca} />
-            <Form.Control.Feedback type='invalid'>Informe o endereço da agência!</Form.Control.Feedback>
-          </Form.Group>
-
-          {/********************** CIDADE **********************/}
-          <Form.Group className='mb-3' style={{ width: '340px' }} controlId='cidade'>
-            <Form.Label>Cidade:</Form.Label>
-            <Form.Control required type='text' id='cidade' value={agencia.cidade} onChange={manipularMudanca} />
-            <Form.Control.Feedback type='invalid'>Informe a cidade da agência!</Form.Control.Feedback>
-          </Form.Group>
-
-          <Row>
+          <Row className='mb-3'>
+            {/********************** ENDEREÇO *********************/}
+            <Col xs='auto'>
+              <Form.Group style={{ width: '360px' }} controlId='endereco'>
+                <Form.Label>Endereço:</Form.Label>
+                <Form.Control required type='text' id='endereco' value={agencia.endereco} onChange={manipularMudanca} />
+                <Form.Control.Feedback type='invalid'>Informe o endereço da agência!</Form.Control.Feedback>
+              </Form.Group>
+            </Col>
+            {/********************** CIDADE **********************/}
+            <Col xs='auto'>
+              <Form.Group style={{ width: '240px' }} controlId='cidade'>
+                <Form.Label>Cidade:</Form.Label>
+                <Form.Control required type='text' id='cidade' value={agencia.cidade} onChange={manipularMudanca} />
+                <Form.Control.Feedback type='invalid'>Informe a cidade da agência!</Form.Control.Feedback>
+              </Form.Group>
+            </Col>
             {/********************** UF **********************/}
-            <Col md='2'>
-              <Form.Group className='mb-3' controlId='uf'>
-                <Form.Label style={{ width: '50px' }}>UF:</Form.Label>
-                <select className='mb-3' style={{ width: '60px' }} id='uf' required value={agencia.uf} onChange={manipularMudanca}>
+            <Col xs='auto'>
+              <Form.Group controlId='uf'>
+                <Form.Label>UF:</Form.Label>
+                <Form.Select id='uf' required value={agencia.uf} onChange={manipularMudanca}>
                   <option value=''></option>
                   <option>AC</option>
                   <option>AL</option>
@@ -102,7 +105,7 @@ export default function TelaCadastrarAgencia(props) {
                   <option>SE</option>
                   <option>SP</option>
                   <option>TO</option>
-                </select>
+                </Form.Select>
                 <Form.Control.Feedback style={{ width: '200px' }} type='invalid'>
                   Informe o estado da agência!
                 </Form.Control.Feedback>

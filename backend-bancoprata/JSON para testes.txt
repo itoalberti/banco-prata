@@ -1,10 +1,10 @@
 ---------------CLIENTES---------------
 {
     "nome":"Valdir Mascarenhas",
-    "cpf": "37075963813",
-    "dataNasc":"1988-02-01",
+    "cpf": "370.759.638-13",
+    "dataNasc":"01/12/1988",
     "email":"valdir@gmail.com",
-    "telefone":"999876655",
+    "telefone":"(11) 99987-6655",
     "endereco":"Rua dos Lambaris nº 558",
     "cidade":"Cuiabá",
     "uf":"MT",
@@ -13,22 +13,22 @@
 
 {
     "nome":"Baltazar Barbosa",
-    "cpf": "99845687412",
-    "dataNasc":"1999-12-03",
+    "cpf": "122.445.667-88",
+    "dataNasc":"12/03/1944",
     "email":"baltazar@gmail.com",
-    "telefone":"954682245",
+    "telefone":"(67) 95454-2010",
     "endereco":"Avenida Duque de Caxias nº 4",
-    "cidade":"Assis",
-    "uf":"SP",
+    "cidade":"Campo Grande",
+    "uf":"MS",
     "cod_ag":"5"
 }
 
 {
     "nome":"Neide Soares",
-    "cpf": "99845621525",
-    "dataNasc":"1965-05-10",
+    "cpf": "998.456.215-25",
+    "dataNasc":"10/11/1965",
     "email":"neide@gmail.com",
-    "telefone":"955461002",
+    "telefone":"(21) 90001-5522",
     "endereco":"Rua Dom Pedro II nº 1000, Apto 203",
     "cidade":"São Paulo",
     "uf":"SP",
@@ -37,10 +37,10 @@
 
 {
     "nome":"Tenório Gonçalves",
-    "cpf": "45266831207",
-    "dataNasc":"1957-12-12",
+    "cpf": "452.668.312-07",
+    "dataNasc":"25/12/2004",
     "email":"tenorio@gmail.com",
-    "telefone":"997747173",
+    "telefone":"(43) 99756-4320",
     "endereco":"Avenida do Capiau nº 122, Casa 4",
     "cidade":"Confins",
     "uf":"MG",
@@ -62,8 +62,8 @@
 
 {
 	"endereco":"Avenida Roxo Moreira nº 12",
-	"cidade":"Confins",
-	"uf":"MG"
+	"cidade":"Campo Grande",
+	"uf":"MS"
 }
 
 ---------------PRODUTO---------------

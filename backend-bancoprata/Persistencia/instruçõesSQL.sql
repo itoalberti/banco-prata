@@ -23,13 +23,14 @@ CREATE TABLE Produto(
 CREATE TABLE Cliente(
 	cod_cli INT NOT NULL AUTO_INCREMENT,
 	nome VARCHAR(60) NOT NULL,
-	cpf NUMERIC(11) NOT NULL,
-	dataNasc DATE NOT NULL,
+	cpf VARCHAR(14) NOT NULL,
+	dataNasc VARCHAR(10) NOT NULL,
 	endereco VARCHAR(80) NOT NULL,
 	cidade VARCHAR(60) NOT NULL,
 	uf VARCHAR(2) NOT NULL,
 	email VARCHAR(50) NOT NULL,
 	telefone VARCHAR(15) NOT NULL,
+    senha VARCHAR(12) NOT NULL,
     cod_ag INT NOT NULL,
     FOREIGN KEY (cod_ag) REFERENCES Agencia(cod_ag),
     CONSTRAINT cod_cli PRIMARY KEY(cod_cli)

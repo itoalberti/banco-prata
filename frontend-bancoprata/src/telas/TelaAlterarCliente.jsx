@@ -9,20 +9,25 @@ import Pagina from '../templates/Pagina';
 
 const urlAgencia = `http://${hostname}:${port}/agencia`;
 
-export default function TelaAlterarAgencia(props) {
+export default function TelaAlterarCliente(props) {
   const [validado, setValidado] = useState(false);
-  const [agencia, setAgencia] = useState({
+  const [cliente, setCliente] = useState({
+    nome: props.nome,
+    cpf: props.cpf,
+    dataNasc: props.dataNasc,
     cod_ag: props.cod_ag,
-    // endereco: props.endereco,
-    cidade: props.cidade,
-    uf: props.uf,
+    // email: props.email,
+    // telefone: props.telefone,
+    // cidade: props.cidade,
+    // uf: props.uf,
+    // senha: props.senha,
   });
   const location = useLocation();
 
   useEffect(() => {
     if (location.state) {
-      setAgencia({
-        ...agencia,
+      setCliente({
+        ...cliente,
         cod_ag: location.state.cod_ag,
         endereco: location.state.endereco,
         cidade: location.state.cidade,
@@ -36,19 +41,19 @@ export default function TelaAlterarAgencia(props) {
     const elemForm = e.currentTarget;
     const id = elemForm.id;
     const valor = elemForm.value;
-    setAgencia({ ...agencia, [id]: valor });
+    setCliente({ ...cliente, [id]: valor });
   }
 
   function manipulaSubmissao(e) {
     const form = e.currentTarget;
-    if (form.checkValidity() && agencia.uf !== '') {
+    if (form.checkValidity() && cliente.uf !== '') {
       // dados válidos → proceder com o cadastro
       fetch(urlAgencia, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(agencia),
+        body: JSON.stringify(cliente),
       })
         .then((resp) => resp.json())
         .then((data) => {
@@ -69,21 +74,21 @@ export default function TelaAlterarAgencia(props) {
   return (
     <>
       <Pagina>
-        <h2>Alterar endereço da agência {agencia.cod_ag}</h2>
+        <h2>Alterar endereço da agência {cliente.cod_ag}</h2>
         <br />
         <Row className='mb-3'>
           <Col xs='auto'>
             {/********************** CIDADE **********************/}
             <Form.Group controlId='ag_cidade'>
               <Form.Label>Cidade:</Form.Label>
-              <Form.Control placeholder={agencia.cidade} disabled />
+              <Form.Control placeholder={cliente.cidade} disabled />
             </Form.Group>
           </Col>
           {/********************** UF **********************/}
           <Col xs='auto'>
             <Form.Group style={{ width: '50px' }} controlId='uf'>
               <Form.Label>UF:</Form.Label>
-              <Form.Control placeholder={agencia.uf} disabled />
+              <Form.Control placeholder={cliente.uf} disabled />
             </Form.Group>
           </Col>
         </Row>
@@ -93,7 +98,7 @@ export default function TelaAlterarAgencia(props) {
               {/********************** ENDEREÇO *********************/}
               <Form.Group className='mb-3' style={{ width: '340px' }} controlId='endereco'>
                 <Form.Label>Endereço:</Form.Label>
-                <Form.Control required type='text' placeholder={agencia.endereco} id='endereco' value={agencia.endereco} onChange={manipularMudanca} />
+                <Form.Control required type='text' placeholder={cliente.endereco} id='endereco' value={cliente.endereco} onChange={manipularMudanca} />
                 <Form.Control.Feedback type='invalid'>Informe o novo endereço da agência!</Form.Control.Feedback>
               </Form.Group>
             </Col>

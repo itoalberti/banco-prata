@@ -1,16 +1,27 @@
 import { Button, Container, Table } from 'react-bootstrap';
-import Pagina from '../templates/Pagina';
 import { LinkContainer } from 'react-router-bootstrap';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { hostname, port } from '../dados/dados';
-import mockAgencias from '../dados/mockAgencias';
 import { useNavigate } from 'react-router-dom';
 
+import Pagina from '../templates/Pagina';
 const urlAgencia = `http://${hostname}:${port}/agencia`;
+// import mockAgencias from '../dados/mockAgencias';
 
 export default function TelaExibirAgencias(props) {
-  const [agencias, setAgencias] = useState([]);
-  const [selecionado, setSelecionado] = useState([]);
+  // const [agencias, setAgencias] = useState([]);
+  // const [selecionado, setSelecionado] = useState([]);
+  const [listaAgencias, setListaAgencias] = useState([]);
+  useEffect(() => {
+    fetch(urlAgencia)
+      .then((resp) => resp.json())
+      .then((data) => {
+        console.log('console.log(data):');
+        console.log(data);
+        setListaAgencias(data);
+      })
+      .catch((erro) => console.error('Erro ao buscar agências', erro));
+  }, []);
 
   let navigate = useNavigate();
   const routeChange = () => {
@@ -29,16 +40,16 @@ export default function TelaExibirAgencias(props) {
         <Table striped bordered hover variant='dark'>
           <thead>
             <tr>
-              <th style={{ width: '15%' }}>Código da agência</th>
+              <th style={{ width: '11%' }}>Código da agência</th>
               <th style={{ width: '30%' }}>Endereço</th>
               <th style={{ width: '15%' }}>Cidade</th>
-              <th style={{ width: '15%' }}>UF</th>
+              <th style={{ width: '5%' }}>UF</th>
               <th style={{ width: '15%' }}>Ações</th>
             </tr>
           </thead>
           <tbody>
             {/* ? →  método map só será chamado se listaClientes for um atributo válido */}
-            {mockAgencias?.map((agencia) => {
+            {listaAgencias?.map((agencia) => {
               return (
                 //   necessário identificar cada linha da tabela usando "key"
                 // key → ajuda o React na rendereização dos componentes no DOM virtual
@@ -53,7 +64,7 @@ export default function TelaExibirAgencias(props) {
                         variant='primary'
                         style={{ marginRight: '5px' }}
                         onClick={() => {
-                          props.alterarAgencia(agencia);
+                          navigate('/alteraragencia', { state: { cod_ag: agencia.cod_ag, endereco: agencia.endereco, cidade: agencia.cidade, uf: agencia.uf } });
                         }}
                       >
                         <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil-square' viewBox='0 0 16 16'>
@@ -63,7 +74,7 @@ export default function TelaExibirAgencias(props) {
                       </Button>
                     </cell>
                     <cell>
-                      <Button variant='outline-danger'>
+                      <Button title='Excluir' variant='danger'>
                         <svg
                           xmlns='http://www.w3.org/2000/svg'
                           width='16'
@@ -72,6 +83,7 @@ export default function TelaExibirAgencias(props) {
                           class='bi bi-trash3'
                           viewBox='0 0 16 16'
                           onClick={() => {
+                            // IMPLEMENTAR FUNÇÃO DE EXCLUSÃO
                             props.excluir(agencia);
                           }}
                         >

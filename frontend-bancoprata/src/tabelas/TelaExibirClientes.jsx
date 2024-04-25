@@ -1,33 +1,49 @@
-import { Button, Col, Container, Form, Row, Table } from 'react-bootstrap';
-import Pagina from '../templates/Pagina';
+import { Button, Container, Table } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { hostname, port } from '../dados/dados';
-import listaClientes from '../dados/mockClientes';
+import { useNavigate } from 'react-router-dom';
 
+import Pagina from '../templates/Pagina';
 const urlCliente = `http://${hostname}:${port}/cliente`;
+// import listaClientes from '../dados/mockClientes';
 
 export default function TelaExibirClientes(props) {
-  const [clientes, setClientes] = useState([]);
+  const [listaClientes, setListaClientes] = useState([]);
+  useEffect(() => {
+    fetch(urlCliente)
+      .then((resp) => resp.json())
+      .then((data) => {
+        setListaClientes(data);
+      })
+      .catch((erro) => console.error('Erro ao buscar agências', erro));
+  }, []);
+  // const [clientes, setClientes] = useState([]);
+  let navigate = useNavigate();
+  const routeChange = () => {
+    let path = `newPath`;
+    navigate(path);
+  };
 
   return (
     <Pagina>
-      <Container>
+      <Container style={{ width: '100vw' }}>
         <br />
-        <Table striped bordered hover variant='dark'>
+        <Table striped bordered hover variant='dark' style={{ fontSize: '0.9rem' }}>
           <thead>
             <tr>
-              <th style={{ width: '5%' }}>Conta</th>
-              <th style={{ width: '5%' }}>Agência</th>
-              <th style={{ width: '20%' }}>Nome</th>
-              <th style={{ width: '10%' }}>CPF</th>
-              <th style={{ width: '5%' }}>Data de nascimento</th>
+              <th>Cód.</th>
+              <th>Ag.</th>
+              <th style={{ width: '15%' }}>Nome</th>
+              <th style={{ width: '9%' }}>CPF</th>
+              <th>Data Nasc.</th>
               <th style={{ width: '15%' }}>Endereço</th>
               <th style={{ width: '10%' }}>Cidade</th>
               <th style={{ width: '2%' }}>UF</th>
               <th style={{ width: '10%' }}>Email</th>
-              <th style={{ width: '5%' }}>Telefone</th>
-              <th style={{ width: '15%' }}>Ações</th>
+              <th style={{ width: '12%' }}>Telefone</th>
+              {/* <th style={{ width: '5%' }}>Senha</th> */}
+              <th style={{ width: '10%' }}>Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -48,22 +64,32 @@ export default function TelaExibirClientes(props) {
                   <td>{cliente.email}</td>
                   <td>{cliente.telefone}</td>
                   <td>
-                    <Button variant='outline-warning'>
-                      <svg
-                        xmlns='http://www.w3.org/2000/svg'
-                        width='16'
-                        height='16'
-                        fill='currentColor'
-                        class='bi bi-pencil'
-                        viewBox='0 0 16 16'
-                        onClick={() => {
-                          console.log('EDITAR CLIENTE');
-                        }}
-                      >
+                    <Button
+                      variant='primary'
+                      title='Editar'
+                      style={{ padding: '1px 5px', aspectRatio: '1', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                      onClick={() => {
+                        // REDIRECIONAR PARA PÁGINA /alterarcliente
+                        navigate('/alterarcliente', {
+                          state: {
+                            // Dados imutáveis: Tipo, nome, CPF, RG, data de nascimento e gênero
+                            cod_cli: cliente.cod_cli,
+                            nome: cliente.nome,
+                            cpf: cliente.cpf,
+                            dataNasc: cliente.dataNasc,
+                            endereco: cliente.endereco,
+                            cidade: cliente.cidade,
+                            uf: cliente.uf,
+                            cod_ag: cliente.cod_ag,
+                          },
+                        });
+                      }}
+                    >
+                      <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil' viewBox='0 0 16 16'>
                         <path d='M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325' />
                       </svg>
                     </Button>
-                    <Button variant='outline-danger'>
+                    <Button variant='danger' title='Excluir' style={{ marginRight: '1px', padding: '1px 5px', aspectRatio: '1', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <svg
                         xmlns='http://www.w3.org/2000/svg'
                         width='16'
@@ -72,6 +98,7 @@ export default function TelaExibirClientes(props) {
                         class='bi bi-trash3'
                         viewBox='0 0 16 16'
                         onClick={() => {
+                          // IMPLEMENTAR FUNÇÃO EXCLUIR CLIENTE
                           console.log('EXCLUIR CLIENTE');
                         }}
                       >
