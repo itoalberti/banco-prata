@@ -12,7 +12,7 @@ CLIENTE
 	excluir
 	contratar produto
 PRODUTO
-	cadastrar
+	cadastrar	VALIDAR
 	exibir
 	alterar
 	excluir
@@ -40,7 +40,6 @@ PRODUTO
 	nome
 
 (18) 98195-4446
-
 
 
 

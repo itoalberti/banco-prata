@@ -61,6 +61,7 @@ export default function TelaExibirAgencias(props) {
                   <td>
                     <cell style={{ paddingRight: '10px' }}>
                       <Button
+                        title='Editar'
                         variant='primary'
                         style={{ marginRight: '5px' }}
                         onClick={() => {

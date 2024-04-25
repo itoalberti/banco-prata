@@ -37,7 +37,6 @@ export default function TelaCadastrarProduto(props) {
   //   e.stopPropagation();
   // }
 
-  // CÓDIGO NOVO
   function manipulaSubmissao(e) {
     const form = e.currentTarget;
     if (form.checkValidity()) {
@@ -63,19 +62,16 @@ export default function TelaCadastrarProduto(props) {
     }
     e.preventDefault();
     e.stopPropagation();
+    alert('Produto cadastrado com sucesso!');
   }
-  // CÓDIGO NOVO
 
-  //
-  // RETURN
-  //
   return (
     <>
       <Pagina>
         <h2>Cadastro de novo produto</h2>
         <br />
         <Form noValidate validated={validado} onSubmit={manipulaSubmissao}>
-          <Row>
+          <Row className='mb-3'>
             {/* NOME */}
             <Col xs={4}>
               <Form.Group controlId='nome'>

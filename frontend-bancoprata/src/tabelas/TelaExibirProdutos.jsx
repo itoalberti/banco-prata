@@ -1,15 +1,22 @@
 import { Button, Col, Container, Form, Row, Table } from 'react-bootstrap';
-import Pagina from '../templates/Pagina';
 import { LinkContainer } from 'react-router-bootstrap';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { hostname, port } from '../dados/dados';
 import listaProdutos from '../dados/mockProdutos';
 
+import Pagina from '../templates/Pagina';
 const urlProduto = `http://${hostname}:${port}/produto`;
 
 export default function TelaExibirProdutos(props) {
-  const [produtos, setProdutos] = useState([]);
-
+  const [listaProdutos, setListaProdutos] = useState([]);
+  useEffect(() => {
+    fetch(urlProduto)
+      .then((resp) => resp.json())
+      .then((data) => {
+        setListaProdutos(data);
+      })
+      .catch((erro) => console.error('Erro ao buscar produtos', erro));
+  }, []);
   return (
     <Pagina>
       <Container>

@@ -3,11 +3,11 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { useEffect, useState } from 'react';
 import { hostname, port } from '../dados/dados';
 import { useLocation } from 'react-router-dom';
-import InputMask from 'react-input-mask';
+import ReactInputMask from 'react-input-mask';
 
 import Pagina from '../templates/Pagina';
 
-const urlAgencia = `http://${hostname}:${port}/agencia`;
+const urlCliente = `http://${hostname}:${port}/cliente`;
 
 export default function TelaAlterarCliente(props) {
   const [validado, setValidado] = useState(false);
@@ -15,12 +15,13 @@ export default function TelaAlterarCliente(props) {
     nome: props.nome,
     cpf: props.cpf,
     dataNasc: props.dataNasc,
+    endereco: props.endereco,
+    cidade: props.cidade,
+    uf: props.uf,
+    telefone: props.telefone,
+    email: props.email,
+    senha: props.senha,
     cod_ag: props.cod_ag,
-    // email: props.email,
-    // telefone: props.telefone,
-    // cidade: props.cidade,
-    // uf: props.uf,
-    // senha: props.senha,
   });
   const location = useLocation();
 
@@ -28,10 +29,17 @@ export default function TelaAlterarCliente(props) {
     if (location.state) {
       setCliente({
         ...cliente,
-        cod_ag: location.state.cod_ag,
+        cod_cli: location.state.cod_cli,
+        nome: location.state.nome,
+        cpf: location.state.cpf,
+        dataNasc: location.state.dataNasc,
         endereco: location.state.endereco,
         cidade: location.state.cidade,
         uf: location.state.uf,
+        telefone: location.state.telefone,
+        email: location.state.email,
+        senha: location.state.senha,
+        cod_ag: location.state.cod_ag,
       });
     }
   }, [location.state]);
@@ -48,7 +56,7 @@ export default function TelaAlterarCliente(props) {
     const form = e.currentTarget;
     if (form.checkValidity() && cliente.uf !== '') {
       // dados válidos → proceder com o cadastro
-      fetch(urlAgencia, {
+      fetch(urlCliente, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -57,53 +65,146 @@ export default function TelaAlterarCliente(props) {
       })
         .then((resp) => resp.json())
         .then((data) => {
-          let novasAgencias = [...props.listaAgencias, data];
-          props.setAgencia(novasAgencias);
+          let novosClientes = [...props.listaclientes, data];
+          props.setCliente(novosClientes);
           setValidado(false);
           // props.exibirTabela(true);
         })
-        .catch((error) => console.error('Erro ao alterar agência:', error));
+        .catch((error) => console.error('Erro ao alterar cliente:', error));
     } else {
       setValidado(true);
     }
     e.preventDefault();
     e.stopPropagation();
-    alert('Agência alterada com sucesso!');
+    alert('Cliente alterado com sucesso!');
   }
 
   return (
     <>
       <Pagina>
-        <h2>Alterar endereço da agência {cliente.cod_ag}</h2>
+        <h2>Alterar dados do(a) cliente {cliente.nome}</h2>
         <br />
         <Row className='mb-3'>
+          {/********************** CÓDIGO **********************/}
           <Col xs='auto'>
-            {/********************** CIDADE **********************/}
-            <Form.Group controlId='ag_cidade'>
-              <Form.Label>Cidade:</Form.Label>
-              <Form.Control placeholder={cliente.cidade} disabled />
+            <Form.Group controlId='cod_cli' style={{ width: '45px' }}>
+              <Form.Label>Código:</Form.Label>
+              <Form.Control placeholder={cliente.cod_cli} disabled />
             </Form.Group>
           </Col>
-          {/********************** UF **********************/}
+          {/********************** AGÊNCIA **********************/}
+          <Col xs='auto' style={{ width: '80px' }}>
+            <Form.Group controlId='cod_ag' style={{ width: '45px' }}>
+              <Form.Label>Agência:</Form.Label>
+              <Form.Control placeholder={cliente.cod_ag} disabled />
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row className='mb-3'>
+          {/********************** NOME **********************/}
           <Col xs='auto'>
-            <Form.Group style={{ width: '50px' }} controlId='uf'>
-              <Form.Label>UF:</Form.Label>
-              <Form.Control placeholder={cliente.uf} disabled />
+            <Form.Group controlId='nome' style={{ width: '200px' }}>
+              <Form.Label>Nome:</Form.Label>
+              <Form.Control placeholder={cliente.nome} disabled />
+            </Form.Group>
+          </Col>
+          {/********************** CPF **********************/}
+          <Col xs='auto' style={{ width: '160px' }}>
+            <Form.Group controlId='cpf'>
+              <Form.Label>CPF:</Form.Label>
+              <Form.Control placeholder={cliente.cpf} disabled />
+            </Form.Group>
+          </Col>
+          {/********************** DATA DE NASCIMENTO **********************/}
+          <Col xs='auto'>
+            <Form.Group controlId='dataNasc'>
+              <Form.Label>Data de nascimento:</Form.Label>
+              <Form.Control placeholder={cliente.dataNasc} style={{ width: '110px' }} disabled />
             </Form.Group>
           </Col>
         </Row>
         <Form noValidate validated={validado} onSubmit={manipulaSubmissao}>
           <Row className='mb-3'>
-            <Col xs='auto'>
-              {/********************** ENDEREÇO *********************/}
-              <Form.Group className='mb-3' style={{ width: '340px' }} controlId='endereco'>
+            {/********************** ENDEREÇO **********************/}
+            <Col xs='auto' style={{ width: '350px' }}>
+              <Form.Group controlId='endereco'>
                 <Form.Label>Endereço:</Form.Label>
-                <Form.Control required type='text' placeholder={cliente.endereco} id='endereco' value={cliente.endereco} onChange={manipularMudanca} />
-                <Form.Control.Feedback type='invalid'>Informe o novo endereço da agência!</Form.Control.Feedback>
+                <Form.Control required placeholder={cliente.endereco} value={cliente.endereco} onChange={manipularMudanca} />
+              </Form.Group>
+            </Col>
+            {/********************** CIDADE **********************/}
+            <Col xs='auto' style={{ width: '200px' }}>
+              <Form.Group controlId='cidade'>
+                <Form.Label>Cidade:</Form.Label>
+                <Form.Control required placeholder={cliente.cidade} value={cliente.cidade} onChange={manipularMudanca} />
+              </Form.Group>
+            </Col>
+            {/********************** UF **********************/}
+            <Col xs='auto'>
+              <Form.Group controlId='uf'>
+                <Form.Label>UF:</Form.Label>
+                <Form.Select id='uf' required value={cliente.uf} placeholder={cliente.uf} onChange={manipularMudanca}>
+                  <option value=''></option>
+                  <option>AC</option>
+                  <option>AL</option>
+                  <option>AM</option>
+                  <option>AP</option>
+                  <option>BA</option>
+                  <option>CE</option>
+                  <option>DF</option>
+                  <option>ES</option>
+                  <option>GO</option>
+                  <option>MA</option>
+                  <option>MG</option>
+                  <option>MS</option>
+                  <option>MT</option>
+                  <option>PA</option>
+                  <option>PB</option>
+                  <option>PE</option>
+                  <option>PI</option>
+                  <option>PR</option>
+                  <option>RJ</option>
+                  <option>RN</option>
+                  <option>RO</option>
+                  <option>RR</option>
+                  <option>RS</option>
+                  <option>SC</option>
+                  <option>SE</option>
+                  <option>SP</option>
+                  <option>TO</option>
+                </Form.Select>
+                <Form.Control.Feedback style={{ width: '200px' }} type='invalid'>
+                  Informe o estado da agência!
+                </Form.Control.Feedback>
               </Form.Group>
             </Col>
           </Row>
 
+          <Row className='mb-3'>
+            {/********************** TELEFONE **********************/}
+            <Col xs='auto' style={{ width: '170px' }}>
+              <Form.Group controlId='telefone'>
+                <Form.Label>Telefone:</Form.Label>
+                <ReactInputMask mask='(99) 99999-9999' value={cliente.telefone} onChange={manipularMudanca}>
+                  {(inputProps) => <Form.Control {...inputProps} required type='text' id='telefone' />}
+                </ReactInputMask>
+              </Form.Group>
+            </Col>
+            {/********************** EMAIL **********************/}
+            <Col xs='auto' style={{ width: '220px' }}>
+              <Form.Group controlId='email'>
+                <Form.Label>Email:</Form.Label>
+                <Form.Control placeholder={cliente.email} value={cliente.email} onChange={manipularMudanca} />
+              </Form.Group>
+            </Col>
+            {/********************** SENHA **********************/}
+            <Col xs='auto' style={{ width: '150px' }}>
+              <Form.Group controlId='senha'>
+                <Form.Label>Senha:</Form.Label>
+                <Form.Control type='password' value={cliente.senha} placeholder={cliente.senha} onChange={manipularMudanca} />
+              </Form.Group>
+            </Col>
+          </Row>
           {/*********************** PRODUTOS ***********************/}
           {/* <Row className='mb-3'>
             <Form.Group className='mb-3' style={{ width: '340px' }} controlId='endereco'>
@@ -124,7 +225,7 @@ export default function TelaAlterarCliente(props) {
 
             {/* CANCELAR */}
             <Col xs='auto'>
-              <LinkContainer to='/exibiragencias'>
+              <LinkContainer to='/exibirclientes'>
                 <Button variant='secondary'>Voltar</Button>
               </LinkContainer>
             </Col>

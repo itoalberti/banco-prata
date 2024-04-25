@@ -1,5 +1,7 @@
 // import logo from './logo.svg';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+import './App.css';
 import TelaInicial from './telas/TelaInicial';
 import Tela404 from './telas/Tela404.jsx';
 import TelaCadastrarAgencia from './telas/TelaCadastrarAgencia';
@@ -10,7 +12,7 @@ import TelaCadastrarProduto from './telas/TelaCadastrarProduto.jsx';
 import TelaExibirAgencias from './tabelas/TelaExibirAgencias.jsx';
 import TelaExibirClientes from './tabelas/TelaExibirClientes.jsx';
 import TelaExibirProdutos from './tabelas/TelaExibirProdutos.jsx';
-import './App.css';
+import TelaAssociarProdutoAgencia from './telas/TelaAssociarProdutoAgencia.jsx';
 
 function App() {
   return (
@@ -35,6 +37,7 @@ function App() {
           <Route path='/cadastraragencia' element={<TelaCadastrarAgencia />} />
           <Route path='/alteraragencia' element={<TelaAlterarAgencia />} />
           <Route path='/exibiragencias' element={<TelaExibirAgencias />} />
+          <Route path='/associarproduto' element={<TelaAssociarProdutoAgencia />} />
 
           {/* CLIENTES */}
           <Route path='/cadastrarcliente' element={<TelaCadastrarCliente />} />

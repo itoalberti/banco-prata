@@ -1,3 +1,4 @@
+import mockClientes from '../dados/mockClientes';
 import { Button, Container, Table } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useEffect, useState } from 'react';
@@ -6,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 
 import Pagina from '../templates/Pagina';
 const urlCliente = `http://${hostname}:${port}/cliente`;
-// import listaClientes from '../dados/mockClientes';
 
 export default function TelaExibirClientes(props) {
   const [listaClientes, setListaClientes] = useState([]);
@@ -48,7 +48,7 @@ export default function TelaExibirClientes(props) {
           </thead>
           <tbody>
             {/* ? →  método map só será chamado se listaClientes for um atributo válido */}
-            {listaClientes?.map((cliente) => {
+            {mockClientes?.map((cliente) => {
               return (
                 //   necessário identificar cada linha da tabela usando "key"
                 // key → ajuda o React na rendereização dos componentes no DOM virtual
@@ -65,8 +65,8 @@ export default function TelaExibirClientes(props) {
                   <td>{cliente.telefone}</td>
                   <td>
                     <Button
-                      variant='primary'
                       title='Editar'
+                      variant='primary'
                       style={{ padding: '1px 5px', aspectRatio: '1', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                       onClick={() => {
                         // REDIRECIONAR PARA PÁGINA /alterarcliente
@@ -80,6 +80,9 @@ export default function TelaExibirClientes(props) {
                             endereco: cliente.endereco,
                             cidade: cliente.cidade,
                             uf: cliente.uf,
+                            telefone: cliente.telefone,
+                            email: cliente.email,
+                            senha: cliente.senha,
                             cod_ag: cliente.cod_ag,
                           },
                         });
