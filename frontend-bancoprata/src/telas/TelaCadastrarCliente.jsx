@@ -2,6 +2,7 @@ import { Button, Col, Form, Row } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useEffect, useState } from 'react';
 import { hostname, port } from '../dados/dados';
+import { useNavigate } from 'react-router-dom';
 import ReactInputMask from 'react-input-mask';
 
 import Pagina from '../templates/Pagina';
@@ -24,8 +25,7 @@ export default function TelaCadastrarCliente(props) {
     cod_ag: 0,
   });
 
-  const [formatData, setFormatData] = useState(new Date());
-
+  // const [formatData, setFormatData] = useState(new Date());
   // disable: criar if (éEdição) e dar disable no campo cidade/uf
   // varável e método que vai setar o valor pra variável listaAgencias
   const [listaAgencias, setListaAgencias] = useState([]);
@@ -37,6 +37,12 @@ export default function TelaCadastrarCliente(props) {
       })
       .catch((erro) => console.error('Erro ao buscar agências', erro));
   }, []);
+
+  let navigate = useNavigate();
+  const routeChange = () => {
+    let path = `newPath`;
+    navigate(path);
+  };
 
   function manipularMudanca(e) {
     const elemForm = e.currentTarget;
@@ -71,6 +77,7 @@ export default function TelaCadastrarCliente(props) {
     e.preventDefault();
     e.stopPropagation();
     alert(`Cliente cadastrado com sucesso!`);
+    navigate('/');
   }
 
   return (
@@ -207,14 +214,14 @@ export default function TelaCadastrarCliente(props) {
               <Form.Control.Feedback type='invalid'>Informe a agência da nova conta!</Form.Control.Feedback>
             </Form.Group>
 
-            {/* REPETIR A SENHA */}
-            {/* <Col>
-              <Form.Group className='mb-3' controlId='senha' style={{ width: '120px' }}>
-                <Form.Label>Repita a senha:</Form.Label>
+            {/* SENHA */}
+            <Col className='mb-3'>
+              <Form.Group controlId='senha' style={{ width: '160px' }}>
+                <Form.Label>Senha:</Form.Label>
                 <Form.Control required type='password' id='senha' value={cliente.senha} onChange={manipularMudanca} />
                 <Form.Control.Feedback type='invalid'>Informe a senha da nova conta!</Form.Control.Feedback>
               </Form.Group>
-            </Col> */}
+            </Col>
           </Row>
 
           <br />

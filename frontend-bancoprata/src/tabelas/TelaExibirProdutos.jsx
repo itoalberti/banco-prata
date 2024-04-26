@@ -24,7 +24,7 @@ export default function TelaExibirProdutos(props) {
         <Table striped bordered hover variant='dark'>
           <thead>
             <tr>
-              <th style={{ width: '10%' }}>Código</th>
+              <th style={{ width: '10%', textAlign: 'center' }}>Código</th>
               <th style={{ width: '40%' }}>Nome</th>
               <th style={{ width: '10%', textAlign: 'center' }}>Ações</th>
             </tr>
@@ -36,7 +36,7 @@ export default function TelaExibirProdutos(props) {
                 //   necessário identificar cada linha da tabela usando "key"
                 // key → ajuda o React na rendereização dos componentes no DOM virtual
                 <tr key={produto.cod_prod}>
-                  <td>{produto.cod_prod}</td>
+                  <td style={{ textAlign: 'center' }}>{produto.cod_prod}</td>
                   <td>{produto.nome}</td>
                   <td>
                     {/* <div style={{ paddingRight: '10px' }}>

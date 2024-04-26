@@ -69,21 +69,21 @@ export default function TelaExibirClientes(props) {
     <Pagina>
       <Container style={{ width: '100vw' }}>
         <br />
-        <Table striped bordered hover variant='dark' style={{ fontSize: '0.9rem' }}>
+        <Table striped bordered hover variant='dark' style={{ fontSize: '0.8rem' }}>
           <thead>
             <tr>
-              <th>Cód.</th>
-              <th>Ag.</th>
-              <th style={{ width: '15%' }}>Nome</th>
-              <th style={{ width: '11%' }}>CPF</th>
-              <th>Data Nasc.</th>
-              <th style={{ width: '15%' }}>Endereço</th>
-              <th style={{ width: '10%' }}>Cidade</th>
-              <th style={{ width: '2%' }}>UF</th>
-              <th style={{ width: '10%' }}>Email</th>
-              <th style={{ width: '12%' }}>Telefone</th>
+              <th style={{ textAlign: 'center' }}>Cód.</th>
+              <th style={{ textAlign: 'center' }}>Ag.</th>
+              <th>Nome</th>
+              <th>CPF</th>
+              <th style={{ textAlign: 'center' }}>Data Nasc.</th>
+              <th>Endereço</th>
+              <th>Cidade</th>
+              <th style={{ textAlign: 'center' }}>UF</th>
+              <th>Email</th>
+              <th>Telefone</th>
               {/* <th style={{ width: '5%' }}>Senha</th> */}
-              <th style={{ width: '15%', textAlign: 'center' }}>Ações</th>
+              <th style={{ textAlign: 'center' }}>Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -93,20 +93,20 @@ export default function TelaExibirClientes(props) {
                 //   necessário identificar cada linha da tabela usando "key"
                 // key → ajuda o React na rendereização dos componentes no DOM virtual
                 <tr key={cliente.cod_cli}>
-                  <td>{cliente.cod_cli}</td>
-                  <td>{cliente.cod_ag}</td>
+                  <td style={{ textAlign: 'center' }}>{cliente.cod_cli}</td>
+                  <td style={{ textAlign: 'center' }}>{cliente.cod_ag}</td>
                   <td>{cliente.nome}</td>
                   <td>{cliente.cpf}</td>
-                  <td>{cliente.dataNasc}</td>
+                  <td style={{ textAlign: 'center' }}>{cliente.dataNasc}</td>
                   <td>{cliente.endereco}</td>
                   <td>{cliente.cidade}</td>
-                  <td>{cliente.uf}</td>
+                  <td style={{ textAlign: 'center' }}>{cliente.uf}</td>
                   <td>{cliente.email}</td>
                   <td>{cliente.telefone}</td>
                   <td>
                     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                       <Button
-                        style={{ marginRight: '5px' }}
+                        style={{ marginRight: '5px', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '30px', height: '30px', padding: '0' }}
                         title='Editar'
                         variant='primary'
                         onClick={() => {
@@ -128,12 +128,13 @@ export default function TelaExibirClientes(props) {
                           });
                         }}
                       >
-                        <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil' viewBox='0 0 16 16'>
+                        <svg xmlns='http://www.w3.org/2000/svg' width='12.8' height='12.8' fill='currentColor' class='bi bi-pencil' viewBox='0 0 16 16'>
                           <path d='M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325' />
                         </svg>
                       </Button>
                       <Button
-                        style={{ marginLeft: '5px' }}
+                        size='sm'
+                        style={{ marginRight: '5px', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '30px', height: '30px', padding: '0' }}
                         variant='danger'
                         title='Excluir'
                         // EXCLUIR CLIENTE

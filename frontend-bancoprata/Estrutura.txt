@@ -39,11 +39,6 @@ PRODUTO
 	cod_prod → AUTOINCREMENT
 	nome
 
-(18) 98195-4446
-
-
-
-
 
 
 

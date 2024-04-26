@@ -40,10 +40,10 @@ export default function TelaExibirAgencias(props) {
         <Table striped bordered hover variant='dark'>
           <thead>
             <tr>
-              <th style={{ width: '11%' }}>Código da agência</th>
+              <th style={{ width: '11%', textAlign: 'center' }}>Código da agência</th>
               <th style={{ width: '30%' }}>Endereço</th>
               <th style={{ width: '15%' }}>Cidade</th>
-              <th style={{ width: '5%' }}>UF</th>
+              <th style={{ width: '5%', textAlign: 'center' }}>UF</th>
               <th style={{ width: '10%', textAlign: 'center' }}>Ações</th>
             </tr>
           </thead>
@@ -54,10 +54,10 @@ export default function TelaExibirAgencias(props) {
                 //   necessário identificar cada linha da tabela usando "key"
                 // key → ajuda o React na rendereização dos componentes no DOM virtual
                 <tr key={agencia.cod_ag}>
-                  <td>{agencia.cod_ag}</td>
+                  <td style={{ textAlign: 'center' }}>{agencia.cod_ag}</td>
                   <td>{agencia.endereco}</td>
                   <td>{agencia.cidade}</td>
-                  <td>{agencia.uf}</td>
+                  <td style={{ textAlign: 'center' }}>{agencia.uf}</td>
                   <td style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <div style={{ paddingRight: '10px' }}>
                       <Button

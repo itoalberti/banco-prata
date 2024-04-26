@@ -1,9 +1,10 @@
 import { Button, Col, Form, Row } from 'react-bootstrap';
-import Pagina from '../templates/Pagina';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useState } from 'react';
 import { hostname, port } from '../dados/dados';
+import { useNavigate } from 'react-router-dom';
 
+import Pagina from '../templates/Pagina';
 const urlProduto = `http://${hostname}:${port}/produto`;
 
 export default function TelaCadastrarProduto(props) {
@@ -12,6 +13,11 @@ export default function TelaCadastrarProduto(props) {
     cod_prod: '',
     nome: '',
   });
+  let navigate = useNavigate();
+  const routeChange = () => {
+    let path = `newPath`;
+    navigate(path);
+  };
 
   function manipularMudanca(e) {
     const elemForm = e.currentTarget;
@@ -19,23 +25,6 @@ export default function TelaCadastrarProduto(props) {
     const valor = elemForm.value;
     setListaProdutos({ ...listaProdutos, [id]: valor });
   }
-
-  // function manipulaSubmissao(e) {
-  //   const form = e.currentTarget;
-  //   if (form.checkValidity()) {
-
-  //     let produtos = props.listaProdutos;
-  //     produtos.push(produto);
-  //     props.setProduto(produtos);
-  //     setValidado(false);
-  //     // não encontrei exibirTabela em nenhum lugar
-  //     props.exibirTabela(true);
-  //   } else {
-  //     setValidado(true);
-  //   }
-  //   e.preventDefault();
-  //   e.stopPropagation();
-  // }
 
   function manipulaSubmissao(e) {
     const form = e.currentTarget;
@@ -63,6 +52,7 @@ export default function TelaCadastrarProduto(props) {
     e.preventDefault();
     e.stopPropagation();
     alert('Produto cadastrado com sucesso!');
+    navigate('/');
   }
 
   return (

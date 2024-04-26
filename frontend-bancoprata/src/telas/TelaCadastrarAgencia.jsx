@@ -2,6 +2,7 @@ import { Button, Col, Form, Row } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useState } from 'react';
 import { hostname, port } from '../dados/dados';
+import { useNavigate } from 'react-router-dom';
 
 import Pagina from '../templates/Pagina';
 const urlAgencia = `http://${hostname}:${port}/agencia`;
@@ -14,6 +15,12 @@ export default function TelaCadastrarAgencia(props) {
     cidade: '',
     uf: '',
   });
+
+  let navigate = useNavigate();
+  const routeChange = () => {
+    let path = `newPath`;
+    navigate(path);
+  };
 
   function manipularMudanca(e) {
     const elemForm = e.currentTarget;
@@ -38,7 +45,6 @@ export default function TelaCadastrarAgencia(props) {
           let novasAgencias = [...props.listaAgencias, data];
           props.setAgencia(novasAgencias);
           setValidado(false);
-          props.exibirTabela(true);
         })
         .catch((error) => console.error('Erro ao cadastrar agência:', error));
     } else {
@@ -47,6 +53,7 @@ export default function TelaCadastrarAgencia(props) {
     e.preventDefault();
     e.stopPropagation();
     alert('Agência cadastrada com sucesso!');
+    navigate('/');
   }
 
   return (
