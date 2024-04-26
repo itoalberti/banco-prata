@@ -13,7 +13,7 @@ CLIENTE
 	contratar produto
 PRODUTO
 	cadastrar	OK
-	exibir
+	exibir		OK
 	alterar
 	excluir
 
