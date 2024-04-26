@@ -2,7 +2,7 @@ import { Button, Col, Form, Row } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useEffect, useState } from 'react';
 import { hostname, port } from '../dados/dados';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import ReactInputMask from 'react-input-mask';
 
 import Pagina from '../templates/Pagina';
@@ -42,7 +42,12 @@ export default function TelaAlterarCliente(props) {
       });
     }
   }, [location.state]);
-  console.log('props:', props);
+
+  let navigate = useNavigate();
+  const routeChange = () => {
+    let path = `newPath`;
+    navigate(path);
+  };
 
   function manipularMudanca(e) {
     const elemForm = e.currentTarget;
@@ -76,6 +81,7 @@ export default function TelaAlterarCliente(props) {
     e.preventDefault();
     e.stopPropagation();
     alert('Cliente alterado com sucesso!');
+    navigate('/exibirclientes');
   }
 
   return (

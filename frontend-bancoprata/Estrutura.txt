@@ -3,19 +3,18 @@ AGENCIA
 	cadastrar	OK
 	exibir		OK
 	alterar		OK
-	excluir
+	excluir		OK
 	associar produto
 CLIENTE
 	cadastrar	OK	
 	exibir		OK
 	alterar		OK
-	excluir
+	excluir		OK
 	contratar produto
 PRODUTO
 	cadastrar	OK
 	exibir		OK
-	alterar
-	excluir
+	excluir		OK
 
 ==================ESTRUTURAS DAS CLASSES==================
 AGÊNCIA

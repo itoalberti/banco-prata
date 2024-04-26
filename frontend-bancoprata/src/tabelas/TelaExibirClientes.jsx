@@ -1,4 +1,3 @@
-import mockClientes from '../dados/mockClientes';
 import { Button, Container, Table } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useEffect, useState } from 'react';
@@ -7,38 +6,17 @@ import { useNavigate } from 'react-router-dom';
 
 import Pagina from '../templates/Pagina';
 const urlCliente = `http://${hostname}:${port}/cliente`;
+// import mockClientes from '../dados/mockClientes';
 
 export default function TelaExibirClientes(props) {
   const [listaClientes, setListaClientes] = useState([]);
 
-  // function excluirCliente(cod_cli) {
-  //   fetch(`${urlCliente}/${cod_cli}`, {
-  //     method: 'DELETE',
-  //   })
-  //     .then((response) => {
-  //       if (!response.ok) {
-  //         throw new Error('Network response was not ok');
-  //       }
-  //       // Remova o cliente da lista no estado do componente
-  //       const listaAtualizada = listaClientes.filter((cliente) => cliente.cod_cli !== cod_cli);
-  //       setListaClientes(listaAtualizada);
-  //     })
-  //     .catch((error) => console.error('Erro ao excluir cliente:', error));
-  // }
-  // function excluirCliente(cod_cli) {
-  //   fetch(urlCliente, {
-  //     method: 'DELETE',
-  //     body: JSON.stringify({ cod_cli: cod_cli }),
-  //   })
-  //   const listaAtualizada = listaClientes.filter((cliente) => cliente.cod_cli !== cod_cli);
-  //   setListaClientes(listaAtualizada);
-  // }
   function excluirCliente(props) {
     fetch(urlCliente, {
       method: 'DELETE',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
-        cod_cli: props,
+        cod_cli: props.cod_cli,
       }),
     })
       .then((resp) => {
@@ -46,6 +24,7 @@ export default function TelaExibirClientes(props) {
       })
       .then((resp) => {
         console.log(resp);
+        setListaClientes(listaClientes.filter((cliente) => cliente.cod_cli !== props.cod_cli));
         alert(resp.msg);
       });
   }
@@ -56,7 +35,7 @@ export default function TelaExibirClientes(props) {
       .then((data) => {
         setListaClientes(data);
       })
-      .catch((erro) => console.error('Erro ao buscar agências', erro));
+      .catch((erro) => console.error('Erro ao buscar clientes', erro));
   }, []);
 
   let navigate = useNavigate();
@@ -140,7 +119,7 @@ export default function TelaExibirClientes(props) {
                         // EXCLUIR CLIENTE
                         onClick={() => {
                           if (window.confirm('Deseja excluir o cliente ' + cliente.cod_cli + '?')) {
-                            excluirCliente(cliente.cod_cli);
+                            excluirCliente(cliente);
                           }
                         }}
                       >

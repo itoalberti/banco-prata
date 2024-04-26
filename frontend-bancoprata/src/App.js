@@ -12,21 +12,10 @@ import TelaCadastrarProduto from './telas/TelaCadastrarProduto.jsx';
 import TelaExibirAgencias from './tabelas/TelaExibirAgencias.jsx';
 import TelaExibirClientes from './tabelas/TelaExibirClientes.jsx';
 import TelaExibirProdutos from './tabelas/TelaExibirProdutos.jsx';
-import TelaAssociarProdutoAgencia from './telas/TelaAssociarProdutoAgencia.jsx';
+import TelaAssociarProdutoAgencia from './telas/___TelaAssociarProdutoAgencia.jsx';
 
 function App() {
   return (
-    // <div className='App'>
-    //   <header className='App-header'>
-    //     <img src={logo} className='App-logo' alt='logo' />
-    //     <p>
-    //       Edit <code>src/App.js</code> and save to reload.
-    //     </p>
-    //     <a className='App-link' href='https://reactjs.org' target='_blank' rel='noopener noreferrer'>
-    //       Learn React
-    //     </a>
-    //   </header>
-    // </div>
     <>
       <BrowserRouter>
         <Routes>
@@ -37,7 +26,7 @@ function App() {
           <Route path='/cadastraragencia' element={<TelaCadastrarAgencia />} />
           <Route path='/alteraragencia' element={<TelaAlterarAgencia />} />
           <Route path='/exibiragencias' element={<TelaExibirAgencias />} />
-          <Route path='/associarproduto' element={<TelaAssociarProdutoAgencia />} />
+          <Route path='/associarprodutoagencia' element={<TelaAssociarProdutoAgencia />} />
 
           {/* CLIENTES */}
           <Route path='/cadastrarcliente' element={<TelaCadastrarCliente />} />

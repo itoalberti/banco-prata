@@ -11,8 +11,7 @@ export default function Menu() {
             <NavDropdown title='AGÊNCIAS' id='basic-nav-dropdown'>
               <NavDropdown.Item href='/cadastraragencia'>Cadastrar agência</NavDropdown.Item>
               <NavDropdown.Item href='/exibiragencias'>Exibir agências</NavDropdown.Item>
-              {/* <NavDropdown.Item href='/alteraragencia'>Alterar agência</NavDropdown.Item> */}
-              {/* <NavDropdown.Item href='/excluiragencia'>Excluir agência</NavDropdown.Item> */}
+              <NavDropdown.Item href='/associarprodutoagencia'>Associar produto a agência</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title='CLIENTES' id='basic-nav-dropdown'>
               <NavDropdown.Item href='/cadastrarcliente'>Cadastrar cliente</NavDropdown.Item>
