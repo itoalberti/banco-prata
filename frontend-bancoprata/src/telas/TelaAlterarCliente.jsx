@@ -6,7 +6,6 @@ import { useLocation } from 'react-router-dom';
 import ReactInputMask from 'react-input-mask';
 
 import Pagina from '../templates/Pagina';
-
 const urlCliente = `http://${hostname}:${port}/cliente`;
 
 export default function TelaAlterarCliente(props) {

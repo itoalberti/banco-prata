@@ -8,7 +8,7 @@ const urlProduto = `http://${hostname}:${port}/produto`;
 
 export default function TelaCadastrarProduto(props) {
   const [validado, setValidado] = useState(false);
-  const [produto, setProduto] = useState({
+  const [listaProdutos, setListaProdutos] = useState({
     cod_prod: '',
     nome: '',
   });
@@ -17,7 +17,7 @@ export default function TelaCadastrarProduto(props) {
     const elemForm = e.currentTarget;
     const id = elemForm.id;
     const valor = elemForm.value;
-    setProduto({ ...produto, [id]: valor });
+    setListaProdutos({ ...listaProdutos, [id]: valor });
   }
 
   // function manipulaSubmissao(e) {
@@ -46,7 +46,7 @@ export default function TelaCadastrarProduto(props) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(produto),
+        body: JSON.stringify(listaProdutos),
       })
         .then((resp) => resp.json())
         .then((data) => {
@@ -73,23 +73,20 @@ export default function TelaCadastrarProduto(props) {
         <Form noValidate validated={validado} onSubmit={manipulaSubmissao}>
           <Row className='mb-3'>
             {/* NOME */}
-            <Col xs={4}>
-              <Form.Group controlId='nome'>
-                <Form.Label>Nome do produto:</Form.Label>
-                <Form.Control required type='text' id='nome' value={produto.nome} onChange={manipularMudanca} />
-                <Form.Control.Feedback type='invalid'>Informe o nome do produto!</Form.Control.Feedback>
-              </Form.Group>
-            </Col>
+            <Form.Group controlId='nome'>
+              <Form.Label>Nome do produto:</Form.Label>
+              <Form.Control required type='text' id='nome' value={listaProdutos.nome} onChange={manipularMudanca} />
+              <Form.Control.Feedback type='invalid'>Informe o nome do produto!</Form.Control.Feedback>
+            </Form.Group>
           </Row>
           <br />
-          <Row>
+          <Row className='mb-3'>
             {/* BOTÃO DE CADASTRAR */}
             <Col xs='auto'>
               <Button variant='dark' type='submit'>
                 Cadastrar produto
               </Button>
             </Col>
-
             {/* BOTÃO DE CANCELAR */}
             <Col xs='auto'>
               <LinkContainer to='/'>

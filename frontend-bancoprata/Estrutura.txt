@@ -8,11 +8,11 @@ AGENCIA
 CLIENTE
 	cadastrar	OK	
 	exibir		OK
-	alterar
+	alterar		OK
 	excluir
 	contratar produto
 PRODUTO
-	cadastrar	VALIDAR
+	cadastrar	OK
 	exibir
 	alterar
 	excluir
