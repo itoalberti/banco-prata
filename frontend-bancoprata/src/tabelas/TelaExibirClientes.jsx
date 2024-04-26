@@ -139,7 +139,9 @@ export default function TelaExibirClientes(props) {
                         title='Excluir'
                         // EXCLUIR CLIENTE
                         onClick={() => {
-                          if (window.confirm('Deseja excluir o cliente ' + cliente.cod_cli + '?')) excluirCliente(cliente.cod_cli);
+                          if (window.confirm('Deseja excluir o cliente ' + cliente.cod_cli + '?')) {
+                            excluirCliente(cliente.cod_cli);
+                          }
                         }}
                       >
                         <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash3' viewBox='0 0 16 16'>
