@@ -1,214 +1,150 @@
-import { Button, Col, Form, Row } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
-import { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Col, Form, Row } from 'react-bootstrap';
 import { hostname, port } from '../dados/dados';
 
 import Pagina from '../templates/Pagina';
+import { useNavigate } from 'react-router-dom';
 const urlAgencia = `http://${hostname}:${port}/agencia`;
-const urlProduto = `http://${hostname}:${port}/produto`;
 
-export default function TelaAssociarProdutoAgencia(props) {
-  // const [listaAgencias, setListaAgencias] = useState([]);
+const TelaAssociarProdutoAgencia = () => {
   const [validado, setValidado] = useState(false);
-  const [todasCidades, setTodasCidades] = useState([]);
-  const [filtrarCidades, setFiltrarCidades] = useState([]);
-  const [todosEnderecos, setTodosEnderecos] = useState([]);
-  const [filtrarEnderecos, setFiltrarEnderecos] = useState([]);
-  const [uf, setUf] = useState(null);
-  const [cidadeSelecionada, setCidadeSelecionada] = useState(null);
+  const [ufs, setUfs] = useState([]);
+  const [cidades, setCidades] = useState([]);
+  const [enderecos, setEnderecos] = useState([]);
+  const [ufSelecionada, setUfSelecionada] = useState('');
+  const [cidadeSelecionada, setCidadeSelecionada] = useState('');
+  const [enderecoSelecionado, setEnderecoSelecionado] = useState('');
+  const [agencias, setAgencias] = useState([]);
+
+  let navigate = useNavigate();
+  const routeChange = () => {
+    let path = `newPath`;
+    navigate(path);
+  };
 
   useEffect(() => {
     fetch(urlAgencia)
       .then((resp) => resp.json())
       .then((data) => {
-        setTodasCidades(data);
-        // setFiltrarCidades(data);
-        setTodosEnderecos(data);
-        // setFiltrarEnderecos(data);
+        setAgencias(data);
       })
       .catch((erro) => console.error('Erro ao buscar agências', erro));
   }, []);
 
   useEffect(() => {
-    if (uf) {
-      setFiltrarCidades(todasCidades.filter((agencia) => agencia.uf === uf));
-    } else {
-      setFiltrarCidades(todasCidades);
-    }
-  }, [uf, todasCidades]);
+    const ufs = [...new Set(agencias.map((agencia) => agencia.uf))];
+    setUfs(ufs);
+  }, [agencias]);
 
   useEffect(() => {
-    if (cidadeSelecionada) {
-      setFiltrarEnderecos(todosEnderecos.filter((endereco) => endereco.cidade === cidadeSelecionada));
-    } else {
-      setFiltrarEnderecos(todosEnderecos);
-    }
-  }, [cidadeSelecionada, todosEnderecos]);
+    const cidades = [...new Set(agencias.filter((agencia) => agencia.uf === ufSelecionada).map((agencia) => agencia.cidade))];
+    setCidades(cidades);
+  }, [ufSelecionada, agencias]);
 
-  const [agencia_produto, set_agencia_produto] = useState({
-    cod_ag: '',
-    cod_prod: '',
-  });
-  // const [agencia, setAgencia] = useState({
-  //   cod_ag: '',
-  //   endereco: '',
-  //   cidade: '',
-  //   uf: '',
-  // });
-  // const [produto, setProduto] = useState({
-  //   cod_prod: '',
-  //   descricao: '',
-  // });
+  useEffect(() => {
+    const enderecos = [...new Set(agencias.filter((agencia) => agencia.cidade === cidadeSelecionada).map((agencia) => agencia.endereco))];
+    setEnderecos(enderecos);
+  }, [cidadeSelecionada, agencias]);
 
-  function manipularMudanca(e) {
-    const elemForm = e.currentTarget;
-    const id = elemForm.id;
-    const valor = elemForm.value;
-    if (id === 'uf') {
-      setFiltrarCidades(todasCidades.filter((agencia) => agencia.uf === valor));
-    }
-    if (id === 'cidade') {
-      setFiltrarEnderecos(todosEnderecos.filter((endereco) => endereco.cidade === valor));
-    }
-    set_agencia_produto({ ...agencia_produto, [id]: valor });
-  }
+  const manipularMudancaUf = (e) => {
+    setUfSelecionada(e.target.value);
+  };
 
-  function manipulaSubmissao(e) {
-    const form = e.currentTarget;
-    if (form.checkValidity()) {
-      // dados válidos → proceder com o cadastro
-      fetch(urlAgencia, urlProduto, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(agencia_produto),
-      })
-        .then((resp) => resp.json())
-        .then((data) => {
-          let associacoes = [...props.listaAgencias, data];
-          props.setAgencia(associacoes);
-          setValidado(false);
-          props.exibirTabela(true);
-        })
-        .catch((error) => console.error('Erro ao associar produto à agência:', error));
-    } else {
-      setValidado(true);
-    }
-    e.preventDefault();
-    e.stopPropagation();
-    alert(`Produto cadastrado com sucesso na agência!`);
-  }
+  const manipularMudancaCidade = (e) => {
+    setCidadeSelecionada(e.target.value);
+  };
+
+  const manipularMudancaEndereco = (e) => {
+    setEnderecoSelecionado(e.target.value);
+  };
+
+  // function manipulaSubmissao(e) {
+  //   const form = e.currentTarget;
+  //   if (form.checkValidity()) {
+  //     // dados válidos → proceder com o cadastro
+  //     fetch(url_Agencia_Produto, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(agencia),
+  //     })
+  //       .then((resp) => resp.json())
+  //       .then((data) => {
+  //         let novasAgencias = [...props.listaAgencias, data];
+  //         props.setAgencia(novasAgencias);
+  //         setValidado(false);
+  //       })
+  //       .catch((error) => console.error('Erro ao cadastrar agência:', error));
+  //   } else {
+  //     setValidado(true);
+  //   }
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  //   alert('Agência cadastrada com sucesso!');
+  //   navigate('/');
+  // }
 
   return (
     <>
       <Pagina>
         <h2>Associar produto a agência</h2>
-        <br />
-        <Form noValidate validated={validado} onSubmit={manipulaSubmissao}>
+        <Form
+          noValidate
+          validated={validado}
+          // onSubmit={manipulaSubmissao}
+        >
           <Row className='mb-3'>
             {/********************** UF **********************/}
             <Col xs='auto'>
               <Form.Group controlId='uf'>
                 <Form.Label>UF:</Form.Label>
-                <Form.Select id='uf' required value={agencia_produto.uf} onChange={manipularMudanca}>
+                <Form.Select id='uf' required onChange={manipularMudancaUf}>
                   <option value=''></option>
-                  <option>AC</option>
-                  <option>AL</option>
-                  <option>AM</option>
-                  <option>AP</option>
-                  <option>BA</option>
-                  <option>CE</option>
-                  <option>DF</option>
-                  <option>ES</option>
-                  <option>GO</option>
-                  <option>MA</option>
-                  <option>MG</option>
-                  <option>MS</option>
-                  <option>MT</option>
-                  <option>PA</option>
-                  <option>PB</option>
-                  <option>PE</option>
-                  <option>PI</option>
-                  <option>PR</option>
-                  <option>RJ</option>
-                  <option>RN</option>
-                  <option>RO</option>
-                  <option>RR</option>
-                  <option>RS</option>
-                  <option>SC</option>
-                  <option>SE</option>
-                  <option>SP</option>
-                  <option>TO</option>
+                  {ufs.map((uf, index) => (
+                    <option key={index} value={uf}>
+                      {uf}
+                    </option>
+                  ))}
                 </Form.Select>
                 <Form.Control.Feedback style={{ width: '200px' }} type='invalid'>
-                  Informe o estado da agência!
+                  Informe a UF da agência!
                 </Form.Control.Feedback>
               </Form.Group>
             </Col>
             {/********************** CIDADE **********************/}
             <Col xs='auto'>
-              <Form.Group style={{ width: '240px' }} controlId='cidade'>
+              <Form.Group controlId='cidade'>
                 <Form.Label>Cidade:</Form.Label>
-                <Form.Select id='cidade' required onChange={manipularMudanca}>
-                  {filtrarCidades.map((agencia) => (
-                    <option key={agencia.cidade} value={agencia.cidade}>
-                      {agencia.cidade}
+                <Form.Select id='cidade' required onChange={manipularMudancaCidade}>
+                  <option value=''>Selecione uma cidade</option>
+                  {cidades.map((cidade, index) => (
+                    <option key={index} value={cidade}>
+                      {cidade}
                     </option>
                   ))}
                 </Form.Select>
-                <Form.Control.Feedback type='invalid'>Informe a cidade da agência!</Form.Control.Feedback>
               </Form.Group>
             </Col>
-            {/********************** ENDEREÇO **********************/}
+            {/********************** ENDEREÇO *********************/}
             <Col xs='auto'>
               <Form.Group controlId='endereco'>
-                <Form.Label>Endereço da agência:</Form.Label>
-                <Form.Select id='endereco' required onChange={manipularMudanca}>
-                  {filtrarEnderecos.map((agencia) => (
-                    <option key={agencia.cod_ag} value={agencia.cod_ag}>
-                      {agencia.endereco}
+                <Form.Label>Endereço:</Form.Label>
+                <Form.Select id='endereco' required onChange={manipularMudancaEndereco}>
+                  <option value=''>Selecione um endereço</option>
+                  {enderecos.map((endereco, index) => (
+                    <option key={index} value={endereco}>
+                      {endereco}
                     </option>
                   ))}
                 </Form.Select>
-                <Form.Control.Feedback type='invalid'>Informe o código da agência!</Form.Control.Feedback>
               </Form.Group>
-            </Col>
-
-            {/********************** CÓDIGO DA AGÊNCIA *********************/}
-            <Col xs='auto'>
-              <Form.Group controlId='cod_ag'>
-                <Form.Label>Código:</Form.Label>
-                <Form.Select id='cod_ag' required value={agencia_produto.cod_ag} onChange={manipularMudanca}>
-                  {filtrarEnderecos.map((agencia) => (
-                    <option key={agencia.cod_ag} value={agencia.cod_ag}>
-                      {agencia.cod_ag}
-                    </option>
-                  ))}
-                </Form.Select>
-                <Form.Control.Feedback type='invalid'>Informe o código da agência!</Form.Control.Feedback>
-              </Form.Group>
-            </Col>
-          </Row>
-
-          <br />
-          <Row>
-            {/* BOTÃO DE CADASTRAR */}
-            <Col xs='auto'>
-              <Button variant='dark' type='submit'>
-                Cadastrar agência
-              </Button>
-            </Col>
-
-            {/* BOTÃO DE CANCELAR */}
-            <Col xs='auto'>
-              <LinkContainer to='/'>
-                <Button variant='secondary'>Cancelar</Button>
-              </LinkContainer>
             </Col>
           </Row>
         </Form>
       </Pagina>
     </>
   );
-}
+};
+
+export default TelaAssociarProdutoAgencia;
