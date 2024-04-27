@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Col, Form, Row } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
+import { Button, Col, Form, Row } from 'react-bootstrap';
 import { hostname, port } from '../dados/dados';
+import { useNavigate } from 'react-router-dom';
 
 import Pagina from '../templates/Pagina';
-import { useNavigate } from 'react-router-dom';
 const urlAgencia = `http://${hostname}:${port}/agencia`;
+const urlProduto = `http://${hostname}:${port}/produto`;
 
 const TelaAssociarProdutoAgencia = () => {
   const [validado, setValidado] = useState(false);
@@ -17,12 +19,29 @@ const TelaAssociarProdutoAgencia = () => {
   // const [enderecoSelecionado, setEnderecoSelecionado] = useState('');
   const [codSelecionado, setCodSelecionado] = useState('');
   const [agencias, setAgencias] = useState([]);
+  const [agencia_produto, set_agencia_produto] = useState({ cod_ag: '', cod_prod: '' });
+  const [listaProdutos, setListaProdutos] = useState([]);
+  useEffect(() => {
+    fetch(urlProduto)
+      .then((resp) => resp.json())
+      .then((data) => {
+        setListaProdutos(data);
+      })
+      .catch((erro) => console.error('Erro ao buscar produtos', erro));
+  }, []);
 
   let navigate = useNavigate();
   const routeChange = () => {
     let path = `newPath`;
     navigate(path);
   };
+
+  function manipularMudanca(e) {
+    const elemForm = e.currentTarget;
+    const id = elemForm.id;
+    const valor = elemForm.value;
+    set_agencia_produto({ ...agencia_produto, [id]: valor });
+  }
 
   useEffect(() => {
     fetch(urlAgencia)
@@ -94,6 +113,8 @@ const TelaAssociarProdutoAgencia = () => {
     <>
       <Pagina>
         <h2>Associar produto a agência</h2>
+        <br />
+        <h4>Agência</h4>
         <Form
           noValidate
           validated={validado}
@@ -152,6 +173,40 @@ const TelaAssociarProdutoAgencia = () => {
                 {/* <Form.Control value={codSelecionado?.cod_ag} disabled /> */}
                 <Form.Control value={codSelecionado ?? ''} disabled />
               </Form.Group>
+            </Col>
+          </Row>
+
+          <br />
+          <Row className='mb-3'>
+            <h4>Produto</h4>
+            {/* PRODUTO */}
+            <Form.Group style={{ width: '320px' }}>
+              {/* <Form.Label></Form.Label> */}
+              <Form.Select required onChange={manipularMudanca} value={agencia_produto.cod_prod} id='cod_prod'>
+                <option value=''></option>
+                {listaProdutos.map((produto) => (
+                  <option key={produto.cod_prod} value={produto.cod_prod}>
+                    {produto.cod_prod}: {produto.nome}
+                  </option>
+                ))}
+              </Form.Select>
+              <Form.Control.Feedback type='invalid'>Informe a agência da nova conta!</Form.Control.Feedback>
+            </Form.Group>
+          </Row>
+          <br />
+          <Row className='mb-3'>
+            {/* BOTÃO DE CADASTRAR */}
+            <Col xs='auto'>
+              <Button variant='dark' type='submit'>
+                Associar produto à agência
+              </Button>
+            </Col>
+            <br />
+            {/* BOTÃO DE CANCELAR */}
+            <Col xs='auto'>
+              <LinkContainer to='/'>
+                <Button variant='secondary'>Cancelar</Button>
+              </LinkContainer>
             </Col>
           </Row>
         </Form>
