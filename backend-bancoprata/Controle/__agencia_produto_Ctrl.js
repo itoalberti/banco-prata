@@ -1,7 +1,7 @@
 import Agencia from '../Modelo/Agencia.js';
-// import Agencia_Produto from '../Modelo/Agencia_Produto.js';
+// import Associacao from '../Modelo/Associacao.js';
 
-export default class Agencia_Produto_Ctrl {
+export default class Associacao_Ctrl {
   // ------------------------GRAVAR A AGÊNCIA NO BANCO DE DADOS------------------------
   associar(req, resp) {
     resp.type('application/json');
@@ -161,16 +161,16 @@ export default class Agencia_Produto_Ctrl {
   //     if (cod_ag && cod_prod) {
   //       // const agencia = new Agencia(0, endereco, cidade);
   //       // CRIAR MODELO AGENCIAPRODUTO
-  //       const agencia_produto = new Agencia_Produto(cod_ag, cod_prod);
+  //       const associacao = new Associacao(cod_ag, cod_prod);
   //       // console.log('Agência cadastrada (endereço) / cidade:', agencia.endereco, agencia.cidade);
 
-  //       agencia_produto
+  //       associacao
   //         .cadastrarBD()
   //         .then(() => {
   //           resp.status(200).json({
   //             status: true,
-  //             cod_ag: agencia_produto.cod_ag, //nao retirar
-  //             cod_prod: agencia_produto.cod_prod,
+  //             cod_ag: associacao.cod_ag, //nao retirar
+  //             cod_prod: associacao.cod_prod,
   //             msg: 'Agência criada com sucesso!',
   //           });
   //         })

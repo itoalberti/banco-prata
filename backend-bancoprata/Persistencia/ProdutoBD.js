@@ -52,11 +52,11 @@ export default class ProdutoBD {
   // }
 
   // ------------------------------------ASSOCIAR PRODUTO A PRODUTO------------------------------------
-  // async associarProdutoAgencia(agencia_produto) {
-  //   if (agencia_produto instanceof Agencia_Produto) {
+  // async associarProdutoAgencia(associacao) {
+  //   if (associacao instanceof Associacao) {
   //     const conexao = await conectar();
-  //     const sql = 'INSERT INTO Agencia_Produto (cod_ag, cod_prod) VALUES(?,?)';
-  //     const parametros = [agencia_produto.cod_ag, agencia_produto.cod_prod];
+  //     const sql = 'INSERT INTO Associacao (cod_ag, cod_prod) VALUES(?,?)';
+  //     const parametros = [associacao.cod_ag, associacao.cod_prod];
   //     await conexao.query(sql, parametros);
   //   }
   // }

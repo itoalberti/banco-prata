@@ -19,7 +19,7 @@ const TelaAssociarProdutoAgencia = () => {
   // const [enderecoSelecionado, setEnderecoSelecionado] = useState('');
   const [codSelecionado, setCodSelecionado] = useState('');
   const [agencias, setAgencias] = useState([]);
-  const [associacao, set_agencia_produto] = useState({ cod_ag: '', cod_prod: '' });
+  const [associacao, set_associacao] = useState({ cod_ag: '', cod_prod: '' });
   const [listaProdutos, setListaProdutos] = useState([]);
   useEffect(() => {
     fetch(urlProduto)
@@ -40,7 +40,7 @@ const TelaAssociarProdutoAgencia = () => {
     const elemForm = e.currentTarget;
     const id = elemForm.id;
     const valor = elemForm.value;
-    set_agencia_produto({ ...associacao, [id]: valor });
+    set_associacao({ ...associacao, [id]: valor });
   }
 
   useEffect(() => {
@@ -86,7 +86,7 @@ const TelaAssociarProdutoAgencia = () => {
   //   const form = e.currentTarget;
   //   if (form.checkValidity()) {
   //     // dados válidos → proceder com o cadastro
-  //     fetch(url_Agencia_Produto, {
+  //     fetch(url_Associacao, {
   //       method: 'POST',
   //       headers: {
   //         'Content-Type': 'application/json',

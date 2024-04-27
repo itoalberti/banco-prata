@@ -1,4 +1,4 @@
-DROP TABLE Agencia_Produto;
+DROP TABLE Associacao;
 DROP TABLE Cliente_Produto;
 DROP TABLE Agencia;
 DROP TABLE Cliente;
@@ -43,7 +43,7 @@ CREATE TABLE Cliente_Produto(
     FOREIGN KEY (cod_prod) REFERENCES Produto(cod_prod)
 );
 
-CREATE TABLE Agencia_Produto(
+CREATE TABLE Associacao(
     cod_ag INT NOT NULL,
     cod_prod INT NOT NULL,
     FOREIGN KEY (cod_ag) REFERENCES Agencia(cod_ag),
