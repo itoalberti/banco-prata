@@ -19,7 +19,7 @@ const TelaAssociarProdutoAgencia = () => {
   // const [enderecoSelecionado, setEnderecoSelecionado] = useState('');
   const [codSelecionado, setCodSelecionado] = useState('');
   const [agencias, setAgencias] = useState([]);
-  const [agencia_produto, set_agencia_produto] = useState({ cod_ag: '', cod_prod: '' });
+  const [associacao, set_agencia_produto] = useState({ cod_ag: '', cod_prod: '' });
   const [listaProdutos, setListaProdutos] = useState([]);
   useEffect(() => {
     fetch(urlProduto)
@@ -40,7 +40,7 @@ const TelaAssociarProdutoAgencia = () => {
     const elemForm = e.currentTarget;
     const id = elemForm.id;
     const valor = elemForm.value;
-    set_agencia_produto({ ...agencia_produto, [id]: valor });
+    set_agencia_produto({ ...associacao, [id]: valor });
   }
 
   useEffect(() => {
@@ -182,7 +182,7 @@ const TelaAssociarProdutoAgencia = () => {
             {/* PRODUTO */}
             <Form.Group style={{ width: '320px' }}>
               {/* <Form.Label></Form.Label> */}
-              <Form.Select required onChange={manipularMudanca} value={agencia_produto.cod_prod} id='cod_prod'>
+              <Form.Select required onChange={manipularMudanca} value={associacao.cod_prod} id='cod_prod'>
                 <option value=''></option>
                 {listaProdutos.map((produto) => (
                   <option key={produto.cod_prod} value={produto.cod_prod}>
