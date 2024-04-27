@@ -11,9 +11,11 @@ const TelaAssociarProdutoAgencia = () => {
   const [ufs, setUfs] = useState([]);
   const [cidades, setCidades] = useState([]);
   const [enderecos, setEnderecos] = useState([]);
+  const [cods, setCods] = useState([]);
   const [ufSelecionada, setUfSelecionada] = useState('');
   const [cidadeSelecionada, setCidadeSelecionada] = useState('');
-  const [enderecoSelecionado, setEnderecoSelecionado] = useState('');
+  // const [enderecoSelecionado, setEnderecoSelecionado] = useState('');
+  const [codSelecionado, setCodSelecionado] = useState('');
   const [agencias, setAgencias] = useState([]);
 
   let navigate = useNavigate();
@@ -44,6 +46,8 @@ const TelaAssociarProdutoAgencia = () => {
   useEffect(() => {
     const enderecos = [...new Set(agencias.filter((agencia) => agencia.cidade === cidadeSelecionada).map((agencia) => agencia.endereco))];
     setEnderecos(enderecos);
+    const cods = [...new Set(agencias.filter((agencia) => agencia.cod_ag === cidadeSelecionada).map((agencia) => agencia.cod_ag))];
+    setCods(cods);
   }, [cidadeSelecionada, agencias]);
 
   const manipularMudancaUf = (e) => {
@@ -55,9 +59,10 @@ const TelaAssociarProdutoAgencia = () => {
   };
 
   const manipularMudancaEndereco = (e) => {
-    setEnderecoSelecionado(e.target.value);
+    const enderecoSelecionado = e.target.value;
+    const agenciaSelecionada = agencias.find((agencia) => agencia.endereco === enderecoSelecionado);
+    setCodSelecionado(agenciaSelecionada.cod_ag);
   };
-
   // function manipulaSubmissao(e) {
   //   const form = e.currentTarget;
   //   if (form.checkValidity()) {
@@ -117,7 +122,7 @@ const TelaAssociarProdutoAgencia = () => {
               <Form.Group controlId='cidade'>
                 <Form.Label>Cidade:</Form.Label>
                 <Form.Select id='cidade' required onChange={manipularMudancaCidade}>
-                  <option value=''>Selecione uma cidade</option>
+                  <option></option>
                   {cidades.map((cidade, index) => (
                     <option key={index} value={cidade}>
                       {cidade}
@@ -131,13 +136,21 @@ const TelaAssociarProdutoAgencia = () => {
               <Form.Group controlId='endereco'>
                 <Form.Label>Endereço:</Form.Label>
                 <Form.Select id='endereco' required onChange={manipularMudancaEndereco}>
-                  <option value=''>Selecione um endereço</option>
+                  <option></option>
                   {enderecos.map((endereco, index) => (
                     <option key={index} value={endereco}>
                       {endereco}
                     </option>
                   ))}
                 </Form.Select>
+              </Form.Group>
+            </Col>
+            {/********************** CÓDIGO DA AGÊNCIA *********************/}
+            <Col xs='auto'>
+              <Form.Group controlId='cod_ag'>
+                <Form.Label>Código:</Form.Label>
+                {/* <Form.Control value={codSelecionado?.cod_ag} disabled /> */}
+                <Form.Control value={codSelecionado ?? ''} disabled />
               </Form.Group>
             </Col>
           </Row>
