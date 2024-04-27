@@ -14,18 +14,36 @@ export default function TelaAssociarProdutoAgencia(props) {
   const [filtrarCidades, setFiltrarCidades] = useState([]);
   const [todosEnderecos, setTodosEnderecos] = useState([]);
   const [filtrarEnderecos, setFiltrarEnderecos] = useState([]);
+  const [uf, setUf] = useState(null);
+  const [cidadeSelecionada, setCidadeSelecionada] = useState(null);
 
   useEffect(() => {
     fetch(urlAgencia)
       .then((resp) => resp.json())
       .then((data) => {
         setTodasCidades(data);
-        setFiltrarCidades(data);
+        // setFiltrarCidades(data);
         setTodosEnderecos(data);
-        setFiltrarEnderecos(data);
+        // setFiltrarEnderecos(data);
       })
       .catch((erro) => console.error('Erro ao buscar agências', erro));
   }, []);
+
+  useEffect(() => {
+    if (uf) {
+      setFiltrarCidades(todasCidades.filter((agencia) => agencia.uf === uf));
+    } else {
+      setFiltrarCidades(todasCidades);
+    }
+  }, [uf, todasCidades]);
+
+  useEffect(() => {
+    if (cidadeSelecionada) {
+      setFiltrarEnderecos(todosEnderecos.filter((endereco) => endereco.cidade === cidadeSelecionada));
+    } else {
+      setFiltrarEnderecos(todosEnderecos);
+    }
+  }, [cidadeSelecionada, todosEnderecos]);
 
   const [agencia_produto, set_agencia_produto] = useState({
     cod_ag: '',

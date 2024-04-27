@@ -29,9 +29,11 @@ export default class AgenciaBD {
   async excluir(agencia) {
     if (agencia instanceof Agencia) {
       const conexao = await conectar();
-      const sql = 'DELETE FROM Agencia WHERE cod_ag=?';
-      const parametros = [agencia.cod_ag];
-      await conexao.query(sql, parametros);
+      const sqlCliente = 'DELETE FROM Cliente WHERE cod_ag=?';
+      const sqlAgencia = 'DELETE FROM Agencia WHERE cod_ag =?';
+      const parametros = [agencia.cod_ag, agencia.cod_ag];
+      await conexao.query(sqlCliente, parametros);
+      await conexao.query(sqlAgencia, parametros);
       pool.releaseConnection(conexao);
     }
   }
