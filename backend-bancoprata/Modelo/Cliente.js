@@ -11,9 +11,9 @@ export default class Cliente {
   #endereco;
   #cidade;
   #uf;
-  #cod_ag;
+  #agencia;
 
-  constructor(cod_cli, nome, cpf, dataNasc, email, telefone, endereco, cidade, uf, cod_ag) {
+  constructor(cod_cli, nome, cpf, dataNasc, email, telefone, endereco, cidade, uf, agencia = {}) {
     this.#cod_cli = cod_cli;
     this.#nome = nome;
     this.#cpf = cpf;
@@ -23,7 +23,7 @@ export default class Cliente {
     this.#endereco = endereco;
     this.#cidade = cidade;
     this.#uf = uf;
-    this.#cod_ag = cod_ag;
+    this.#agencia = agencia; //Objeto do tipo Agência
   }
 
   // MÉTODOS PÚBLICOS
@@ -101,11 +101,11 @@ export default class Cliente {
   }
 
   // ---------AGÊNCIA DO CLIENTE---------
-  get cod_ag() {
-    return this.#cod_ag;
+  get agencia() {
+    return this.#agencia;
   }
-  set cod_ag(novoCod_Ag) {
-    this.#cod_ag = novoCod_Ag;
+  set agencia(novaAgencia) {
+    this.#agencia = novaAgencia;
   }
 
   toJSON() {
@@ -119,7 +119,7 @@ export default class Cliente {
       endereco: this.#endereco,
       cidade: this.#cidade,
       uf: this.#uf,
-      cod_ag: this.#cod_ag,
+      agencia: this.#agencia,
     };
   }
 
@@ -155,12 +155,13 @@ export default class Cliente {
       return listaClientes;
     } else {
       const conexao = await conectar();
-      const sql = 'SELECT * FROM Cliente WHERE cod_cli=?';
+      const sql = `SELECT * FROM Cliente
+      INNER JOIN Agencia ON Cliente.cod_ag = Agencia.cod_ag;`;
       const parametros = [cod_cli];
       const [rows] = await conexao.query(sql, parametros);
       const listaClientes = [];
       for (const row of rows) {
-        const cliente = new Cliente(row['cod_cli'], row['nome'], row['cpf'], row['dataNasc'], row['email'], row['telefone'], row['endereco'], row['cidade'], row['uf'], row['cod_ag']);
+        const cliente = new Cliente(row['cod_cli'], row['nome'], row['cpf'], row['dataNasc'], row['email'], row['telefone'], row['endereco'], row['cidade'], row['uf'], row['cod_ag'], row['endereco'], row['cidade'], row['uf']);
         listaClientes.push(cliente);
       }
       return listaClientes[0];

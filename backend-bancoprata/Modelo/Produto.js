@@ -4,10 +4,12 @@ import conectar from '../Persistencia/Conexao.js';
 export default class Produto {
   #cod_prod;
   #nome;
+  #agencia;
 
-  constructor(cod_prod, nome) {
+  constructor(cod_prod, nome, agencia = {}) {
     this.#cod_prod = cod_prod;
     this.#nome = nome;
+    this.#agencia = agencia;
   }
 
   // MÉTODOS PÚBLICOS
@@ -26,6 +28,14 @@ export default class Produto {
   }
   set nome(novoNome) {
     this.#nome = novoNome;
+  }
+
+  // AGÊNCIA DO PRODUTO
+  get agencia() {
+    return this.#agencia;
+  }
+  set agencia(novaAgencia) {
+    this.#agencia = novaAgencia;
   }
 
   toJSON() {

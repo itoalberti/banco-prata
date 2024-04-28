@@ -14,23 +14,24 @@ export default class ClienteCtrl {
       const endereco = dados.endereco;
       const cidade = dados.cidade;
       const uf = dados.uf;
-      const cod_ag = dados.cod_ag;
+      // const cod_ag = dados.cod_ag;
+      const agencia = dados.agencia;
 
-      if (nome && cpf && dataNasc && email && telefone && endereco && cidade && uf && cod_ag) {
-        const cliente = new Cliente(0, nome, cpf, dataNasc, email, telefone, endereco, cidade, uf, cod_ag);
+      if (nome && cpf && dataNasc && email && telefone && endereco && cidade && uf && agencia) {
+        const cliente = new Cliente(0, nome, cpf, dataNasc, email, telefone, endereco, cidade, uf, agencia);
         cliente
           .cadastrarBD()
           .then(() => {
             resp.status(200).json({
               status: true,
               cod_cli: cliente.cod_cli,
-              msg: 'Cliente criado com sucesso!',
+              msg: `Cliente criado com sucesso! Código: ${cliente.cod_cli}`,
             });
           })
           .catch((erro) => {
             resp.status(500).json({
               status: false,
-              msg: erro.message,
+              msg: `Erro ao cadastrar cliente: ${erro.message}`,
             });
           });
       } else {
@@ -62,22 +63,23 @@ export default class ClienteCtrl {
       const endereco = dados.endereco;
       const cidade = dados.cidade;
       const uf = dados.uf;
-      const cod_ag = dados.cod_ag;
+      // const cod_ag = dados.cod_ag;
+      const agencia = dados.agencia;
 
-      if (cod_cli && nome && cpf && dataNasc && email && telefone && cidade && uf && cod_ag) {
-        const cliente = new Cliente(cod_cli, nome, cpf, dataNasc, email, telefone, endereco, cidade, uf, cod_ag);
+      if (cod_cli && nome && cpf && dataNasc && email && telefone && cidade && uf && agencia) {
+        const cliente = new Cliente(cod_cli, nome, cpf, dataNasc, email, telefone, endereco, cidade, uf, agencia);
         cliente
           .alterarBD()
           .then(() => {
             resp.status(200).json({
               status: true,
-              msg: `Endereço do cliente ${cod_cli} alterado com sucesso!`,
+              msg: `Dados do(a) cliente ${cliente.cod_cli} alterados com sucesso!`,
             });
           })
           .catch((erro) => {
             resp.status(500).json({
               status: false,
-              msg: erro.message,
+              msg: `Erro ao alterar cliente: ${erro.message}`,
             });
           });
       } else {
@@ -114,7 +116,7 @@ export default class ClienteCtrl {
           .catch((erro) => {
             resp.status(500).json({
               status: false,
-              msg: erro.message,
+              msg: `Erro ao excluir cliente: ${erro.message}`,
             });
           });
       } else {
@@ -167,17 +169,17 @@ export default class ClienteCtrl {
 
   //     if (cod_cli && cod_prod) {
   //       // const cliente = new Cliente(0, nome, cpf, dataNasc, email, telefone, endereco, cidade, uf, cod_ag);
-  //       // CRIAR MODELO CLIENTE_PRODUTO
-  //       const cliente_produto = new Cliente_Produto(cod_ag, cod_prod);
+  //       // CRIAR MODELO CONTRATACAO
+  //       const contratacao = new Contratacao(cod_ag, cod_prod);
   //       // console.log('Cliente cadastrado (endereço) / (cidade):', cliente.endereco, cliente.cidade);
 
-  //       cliente_produto
+  //       contratacao
   //         .cadastrarBD()
   //         .then(() => {
   //           resp.status(200).json({
   //             status: true,
-  //             cod_ag: cliente_produto.cod_ag, //nao retirar
-  //             cod_prod: cliente_produto.cod_prod,
+  //             cod_ag: contratacao.cod_ag, //nao retirar
+  //             cod_prod: contratacao.cod_prod,
   //             msg: 'Cliente criado com sucesso!',
   //           });
   //         })

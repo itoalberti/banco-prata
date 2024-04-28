@@ -1,10 +1,9 @@
-DROP TABLE Associacao;
-DROP TABLE Cliente_Produto;
-DROP TABLE Agencia;
-DROP TABLE Cliente;
 DROP TABLE Produto;
+DROP TABLE Cliente;
+DROP TABLE Agencia;
+DROP TABLE Associacao;
+DROP TABLE Contratacao;
 COMMIT;
-
 
 CREATE TABLE Agencia(
     cod_ag INT NOT NULL AUTO_INCREMENT,
@@ -12,12 +11,6 @@ CREATE TABLE Agencia(
     cidade VARCHAR(40) NOT NULL,
     uf VARCHAR(2) NOT NULL,
     CONSTRAINT cod_ag PRIMARY KEY(cod_ag)
-);
-
-CREATE TABLE Produto(
-	cod_prod INT NOT NULL AUTO_INCREMENT,
-    nome VARCHAR(60),
-    CONSTRAINT cod_prod PRIMARY KEY(cod_prod)
 );
 
 CREATE TABLE Cliente(
@@ -32,11 +25,20 @@ CREATE TABLE Cliente(
 	telefone VARCHAR(15) NOT NULL,
     senha VARCHAR(12) NOT NULL,
     cod_ag INT NOT NULL,
-    FOREIGN KEY (cod_ag) REFERENCES Agencia(cod_ag),
-    CONSTRAINT cod_cli PRIMARY KEY(cod_cli)
+    CONSTRAINT pk_cliente PRIMARY KEY(cod_cli),
+    CONSTRAINT fk_agencia FOREIGN KEY(cod_ag) REFERENCES Agencia(cod_ag)
 );
 
-CREATE TABLE Cliente_Produto(
+CREATE TABLE Produto(
+	cod_prod INT NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(60),
+    cod_ag INT NOT NULL,    
+    CONSTRAINT pk_produto PRIMARY KEY(cod_prod)
+    CONSTRAINT fk_agencia FOREIGN KEY(cod_ag) REFERENCES Agencia(cod_ag)
+);
+
+
+CREATE TABLE Contratacao(
 	cod_cli INT NOT NULL,
     cod_prod INT NOT NULL,
     FOREIGN KEY (cod_cli) REFERENCES Cliente(cod_cli),
@@ -53,5 +55,5 @@ CREATE TABLE Associacao(
 -- -----------------------------------
 SELECT *
 FROM Cliente
-INNER JOIN Cliente_Produto
-ON Cliente.cod_cli=Cliente_Produto.cod_cli;
+INNER JOIN Contratacao
+ON Cliente.cod_cli=Contratacao.cod_cli;

@@ -33,7 +33,7 @@ CLIENTE
     	telefone
     	email
     	senha
-    	cod_ag
+    	agencia {}
 PRODUTO
 	cod_prod → AUTOINCREMENT
 	nome

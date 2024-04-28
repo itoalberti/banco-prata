@@ -6,8 +6,8 @@ export default class ProdutoBD {
   async cadastrar(produto) {
     if (produto instanceof Produto) {
       const conexao = await conectar();
-      const sql = 'INSERT INTO Produto (nome) VALUE(?)';
-      const parametros = [produto.nome];
+      const sql = 'INSERT INTO Produto (nome, cod_ag), VALUE(?,?)';
+      const parametros = [produto.nome, produto.agencia.cod_ag];
       const resultado = await conexao.query(sql, parametros);
       return await resultado[0].insertId;
     }
@@ -28,7 +28,11 @@ export default class ProdutoBD {
   // ------------------------------------CONSULTAR PRODUTOS NO BANCO DE DADOS------------------------------------
   async listar() {
     const conexao = await conectar();
-    const sql = 'SELECT * FROM Produto';
+    // const sql = 'SELECT * FROM Produto';
+    // Caso queira mostrar na tabela todas as agências onde o produto está associado:
+    const sql = `SELECT * FROM Produto,
+    INNER JOIN Agencia ON Produto.cod_ag = Agencia.cod_ag`;
+
     const parametros = ['%'];
     const [rows] = await conexao.query(sql, parametros);
     const listaProdutos = [];

@@ -19,7 +19,7 @@ export default class AgenciaCtrl {
             resp.status(200).json({
               status: true,
               cod_ag: agencia.cod_ag,
-              msg: 'Agência criada com sucesso!',
+              msg: `Agência criada com sucesso! Código: ${agencia.cod_ag}`,
             });
           })
           .catch((erro) => {
@@ -63,7 +63,7 @@ export default class AgenciaCtrl {
           .then(() => {
             resp.status(200).json({
               status: true,
-              msg: `Endereço da agência ${cod_ag} alterado com sucesso!`,
+              msg: `Endereço da agência ${agencia.cod_ag} alterado com sucesso!`,
             });
           })
           .catch((erro) => {
