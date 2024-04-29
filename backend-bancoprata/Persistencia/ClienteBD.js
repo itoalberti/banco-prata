@@ -12,8 +12,9 @@ export default class ClienteBD {
       // Para os parâmetros, o correto é inserir Cliente.agencia.cod_ag
       const parametros = [cliente.nome, cliente.cpf, cliente.dataNasc, cliente.email, cliente.telefone, cliente.endereco, cliente.cidade, cliente.uf, cliente.agencia.cod_ag];
       const resultado = await conexao.query(sql, parametros);
+      cliente.cod_cli = resultado[0].insertId;
       conexao.release();
-      return await resultado[0].insertId;
+      // return await resultado[0].insertId;
     }
     // pool.releaseConnection(conexao);
   }
@@ -55,7 +56,7 @@ export default class ClienteBD {
     const listaClientes = [];
     for (const row of rows) {
       const agencia = new Agencia(row.cod_ag, row.endereco, row.cidade, row.uf);
-      const cliente = new Cliente(row.cod_cli, row.nome, row.cpf, row.dataNasc, row.email, row.telefone, row.endereco, row.cidade, row.uf, row.cod_ag);
+      const cliente = new Cliente(row.cod_cli, row.nome, row.cpf, row.dataNasc, row.email, row.telefone, row.endereco, row.cidade, row.uf, row.agencia.cod_ag);
       listaClientes.push(cliente);
     }
     // pool.releaseConnection(conexao);

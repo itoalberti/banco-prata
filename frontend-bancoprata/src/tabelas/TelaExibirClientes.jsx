@@ -73,7 +73,7 @@ export default function TelaExibirClientes(props) {
                 // key → ajuda o React na rendereização dos componentes no DOM virtual
                 <tr key={cliente.cod_cli}>
                   <td style={{ textAlign: 'center' }}>{cliente.cod_cli}</td>
-                  <td style={{ textAlign: 'center' }}>{cliente.cod_ag}</td>
+                  <td style={{ textAlign: 'center' }}>{cliente.agencia.cod_ag}</td>
                   <td>{cliente.nome}</td>
                   <td>{cliente.cpf}</td>
                   <td style={{ textAlign: 'center' }}>{cliente.dataNasc}</td>
@@ -101,8 +101,8 @@ export default function TelaExibirClientes(props) {
                               uf: cliente.uf,
                               telefone: cliente.telefone,
                               email: cliente.email,
-                              senha: cliente.senha,
-                              cod_ag: cliente.cod_ag,
+                              // senha: cliente.senha,
+                              cod_ag: cliente.agencia.cod_ag,
                             },
                           });
                         }}

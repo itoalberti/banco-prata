@@ -39,10 +39,10 @@ export default function TelaExibirAgencias(props) {
   }, []);
 
   let navigate = useNavigate();
-  const routeChange = () => {
-    let path = `newPath`;
-    navigate(path);
-  };
+  // const routeChange = () => {
+  //   let path = `newPath`;
+  //   navigate(path);
+  // };
 
   return (
     <Pagina>

@@ -6,12 +6,12 @@ export default class ProdutoBD {
   async cadastrar(produto) {
     if (produto instanceof Produto) {
       const conexao = await conectar();
-      const sql = 'INSERT INTO Produto (nome), VALUE(?)';
+      const sql = 'INSERT INTO Produto (nome) VALUE(?)';
       const parametros = [produto.nome];
       const resultado = await conexao.query(sql, parametros);
-      conexao.release();
       return await resultado[0].insertId;
     }
+    conexao.release();
     // pool.releaseConnection(conexao);
   }
 
@@ -32,8 +32,8 @@ export default class ProdutoBD {
     const conexao = await conectar();
     // const sql = 'SELECT * FROM Produto';
     // Caso queira mostrar na tabela todas as agências onde o produto está associado:
-    const sql = `SELECT * FROM Produto,
-    INNER JOIN Agencia ON Produto.cod_ag = Agencia.cod_ag`;
+    const sql = `SELECT * FROM Produto`;
+    // INNER JOIN Agencia ON Produto.cod_ag = Agencia.cod_ag`;
 
     const parametros = ['%'];
     const [rows] = await conexao.query(sql, parametros);
@@ -58,7 +58,7 @@ export default class ProdutoBD {
   //   }
   // }
 
-  // ------------------------------------ASSOCIAR PRODUTO A PRODUTO------------------------------------
+  // ------------------------------------ASSOCIAR PRODUTO A AGÊNCIA------------------------------------
   // async associarProdutoAgencia(associacao) {
   //   if (associacao instanceof Associacao) {
   //     const conexao = await conectar();

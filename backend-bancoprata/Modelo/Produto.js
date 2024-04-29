@@ -1,10 +1,10 @@
-import ProdutoBD from '../Persistencia/ProdutoBD.js';
 import conectar from '../Persistencia/Conexao.js';
+import ProdutoBD from '../Persistencia/ProdutoBD.js';
 
 export default class Produto {
   #cod_prod;
   #nome;
-  #agencia;
+  // #agencia;
 
   constructor(cod_prod, nome) {
     this.#cod_prod = cod_prod;
@@ -48,14 +48,14 @@ export default class Produto {
   // ------------------------------------CADASTRAR PRODUTO------------------------------------
   async cadastrarBD() {
     const produtoBD = new ProdutoBD();
-    this.cod_prod = await produtoBD.cadastrar(this);
+    this.#cod_prod = await produtoBD.cadastrar(this);
   }
 
   // ------------------------------------ALTERAR PRODUTO ------------------------------------
-  async alterarBD() {
-    const produtoBD = new ProdutoBD();
-    await produtoBD.alterar(this);
-  }
+  // async alterarBD() {
+  //   const produtoBD = new ProdutoBD();
+  //   await produtoBD.alterar(this);
+  // }
   // ------------------------------------EXCLUIR PRODUTO------------------------------------
   async excluirBD() {
     const produtoBD = new ProdutoBD();

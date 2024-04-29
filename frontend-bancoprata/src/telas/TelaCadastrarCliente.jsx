@@ -11,8 +11,9 @@ const urlAgencia = `http://${hostname}:${port}/agencia`;
 
 export default function TelaCadastrarCliente(props) {
   const [validado, setValidado] = useState(false);
+  const [agencia, setAgencia] = useState({});
   const [cliente, setCliente] = useState({
-    cod_cli: '',
+    cod_cli: 0,
     nome: '',
     cpf: '',
     dataNasc: '',
@@ -21,8 +22,8 @@ export default function TelaCadastrarCliente(props) {
     uf: '',
     telefone: '',
     email: '',
-    senha: '',
-    cod_ag: 0,
+    // senha: '',
+    agencia: {},
   });
 
   // const [formatData, setFormatData] = useState(new Date());
@@ -215,13 +216,13 @@ export default function TelaCadastrarCliente(props) {
             </Form.Group>
 
             {/* SENHA */}
-            <Col className='mb-3'>
+            {/* <Col className='mb-3'>
               <Form.Group controlId='senha' style={{ width: '160px' }}>
                 <Form.Label>Senha:</Form.Label>
                 <Form.Control required type='password' id='senha' value={cliente.senha} onChange={manipularMudanca} />
                 <Form.Control.Feedback type='invalid'>Informe a senha da nova conta!</Form.Control.Feedback>
               </Form.Group>
-            </Col>
+            </Col> */}
           </Row>
 
           <br />

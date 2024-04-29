@@ -9,7 +9,7 @@ const urlProduto = `http://${hostname}:${port}/produto`;
 
 export default function TelaCadastrarProduto(props) {
   const [validado, setValidado] = useState(false);
-  const [listaProdutos, setListaProdutos] = useState({
+  const [produto, setProduto] = useState({
     cod_prod: '',
     nome: '',
   });
@@ -23,7 +23,7 @@ export default function TelaCadastrarProduto(props) {
     const elemForm = e.currentTarget;
     const id = elemForm.id;
     const valor = elemForm.value;
-    setListaProdutos({ ...listaProdutos, [id]: valor });
+    setProduto({ ...produto, [id]: valor });
   }
 
   function manipulaSubmissao(e) {
@@ -35,7 +35,7 @@ export default function TelaCadastrarProduto(props) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(listaProdutos),
+        body: JSON.stringify(produto),
       })
         .then((resp) => resp.json())
         .then((data) => {
@@ -43,7 +43,7 @@ export default function TelaCadastrarProduto(props) {
           let novosProdutos = [...props.listaProdutos, data];
           props.setProduto(novosProdutos);
           setValidado(false);
-          props.exibirTabela(true);
+          // props.exibirTabela(true);
         })
         .catch((error) => console.error('Erro ao cadastrar produto:', error));
     } else {
@@ -51,7 +51,7 @@ export default function TelaCadastrarProduto(props) {
     }
     e.preventDefault();
     e.stopPropagation();
-    alert('Produto cadastrado com sucesso!');
+    alert(`Produto "${produto.nome}" cadastrado com sucesso! ${produto.cod_prod}`);
     navigate('/');
   }
 
@@ -65,7 +65,7 @@ export default function TelaCadastrarProduto(props) {
             {/* NOME */}
             <Form.Group controlId='nome'>
               <Form.Label>Nome do produto:</Form.Label>
-              <Form.Control required type='text' id='nome' value={listaProdutos.nome} onChange={manipularMudanca} />
+              <Form.Control required type='text' id='nome' value={produto.nome} onChange={manipularMudanca} />
               <Form.Control.Feedback type='invalid'>Informe o nome do produto!</Form.Control.Feedback>
             </Form.Group>
           </Row>

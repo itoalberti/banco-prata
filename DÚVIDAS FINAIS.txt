@@ -14,17 +14,17 @@ DÚVIDAS FRONTEND:
 - como coletar o valor da UF do dropdown para o backend?
 
 AGENCIA
-	exibir		OK
-	cadastrar	OK
-	alterar		OK
-	excluir		OK
+	exibir		FRONT E BACK - OK
+	cadastrar	FRONT E BACK - OK
+	alterar		FRONT E BACK - OK
+	excluir		FRONT E BACK - OK
 CLIENTE
-	exibir		OK
-	cadastrar	OK
-	alterar		OK
-	excluir		OK
+	exibir		NOK
+	cadastrar	NOK
+	alterar		NOK
+	excluir		BACK E FRONT OK
 
 PRODUTO
-	exibir		OK
-	cadastrar	OK
-	excluir		OK
+	exibir		FRONT E BACK - OK
+	cadastrar	FRONT E BACK - OK
+	excluir		FRONT E BACK - OK

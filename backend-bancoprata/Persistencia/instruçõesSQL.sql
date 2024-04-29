@@ -10,7 +10,7 @@ CREATE TABLE Agencia(
     endereco VARCHAR(60) NOT NULL,
     cidade VARCHAR(40) NOT NULL,
     uf VARCHAR(2) NOT NULL,
-    CONSTRAINT cod_ag PRIMARY KEY(cod_ag)
+    CONSTRAINT pk_agencia PRIMARY KEY(cod_ag)
 );
 
 CREATE TABLE Cliente(
@@ -23,7 +23,7 @@ CREATE TABLE Cliente(
 	uf VARCHAR(2) NOT NULL,
 	email VARCHAR(50) NOT NULL,
 	telefone VARCHAR(15) NOT NULL,
-    senha VARCHAR(12) NOT NULL,
+    -- senha VARCHAR(12) NOT NULL,
     cod_ag INT NOT NULL,
     CONSTRAINT pk_cliente PRIMARY KEY(cod_cli),
     CONSTRAINT fk_agencia FOREIGN KEY(cod_ag) REFERENCES Agencia(cod_ag)
@@ -36,7 +36,6 @@ CREATE TABLE Produto(
     CONSTRAINT pk_produto PRIMARY KEY(cod_prod)
     -- CONSTRAINT fk_agencia FOREIGN KEY(cod_ag) REFERENCES Agencia(cod_ag)
 );
-
 
 CREATE TABLE Contratacao(
 	cod_cli INT NOT NULL,

@@ -17,7 +17,7 @@ export default class ClienteCtrl {
       // const cod_ag = dados.cod_ag;
       const agencia = dados.agencia;
 
-      if (nome && cpf && dataNasc && email && telefone && endereco && cidade && uf && agencia) {
+      if (nome && cpf && dataNasc && email && telefone && endereco && cidade && uf && agencia.cod_ag) {
         const cliente = new Cliente(0, nome, cpf, dataNasc, email, telefone, endereco, cidade, uf, agencia);
         cliente
           .cadastrarBD()
@@ -25,7 +25,7 @@ export default class ClienteCtrl {
             resp.status(200).json({
               status: true,
               cod_cli: cliente.cod_cli,
-              msg: `Cliente criado com sucesso! Código: ${cliente.cod_cli}`,
+              msg: `Cliente criado com sucesso! Nome: ${cliente.nome}`,
             });
           })
           .catch((erro) => {

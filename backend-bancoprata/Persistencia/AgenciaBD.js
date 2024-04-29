@@ -11,7 +11,8 @@ export default class AgenciaBD {
       const resultado = await conexao.query(sql, parametros);
       return await resultado[0].insertId;
     }
-    pool.releaseConnection(conexao);
+    // pool.releaseConnection(conexao);
+    conexao.release();
   }
 
   // ------------------------------------ALTERAR AGÊNCIA NO BANCO DE DADOS------------------------------------
@@ -21,7 +22,8 @@ export default class AgenciaBD {
       const sql = 'UPDATE Agencia SET endereco=? WHERE cod_ag=?';
       const parametros = [agencia.endereco, agencia.cod_ag];
       await conexao.query(sql, parametros);
-      pool.releaseConnection();
+      // pool.releaseConnection();
+      conexao.release();
     }
   }
 
@@ -34,7 +36,8 @@ export default class AgenciaBD {
       const parametros = [agencia.cod_ag, agencia.cod_ag];
       await conexao.query(sqlCliente, parametros);
       await conexao.query(sqlAgencia, parametros);
-      pool.releaseConnection(conexao);
+      // pool.releaseConnection(conexao);
+      conexao.release();
     }
   }
 
@@ -49,7 +52,8 @@ export default class AgenciaBD {
       const agencia = new Agencia(row['cod_ag'], row['endereco'], row['cidade'], row['uf']);
       listaAgencias.push(agencia);
     }
-    pool.releaseConnection(conexao);
+    // pool.releaseConnection(conexao);
+    conexao.release();
     return listaAgencias;
   }
 

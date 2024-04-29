@@ -19,7 +19,7 @@ export default function TelaAlterarCliente(props) {
     uf: props.uf,
     telefone: props.telefone,
     email: props.email,
-    senha: props.senha,
+    // senha: props.senha,
     cod_ag: props.cod_ag,
   });
   const location = useLocation();
@@ -37,7 +37,7 @@ export default function TelaAlterarCliente(props) {
         uf: location.state.uf,
         telefone: location.state.telefone,
         email: location.state.email,
-        senha: location.state.senha,
+        // senha: location.state.senha,
         cod_ag: location.state.cod_ag,
       });
     }
@@ -203,12 +203,12 @@ export default function TelaAlterarCliente(props) {
               </Form.Group>
             </Col>
             {/********************** SENHA **********************/}
-            <Col xs='auto' style={{ width: '150px' }}>
+            {/* <Col xs='auto' style={{ width: '150px' }}>
               <Form.Group controlId='senha'>
                 <Form.Label>Senha:</Form.Label>
                 <Form.Control type='password' value={cliente.senha} placeholder={cliente.senha} onChange={manipularMudanca} />
               </Form.Group>
-            </Col>
+            </Col> */}
           </Row>
           {/*********************** PRODUTOS ***********************/}
           {/* <Row className='mb-3'>

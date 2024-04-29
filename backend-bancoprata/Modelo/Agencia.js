@@ -60,7 +60,7 @@ export default class Agencia {
   // ------------------------------------CADASTRAR AGÊNCIA------------------------------------
   async cadastrarBD() {
     const agenciaBD = new AgenciaBD();
-    this.cod_ag = await agenciaBD.cadastrar(this);
+    this.#cod_ag = await agenciaBD.cadastrar(this);
   }
 
   // ------------------------------------ALTERAR AGÊNCIA ------------------------------------

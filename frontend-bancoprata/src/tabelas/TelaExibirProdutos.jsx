@@ -2,7 +2,8 @@ import { Button, Col, Container, Form, Row, Table } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useEffect, useState } from 'react';
 import { hostname, port } from '../dados/dados';
-import listaProdutos from '../dados/mockProdutos';
+import { useNavigate } from 'react-router-dom';
+// import listaProdutos from '../dados/mockProdutos';
 
 import Pagina from '../templates/Pagina';
 const urlProduto = `http://${hostname}:${port}/produto`;
@@ -36,6 +37,13 @@ export default function TelaExibirProdutos(props) {
       })
       .catch((erro) => console.error('Erro ao buscar produtos', erro));
   }, []);
+
+  // let navigate = useNavigate();
+  // const routeChange = () => {
+  //   let path = `newPath`;
+  //   navigate(path);
+  // };
+
   return (
     <Pagina>
       <Container>
