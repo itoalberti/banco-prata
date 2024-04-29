@@ -6,12 +6,13 @@ export default class ProdutoBD {
   async cadastrar(produto) {
     if (produto instanceof Produto) {
       const conexao = await conectar();
-      const sql = 'INSERT INTO Produto (nome, cod_ag), VALUE(?,?)';
-      const parametros = [produto.nome, produto.agencia.cod_ag];
+      const sql = 'INSERT INTO Produto (nome), VALUE(?)';
+      const parametros = [produto.nome];
       const resultado = await conexao.query(sql, parametros);
+      conexao.release();
       return await resultado[0].insertId;
     }
-    pool.releaseConnection(conexao);
+    // pool.releaseConnection(conexao);
   }
 
   // ------------------------------------EXCLUIR PRODUTO DO BANCO DE DADOS------------------------------------
@@ -21,7 +22,8 @@ export default class ProdutoBD {
       const sql = 'DELETE FROM Produto WHERE cod_prod=?';
       const parametros = [produto.cod_prod];
       await conexao.query(sql, parametros);
-      pool.releaseConnection(conexao);
+      // pool.releaseConnection(conexao);
+      conexao.release();
     }
   }
 
@@ -40,7 +42,8 @@ export default class ProdutoBD {
       const produto = new Produto(row['cod_prod'], row['nome']);
       listaProdutos.push(produto);
     }
-    pool.releaseConnection(conexao);
+    // pool.releaseConnection(conexao);
+    conexao.release();
     return listaProdutos;
   }
 

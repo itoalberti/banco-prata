@@ -32,9 +32,9 @@ CREATE TABLE Cliente(
 CREATE TABLE Produto(
 	cod_prod INT NOT NULL AUTO_INCREMENT,
     nome VARCHAR(60),
-    cod_ag INT NOT NULL,    
+    -- cod_ag INT NOT NULL,    
     CONSTRAINT pk_produto PRIMARY KEY(cod_prod)
-    CONSTRAINT fk_agencia FOREIGN KEY(cod_ag) REFERENCES Agencia(cod_ag)
+    -- CONSTRAINT fk_agencia FOREIGN KEY(cod_ag) REFERENCES Agencia(cod_ag)
 );
 
 

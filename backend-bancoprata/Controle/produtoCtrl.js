@@ -16,7 +16,7 @@ export default class ProdutoCtrl {
             resp.status(200).json({
               status: true,
               cod_prod: produto.cod_prod,
-              msg: 'Produto cadastrado com sucesso!',
+              msg: `${produto.nome} cadastrado com sucesso!`,
             });
           })
           .catch((erro) => {

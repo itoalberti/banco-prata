@@ -6,10 +6,10 @@ export default class Produto {
   #nome;
   #agencia;
 
-  constructor(cod_prod, nome, agencia = {}) {
+  constructor(cod_prod, nome) {
     this.#cod_prod = cod_prod;
     this.#nome = nome;
-    this.#agencia = agencia;
+    // this.#agencia = agencia;
   }
 
   // MÉTODOS PÚBLICOS
@@ -31,12 +31,12 @@ export default class Produto {
   }
 
   // AGÊNCIA DO PRODUTO
-  get agencia() {
-    return this.#agencia;
-  }
-  set agencia(novaAgencia) {
-    this.#agencia = novaAgencia;
-  }
+  // get agencia() {
+  //   return this.#agencia;
+  // }
+  // set agencia(novaAgencia) {
+  //   this.#agencia = novaAgencia;
+  // }
 
   toJSON() {
     return {
