@@ -1,3 +1,4 @@
+// OK
 import Cliente from '../Modelo/Cliente.js';
 
 export default class ClienteCtrl {
@@ -17,7 +18,7 @@ export default class ClienteCtrl {
       // const cod_ag = dados.cod_ag;
       const agencia = dados.agencia;
 
-      if (nome && cpf && dataNasc && email && telefone && endereco && cidade && uf && agencia.cod_ag) {
+      if (nome && cpf && dataNasc && email && telefone && endereco && cidade && uf && agencia) {
         const cliente = new Cliente(0, nome, cpf, dataNasc, email, telefone, endereco, cidade, uf, agencia);
         cliente
           .cadastrarBD()

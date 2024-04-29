@@ -1,3 +1,4 @@
+// OK
 import Agencia from '../Modelo/Agencia.js';
 import Cliente from '../Modelo/Cliente.js';
 import conectar from './Conexao.js';
@@ -6,11 +7,12 @@ export default class ClienteBD {
   // ------------------------------------CADASTRAR CLIENTE NO BANCO DE DADOS------------------------------------
   async cadastrar(cliente) {
     if (cliente instanceof Cliente) {
-      const conexao = await conectar();
+      // const conexao = await conectar();
       // O correto para dar INSERT é inserir apenas a chave estrangeira cod_ag, e não o objeto inteiro
       const sql = 'INSERT INTO Cliente (nome, cpf, dataNasc, email, telefone, endereco, cidade, uf, cod_ag) VALUES(?,?,?,?,?,?,?,?,?)';
       // Para os parâmetros, o correto é inserir Cliente.agencia.cod_ag
       const parametros = [cliente.nome, cliente.cpf, cliente.dataNasc, cliente.email, cliente.telefone, cliente.endereco, cliente.cidade, cliente.uf, cliente.agencia.cod_ag];
+      const conexao = await conectar();
       const resultado = await conexao.query(sql, parametros);
       cliente.cod_cli = resultado[0].insertId;
       conexao.release();
@@ -57,7 +59,7 @@ export default class ClienteBD {
     for (const row of rows) {
       const agencia = new Agencia(row.cod_ag, row.endereco, row.cidade, row.uf);
       const cliente = new Cliente(row.cod_cli, row.nome, row.cpf, row.dataNasc, row.email, row.telefone, row.endereco, row.cidade, row.uf, row.agencia.cod_ag);
-      listaClientes.push(cliente);
+      listaClientes.push(cliente, agencia);
     }
     // pool.releaseConnection(conexao);
     conexao.release();

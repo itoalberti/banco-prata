@@ -10,8 +10,8 @@ const urlCliente = `http://${hostname}:${port}/cliente`;
 const urlAgencia = `http://${hostname}:${port}/agencia`;
 
 export default function TelaCadastrarCliente(props) {
+  // const [agenciaSelecionada, setAgenciaSelecionada] = useState({});
   const [validado, setValidado] = useState(false);
-  const [agencia, setAgencia] = useState({});
   const [cliente, setCliente] = useState({
     cod_cli: 0,
     nome: '',
@@ -45,12 +45,39 @@ export default function TelaCadastrarCliente(props) {
     navigate(path);
   };
 
+  // function manipularMudanca(e) {
+  //   const elemForm = e.currentTarget;
+  //   const id = elemForm.id;
+  //   const valor = elemForm.value;
+  //   setCliente({ ...cliente, [id]: valor });
+  // }
+
   function manipularMudanca(e) {
     const elemForm = e.currentTarget;
+    if (elemForm === 'agencia') {
+      setCliente({
+        ...cliente,
+        agencia: {
+          cod_ag: elemForm.value,
+          endereco: elemForm.value,
+          cidade: elemForm.value,
+          uf: elemForm.value,
+        },
+      });
+    }
     const id = elemForm.id;
     const valor = elemForm.value;
     setCliente({ ...cliente, [id]: valor });
   }
+
+  // function manipularMudanca(e) {
+  //   const componente = e.currentTarget;
+  //   if (componente.name === 'agencia') {
+  //     setCliente({ ...cliente, agencia: { cod_ag: componente.value } });
+  //   } else {
+  //     setCliente({ ...cliente, [componente.name]: componente.value });
+  //   }
+  // }
 
   function manipulaSubmissao(e) {
     const form = e.currentTarget;

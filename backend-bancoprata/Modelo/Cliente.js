@@ -1,3 +1,4 @@
+// OK
 import conectar from '../Persistencia/Conexao.js';
 import ClienteBD from '../Persistencia/ClienteBD.js';
 
@@ -149,19 +150,56 @@ export default class Cliente {
       const [rows] = await conexao.query(sql, parametros);
       const listaClientes = [];
       for (const row of rows) {
-        const cliente = new Cliente(row['cod_cli'], row['nome'], row['cpf'], row['dataNasc'], row['email'], row['telefone'], row['endereco'], row['cidade'], row['uf'], row['agencia.cod_ag']);
+        // const cliente = new Cliente(row['cod_cli'], row['nome'], row['cpf'], row['dataNasc'], row['email'], row['telefone'], row['endereco'], row['cidade'], row['uf'], row['cod_ag']);
+        const cliente = new Cliente(
+          row.cod_cli,
+          row.nome,
+          row.cpf,
+          row.dataNasc,
+          row.email,
+          row.telefone,
+          row.endereco,
+          row.cidade,
+          row.uf,
+          row.cod_ag,
+          row.endereco,
+          row.cidade,
+          row.uf,
+          row.agencia
+          //   .cod_ag,
+          // row.agencia.endereco,
+          // row.agencia.cidade,
+          // row.agencia.uf
+        );
         listaClientes.push(cliente);
       }
       return listaClientes;
     } else {
       const conexao = await conectar();
       const sql = `SELECT * FROM Cliente
-      INNER JOIN Agencia ON Cliente.cod_ag = Agencia.cod_ag;`;
+      INNER JOIN Agencia
+      ON Cliente.cod_ag = Agencia.cod_ag;`;
       const parametros = [cod_cli];
       const [rows] = await conexao.query(sql, parametros);
       const listaClientes = [];
       for (const row of rows) {
-        const cliente = new Cliente(row['cod_cli'], row['nome'], row['cpf'], row['dataNasc'], row['email'], row['telefone'], row['endereco'], row['cidade'], row['uf'], row['cod_ag'], row['agencia.endereco'], row['agencia.cidade'], row['uf']);
+        // const cliente = new Cliente(row['cod_cli'], row['nome'], row['cpf'], row['dataNasc'], row['email'], row['telefone'], row['endereco'], row['cidade'], row['uf'], row['cod_ag'], row['agencia.endereco'], row['agencia.cidade'], row['uf']);
+        const cliente = new Cliente(
+          row.cod_cli,
+          row.nome,
+          row.cpf,
+          row.dataNasc,
+          row.email,
+          row.telefone,
+          row.endereco,
+          row.cidade,
+          row.uf,
+          // row.agencia
+          row.cod_ag
+          // row.agencia.endereco,
+          // row.agencia.cidade,
+          // row.agencia.uf
+        );
         listaClientes.push(cliente);
       }
       return listaClientes[0];
