@@ -22,11 +22,11 @@ export default class ClienteBD {
   // Dados passíveis de serem alterados: email, telefone, endereço, cidade, UF e cod_ag
   async alterar(cliente) {
     if (cliente instanceof Cliente) {
-      const conexao = await conectar();
       // O correto para dar UPDATE é inserir apenas a chave estrangeira cod_ag, e não o objeto inteiro
       const sql = 'UPDATE Cliente SET email=?, telefone=?, endereco=?, cidade=?, uf=?, cod_ag=? WHERE cod_cli=?';
       // Também está correto chamar cliente.agencia.cod_ag em vez de cod_ag nos parâmetros
       const parametros = [cliente.email, cliente.telefone, cliente.endereco, cliente.cidade, cliente.uf, cliente.agencia.cod_ag, cliente.cod_cli];
+      const conexao = await conectar();
       await conexao.query(sql, parametros);
       conexao.release();
     }
