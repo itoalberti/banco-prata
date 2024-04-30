@@ -52,14 +52,15 @@ export default class ClienteBD {
   async listar() {
     const conexao = await conectar();
     const sql = `SELECT * FROM Cliente
-    INNER JOIN Agencia ON Cliente.cod_ag = Agencia.cod_ag`;
+    INNER JOIN Agencia
+     ON Cliente.cod_ag = Agencia.cod_ag`;
     // const parametros = ['%'];
     const [rows] = await conexao.query(sql);
     const listaClientes = [];
     for (const row of rows) {
       const agencia = new Agencia(row.cod_ag, row.endereco, row.cidade, row.uf);
       const cliente = new Cliente(row.cod_cli, row.nome, row.cpf, row.dataNasc, row.email, row.telefone, row.endereco, row.cidade, row.uf, row.agencia.cod_ag);
-      listaClientes.push(cliente, agencia);
+      listaClientes.push(cliente);
     }
     // pool.releaseConnection(conexao);
     conexao.release();

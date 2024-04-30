@@ -59,9 +59,9 @@ export default function TelaCadastrarCliente(props) {
         ...cliente,
         agencia: {
           cod_ag: elemForm.value,
-          endereco: elemForm.value,
-          cidade: elemForm.value,
-          uf: elemForm.value,
+          // endereco: elemForm.value,
+          // cidade: elemForm.value,
+          // uf: elemForm.value,
         },
       });
     }

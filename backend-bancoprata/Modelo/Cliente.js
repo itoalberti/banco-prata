@@ -145,7 +145,9 @@ export default class Cliente {
   async listarBD(cod_cli) {
     if (cod_cli == undefined) {
       const conexao = await conectar();
-      const sql = 'SELECT * FROM Cliente';
+      const sql = `SELECT * FROM Cliente
+      INNER JOIN Agencia
+      ON Cliente.cod_ag = Agencia.cod_ag;`;
       const parametros = ['%'];
       const [rows] = await conexao.query(sql, parametros);
       const listaClientes = [];
@@ -165,8 +167,8 @@ export default class Cliente {
           row.endereco,
           row.cidade,
           row.uf,
-          row.agencia
-          //   .cod_ag,
+          // row.agencia
+          row.cod_ag
           // row.agencia.endereco,
           // row.agencia.cidade,
           // row.agencia.uf

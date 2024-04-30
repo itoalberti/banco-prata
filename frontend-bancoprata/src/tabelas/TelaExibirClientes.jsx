@@ -53,7 +53,7 @@ export default function TelaExibirClientes(props) {
             <tr>
               <th style={{ textAlign: 'center' }}>Cód.</th>
               <th style={{ textAlign: 'center' }}>Ag.</th>
-              <th style={{ textAlign: 'center' }}>End. Ag.</th>
+              {/* <th style={{ textAlign: 'center' }}>End. Ag.</th> */}
               <th>Nome</th>
               <th>CPF</th>
               <th style={{ textAlign: 'center' }}>Data Nasc.</th>
@@ -75,7 +75,7 @@ export default function TelaExibirClientes(props) {
                 <tr key={cliente.cod_cli}>
                   <td style={{ textAlign: 'center' }}>{cliente.cod_cli}</td>
                   <td style={{ textAlign: 'center' }}>{cliente.agencia.cod_ag}</td>
-                  <td style={{ textAlign: 'center' }}>{cliente.agencia.endereco}</td>
+                  {/* <td style={{ textAlign: 'center' }}>{cliente.agencia.endereco}</td> */}
                   <td>{cliente.nome}</td>
                   <td>{cliente.cpf}</td>
                   <td style={{ textAlign: 'center' }}>{cliente.dataNasc}</td>
