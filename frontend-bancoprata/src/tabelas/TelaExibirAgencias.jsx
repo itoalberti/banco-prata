@@ -39,18 +39,10 @@ export default function TelaExibirAgencias(props) {
   }, []);
 
   let navigate = useNavigate();
-  // const routeChange = () => {
-  //   let path = `newPath`;
-  //   navigate(path);
-  // };
 
   return (
     <Pagina>
       <Container>
-        {/* <Col> */}
-        {/* <CaixaSelecao endFonteDados='https://jsonplaceholder.typicode.com/users' campoChave='id' campoExibicao='name' funcaoSelecao={setSelecionado} /> */}
-        {/* <CaixaSelecao endFonteDados='https://localhost:3001/agencia' campoChave='cidade' campoExibicao='endereco' funcaoSelecao={setSelecionado} /> */}
-        {/* </Col> */}
         <br />
         <Table striped bordered hover variant='dark'>
           <thead>
@@ -70,9 +62,9 @@ export default function TelaExibirAgencias(props) {
                 // key → ajuda o React na rendereização dos componentes no DOM virtual
                 <tr key={agencia.cod_ag}>
                   <td style={{ textAlign: 'center' }}>{agencia.cod_ag}</td>
-                  <td>{agencia.endereco}</td>
-                  <td>{agencia.cidade}</td>
-                  <td style={{ textAlign: 'center' }}>{agencia.uf}</td>
+                  <td>{agencia.endereco_ag}</td>
+                  <td>{agencia.cidade_ag}</td>
+                  <td style={{ textAlign: 'center' }}>{agencia.uf_ag}</td>
                   <td style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <div style={{ paddingRight: '10px' }}>
                       <Button
@@ -80,7 +72,7 @@ export default function TelaExibirAgencias(props) {
                         variant='primary'
                         style={{ marginRight: '5px' }}
                         onClick={() => {
-                          navigate('/alteraragencia', { state: { cod_ag: agencia.cod_ag, endereco: agencia.endereco, cidade: agencia.cidade, uf: agencia.uf } });
+                          navigate('/alteraragencia', { state: { cod_ag: agencia.cod_ag, endereco_ag: agencia.endereco_ag, cidade_ag: agencia.cidade_ag, uf_ag: agencia.uf_ag } });
                         }}
                       >
                         <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil-square' viewBox='0 0 16 16'>

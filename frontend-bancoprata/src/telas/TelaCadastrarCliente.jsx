@@ -10,7 +10,6 @@ const urlCliente = `http://${hostname}:${port}/cliente`;
 const urlAgencia = `http://${hostname}:${port}/agencia`;
 
 export default function TelaCadastrarCliente(props) {
-  // const [agenciaSelecionada, setAgenciaSelecionada] = useState({});
   const [validado, setValidado] = useState(false);
   const [cliente, setCliente] = useState({
     cod_cli: 0,
@@ -22,11 +21,9 @@ export default function TelaCadastrarCliente(props) {
     uf: '',
     telefone: '',
     email: '',
-    // senha: '',
     agencia: {},
   });
 
-  // const [formatData, setFormatData] = useState(new Date());
   // disable: criar if (éEdição) e dar disable no campo cidade/uf
   // varável e método que vai setar o valor pra variável listaAgencias
   const [listaAgencias, setListaAgencias] = useState([]);
@@ -40,10 +37,10 @@ export default function TelaCadastrarCliente(props) {
   }, []);
 
   let navigate = useNavigate();
-  const routeChange = () => {
-    let path = `newPath`;
-    navigate(path);
-  };
+  // const routeChange = () => {
+  //   let path = `newPath`;
+  //   navigate(path);
+  // };
 
   // function manipularMudanca(e) {
   //   const elemForm = e.currentTarget;
@@ -77,7 +74,7 @@ export default function TelaCadastrarCliente(props) {
     const id = elemForm.id;
     const valor = elemForm.value;
 
-    if (id === 'cod_ag' || id === 'endereco' || id === 'cidade' || id === 'uf') {
+    if (id === 'cod_ag' || id === 'endereco_ag' || id === 'cidade_ag' || id === 'uf_ag') {
       setCliente((prevCliente) => ({
         ...prevCliente,
         agencia: {
@@ -110,7 +107,6 @@ export default function TelaCadastrarCliente(props) {
           let novosClientes = [...props.listaClientes, data];
           props.setCliente(novosClientes);
           setValidado(false);
-          // props.exibirTabela(true);
         })
         .catch((error) => console.error('Erro ao cadastrar cliente:', error));
     } else {
@@ -232,7 +228,6 @@ export default function TelaCadastrarCliente(props) {
             <Col xs='auto'>
               <Form.Group className='mb-3' controlId='telefone' style={{ width: '170px' }}>
                 <Form.Label>Telefone:</Form.Label>
-                {/* <Form.Control required type='number' id='telefone' value={cliente.telefone} onChange={manipularMudanca} /> */}
                 <ReactInputMask mask='(99) 99999-9999' value={cliente.telefone} onChange={manipularMudanca}>
                   {(inputProps) => <Form.Control {...inputProps} required type='text' id='telefone' />}
                 </ReactInputMask>
@@ -245,25 +240,16 @@ export default function TelaCadastrarCliente(props) {
             {/* AGÊNCIA */}
             <Form.Group style={{ width: '320px' }}>
               <Form.Label>Agência:</Form.Label>
-              <Form.Select required onChange={manipularMudanca} value={cliente.cod_ag} id='cod_ag'>
+              <Form.Select required onChange={manipularMudanca} value={cliente.agencia.cod_ag} id='cod_ag'>
                 <option value=''></option>
                 {listaAgencias.map((agencia) => (
                   <option key={agencia.cod_ag} value={agencia.cod_ag}>
-                    {agencia.cod_ag}: {agencia.cidade} ({agencia.uf})
+                    {agencia.cod_ag}: {agencia.cidade_ag} ({agencia.uf_ag})
                   </option>
                 ))}
               </Form.Select>
               <Form.Control.Feedback type='invalid'>Informe a agência da nova conta!</Form.Control.Feedback>
             </Form.Group>
-
-            {/* SENHA */}
-            {/* <Col className='mb-3'>
-              <Form.Group controlId='senha' style={{ width: '160px' }}>
-                <Form.Label>Senha:</Form.Label>
-                <Form.Control required type='password' id='senha' value={cliente.senha} onChange={manipularMudanca} />
-                <Form.Control.Feedback type='invalid'>Informe a senha da nova conta!</Form.Control.Feedback>
-              </Form.Group>
-            </Col> */}
           </Row>
 
           <br />

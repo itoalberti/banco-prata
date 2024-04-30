@@ -14,7 +14,6 @@ export default class ClienteCtrl {
       const endereco = dados.endereco;
       const cidade = dados.cidade;
       const uf = dados.uf;
-      // const cod_ag = dados.cod_ag;
       const agencia = dados.agencia;
 
       if (nome && cpf && dataNasc && email && telefone && endereco && cidade && uf && agencia) {
@@ -63,17 +62,16 @@ export default class ClienteCtrl {
       const endereco = dados.endereco;
       const cidade = dados.cidade;
       const uf = dados.uf;
-      // const cod_ag = dados.cod_ag;
       const agencia = dados.agencia;
 
-      if (cod_cli && nome && cpf && dataNasc && email && telefone && cidade && uf && agencia) {
+      if (cod_cli && nome && cpf && dataNasc && email && telefone && endereco && cidade && uf && agencia) {
         const cliente = new Cliente(cod_cli, nome, cpf, dataNasc, email, telefone, endereco, cidade, uf, agencia);
         cliente
           .alterarBD()
           .then(() => {
             resp.status(200).json({
               status: true,
-              msg: `Dados do(a) cliente ${cliente.cod_cli} alterados com sucesso!`,
+              msg: `Dados do(a) cliente ${cliente.cod_nome} alterados com sucesso!`,
             });
           })
           .catch((erro) => {
@@ -85,11 +83,10 @@ export default class ClienteCtrl {
       } else {
         resp.status(400).json({
           status: false,
-          msg: 'Informe os novos dados do cliente (email, telefone, endereço, cidade, UF e código da agência).',
+          msg: 'Informe os novos dados do cliente (email, telefone, endereço, cidade e UF).',
         });
       }
     } else {
-      // 4xx = 'Client error'
       resp.status(400).json({
         status: false,
         msg: 'O método não é permitido ou cliente no formato JSON não foi fornecido. Consulte a documentação da API!',

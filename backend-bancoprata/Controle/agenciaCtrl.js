@@ -7,12 +7,12 @@ export default class AgenciaCtrl {
     resp.type('application/json');
     if (req.method === 'POST' && req.is('application/json')) {
       const dados = req.body;
-      const endereco = dados.endereco;
-      const cidade = dados.cidade;
-      const uf = dados.uf;
+      const endereco_ag = dados.endereco_ag;
+      const cidade_ag = dados.cidade_ag;
+      const uf_ag = dados.uf_ag;
 
-      if (endereco && cidade && uf) {
-        const agencia = new Agencia(0, endereco, cidade, uf);
+      if (endereco_ag && cidade_ag && uf_ag) {
+        const agencia = new Agencia(0, endereco_ag, cidade_ag, uf_ag);
         agencia
           .cadastrarBD()
           .then(() => {
@@ -49,14 +49,14 @@ export default class AgenciaCtrl {
     if (req.method === 'PUT' && req.is('application/json')) {
       const dados = req.body;
       const cod_ag = dados.cod_ag;
-      const endereco = dados.endereco;
-      const cidade = dados.cidade;
-      const uf = dados.uf;
+      const endereco_ag = dados.endereco_ag;
+      const cidade_ag = dados.cidade_ag;
+      const uf_ag = dados.uf_ag;
 
-      // if (cod_ag && endereco && cidade && uf) {
-      if (cod_ag && endereco && cidade && uf) {
+      // if (cod_ag && endereco_ag && cidade_ag && uf_ag) {
+      if (cod_ag && endereco_ag && cidade_ag && uf_ag) {
         // alterar as informações da agência
-        const agencia = new Agencia(cod_ag, endereco, cidade, uf);
+        const agencia = new Agencia(cod_ag, endereco_ag, cidade_ag, uf_ag);
         // chamando o método assíncrono alterar da camada de persistência
         agencia
           .alterarBD()
@@ -159,10 +159,10 @@ export default class AgenciaCtrl {
   //     const cod_prod = dados.cod_prod;
 
   //     if (cod_ag && cod_prod) {
-  //       // const agencia = new Agencia(0, endereco, cidade);
+  //       // const agencia = new Agencia(0, endereco_ag, cidade_ag);
   //       // CRIAR MODELO AGENCIAPRODUTO
   //       const associacao = new Associacao(cod_ag, cod_prod);
-  //       // console.log('Agência cadastrada (endereço) / cidade:', agencia.endereco, agencia.cidade);
+  //       // console.log('Agência cadastrada (endereço) / cidade_ag:', agencia.endereco_ag, agencia.cidade_ag);
 
   //       associacao
   //         .cadastrarBD()
@@ -183,7 +183,7 @@ export default class AgenciaCtrl {
   //     } else {
   //       resp.status(400).json({
   //         status: false,
-  //         msg: 'Informe todos os dados da agência: endereço, cidade e UF',
+  //         msg: 'Informe todos os dados da agência: endereço, cidade_ag e UF',
   //       });
   //     }
   //   } else {

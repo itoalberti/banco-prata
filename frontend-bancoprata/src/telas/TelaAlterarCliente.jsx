@@ -19,7 +19,6 @@ export default function TelaAlterarCliente(props) {
     uf: props.uf,
     telefone: props.telefone,
     email: props.email,
-    // senha: props.senha,
     cod_ag: props.cod_ag,
   });
   const location = useLocation();
@@ -37,17 +36,13 @@ export default function TelaAlterarCliente(props) {
         uf: location.state.uf,
         telefone: location.state.telefone,
         email: location.state.email,
-        // senha: location.state.senha,
-        cod_ag: location.state.cod_ag,
+        // cod_ag: location.state.cod_ag,
+        agencia: location.state.agencia,
       });
     }
   }, [location.state]);
 
   let navigate = useNavigate();
-  const routeChange = () => {
-    let path = `newPath`;
-    navigate(path);
-  };
 
   function manipularMudanca(e) {
     const elemForm = e.currentTarget;
@@ -72,7 +67,6 @@ export default function TelaAlterarCliente(props) {
           let novosClientes = [...props.listaclientes, data];
           props.setCliente(novosClientes);
           setValidado(false);
-          // props.exibirTabela(true);
         })
         .catch((error) => console.error('Erro ao alterar cliente:', error));
     } else {
@@ -91,17 +85,17 @@ export default function TelaAlterarCliente(props) {
         <br />
         <Row className='mb-3'>
           {/********************** CÓDIGO **********************/}
-          <Col xs='auto'>
-            <Form.Group controlId='cod_cli' style={{ width: '45px' }}>
-              <Form.Label>Código:</Form.Label>
+          <Col xs='auto' style={{ width: '150px' }}>
+            <Form.Group controlId='cod_cli' style={{ width: '60px' }}>
+              <Form.Label style={{ width: '150px' }}>Código do cliente:</Form.Label>
               <Form.Control placeholder={cliente.cod_cli} disabled />
             </Form.Group>
           </Col>
           {/********************** AGÊNCIA **********************/}
-          <Col xs='auto' style={{ width: '80px' }}>
+          <Col xs='auto'>
             <Form.Group controlId='cod_ag' style={{ width: '45px' }}>
-              <Form.Label>Agência:</Form.Label>
-              <Form.Control placeholder={cliente.cod_ag} disabled />
+              <Form.Label style={{ width: '150px' }}>Código da agência:</Form.Label>
+              <Form.Control placeholder={cliente.cod_ag} />
             </Form.Group>
           </Col>
         </Row>
@@ -202,13 +196,6 @@ export default function TelaAlterarCliente(props) {
                 <Form.Control placeholder={cliente.email} value={cliente.email} onChange={manipularMudanca} />
               </Form.Group>
             </Col>
-            {/********************** SENHA **********************/}
-            {/* <Col xs='auto' style={{ width: '150px' }}>
-              <Form.Group controlId='senha'>
-                <Form.Label>Senha:</Form.Label>
-                <Form.Control type='password' value={cliente.senha} placeholder={cliente.senha} onChange={manipularMudanca} />
-              </Form.Group>
-            </Col> */}
           </Row>
           {/*********************** PRODUTOS ***********************/}
           {/* <Row className='mb-3'>
@@ -240,25 +227,3 @@ export default function TelaAlterarCliente(props) {
     </>
   );
 }
-
-// ________________________BACKUP________________________
-// import { useState } from 'react';
-
-// export default function TelaAlterarAgencia() {
-//   const [validado, setValidado] = useState(false);
-//   const [agencia, setAgencia] = useState({
-//     cod_ag: '',
-//     endereco: '',
-//     cidade: '',
-//     uf: '',
-//   });
-
-//   function manipulaMudanca(e) {
-//     const elemForm = e.currentTarget;
-//     const id = elemForm.id;
-//     const valor = elemForm.value;
-//     setAgencia({ ...agencia, [id]: valor });
-//   }
-
-//   return <div>alterar agencia</div>;
-// }

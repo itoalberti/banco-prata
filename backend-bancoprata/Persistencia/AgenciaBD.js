@@ -6,8 +6,8 @@ export default class AgenciaBD {
   async cadastrar(agencia) {
     if (agencia instanceof Agencia) {
       const conexao = await conectar();
-      const sql = 'INSERT INTO Agencia (endereco, cidade, uf) VALUES(?,?,?)';
-      const parametros = [agencia.endereco, agencia.cidade, agencia.uf];
+      const sql = 'INSERT INTO Agencia (endereco_ag, cidade_ag, uf_ag) VALUES(?,?,?)';
+      const parametros = [agencia.endereco_ag, agencia.cidade_ag, agencia.uf_ag];
       const resultado = await conexao.query(sql, parametros);
       return await resultado[0].insertId;
     }
@@ -19,8 +19,8 @@ export default class AgenciaBD {
   async alterar(agencia) {
     if (agencia instanceof Agencia) {
       const conexao = await conectar();
-      const sql = 'UPDATE Agencia SET endereco=? WHERE cod_ag=?';
-      const parametros = [agencia.endereco, agencia.cod_ag];
+      const sql = 'UPDATE Agencia SET endereco_ag=? WHERE cod_ag=?';
+      const parametros = [agencia.endereco_ag, agencia.cod_ag];
       await conexao.query(sql, parametros);
       // pool.releaseConnection();
       conexao.release();
@@ -49,7 +49,7 @@ export default class AgenciaBD {
     const [rows] = await conexao.query(sql, parametros);
     const listaAgencias = [];
     for (const row of rows) {
-      const agencia = new Agencia(row['cod_ag'], row['endereco'], row['cidade'], row['uf']);
+      const agencia = new Agencia(row['cod_ag'], row['endereco_ag'], row['cidade_ag'], row['uf_ag']);
       listaAgencias.push(agencia);
     }
     // pool.releaseConnection(conexao);

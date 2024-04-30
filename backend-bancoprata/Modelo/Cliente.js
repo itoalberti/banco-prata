@@ -153,24 +153,8 @@ export default class Cliente {
       const [rows] = await conexao.query(sql, parametros);
       const listaClientes = [];
       for (const row of rows) {
-        const agencia = new Agencia(row.cod_ag, row.endereco, row.cidade, row.uf);
-        const cliente = new Cliente(row['cod_cli'], row['nome'], row['cpf'], row['dataNasc'], row['email'], row['telefone'], row['endereco'], row['cidade'], row['uf'], agencia);
-        // const cliente = new Cliente(
-        //   row.cod_cli,
-        //   row.nome,
-        //   row.cpf,
-        //   row.dataNasc,
-        //   row.email,
-        //   row.telefone,
-        //   row.endereco,
-        //   row.cidade,
-        //   row.uf,
-        //   row.cod_ag,
-        //   row.endereco,
-        //   row.cidade,
-        //   row.uf,
-        //   agencia
-        // );
+        const agencia = new Agencia(row.cod_ag, row.endereco_ag, row.cidade_ag, row.uf_ag);
+        const cliente = new Cliente(row.cod_cli, row.nome, row.cpf, row.dataNasc, row.email, row.telefone, row.endereco, row.cidade, row.uf, agencia);
         listaClientes.push(cliente);
       }
       return listaClientes;
@@ -184,22 +168,8 @@ export default class Cliente {
       const listaClientes = [];
       for (const row of rows) {
         // const cliente = new Cliente(row['cod_cli'], row['nome'], row['cpf'], row['dataNasc'], row['email'], row['telefone'], row['endereco'], row['cidade'], row['uf'], row['cod_ag'], row['agencia.endereco'], row['agencia.cidade'], row['uf']);
-        const agencia = new Agencia(row.cod_ag, row.endereco, row.cidade, row.uf);
-        const cliente = new Cliente(
-          row.cod_cli,
-          row.nome,
-          row.cpf,
-          row.dataNasc,
-          row.email,
-          row.telefone,
-          row.endereco,
-          row.cidade,
-          row.uf,
-          agencia
-          // row.agencia.endereco,
-          // row.agencia.cidade,
-          // row.agencia.uf
-        );
+        const agencia = new Agencia(row.cod_ag, row.endereco_ag, row.cidade_ag, row.uf_ag);
+        const cliente = new Cliente(row.cod_cli, row.nome, row.cpf, row.dataNasc, row.email, row.telefone, row.endereco, row.cidade, row.uf, agencia);
         listaClientes.push(cliente);
       }
       return listaClientes[0];

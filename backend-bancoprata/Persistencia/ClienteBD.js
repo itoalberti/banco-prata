@@ -7,7 +7,6 @@ export default class ClienteBD {
   // ------------------------------------CADASTRAR CLIENTE NO BANCO DE DADOS------------------------------------
   async cadastrar(cliente) {
     if (cliente instanceof Cliente) {
-      // const conexao = await conectar();
       // O correto para dar INSERT é inserir apenas a chave estrangeira cod_ag, e não o objeto inteiro
       const sql = 'INSERT INTO Cliente (nome, cpf, dataNasc, email, telefone, endereco, cidade, uf, cod_ag) VALUES(?,?,?,?,?,?,?,?,?)';
       // Para os parâmetros, o correto é inserir Cliente.agencia.cod_ag
@@ -53,7 +52,7 @@ export default class ClienteBD {
     const [rows] = await conexao.query(sql);
     const listaClientes = [];
     for (const row of rows) {
-      const agencia = new Agencia(row.cod_ag, row.endereco, row.cidade, row.uf);
+      const agencia = new Agencia(row.cod_ag, row.endereco_ag, row.cidade, row.uf);
       const cliente = new Cliente(row.cod_cli, row.nome, row.cpf, row.dataNasc, row.email, row.telefone, row.endereco, row.cidade, row.uf, agencia);
       listaClientes.push(cliente);
     }

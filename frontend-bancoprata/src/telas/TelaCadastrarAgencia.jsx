@@ -11,16 +11,12 @@ export default function TelaCadastrarAgencia(props) {
   const [validado, setValidado] = useState(false);
   const [agencia, setAgencia] = useState({
     cod_ag: '',
-    endereco: '',
-    cidade: '',
-    uf: '',
+    endereco_ag: '',
+    cidade_ag: '',
+    uf_ag: '',
   });
 
   let navigate = useNavigate();
-  const routeChange = () => {
-    let path = `newPath`;
-    navigate(path);
-  };
 
   function manipularMudanca(e) {
     const elemForm = e.currentTarget;
@@ -31,7 +27,7 @@ export default function TelaCadastrarAgencia(props) {
 
   function manipulaSubmissao(e) {
     const form = e.currentTarget;
-    if (form.checkValidity() && agencia.uf !== '') {
+    if (form.checkValidity() && agencia.uf_ag !== '') {
       // dados válidos → proceder com o cadastro
       fetch(urlAgencia, {
         method: 'POST',
@@ -65,25 +61,25 @@ export default function TelaCadastrarAgencia(props) {
           <Row className='mb-3'>
             {/********************** ENDEREÇO *********************/}
             <Col xs='auto'>
-              <Form.Group style={{ width: '360px' }} controlId='endereco'>
+              <Form.Group style={{ width: '360px' }} controlId='endereco_ag'>
                 <Form.Label>Endereço:</Form.Label>
-                <Form.Control required type='text' id='endereco' value={agencia.endereco} onChange={manipularMudanca} />
+                <Form.Control required type='text' id='endereco_ag' value={agencia.endereco_ag} onChange={manipularMudanca} />
                 <Form.Control.Feedback type='invalid'>Informe o endereço da agência!</Form.Control.Feedback>
               </Form.Group>
             </Col>
             {/********************** CIDADE **********************/}
             <Col xs='auto'>
-              <Form.Group style={{ width: '240px' }} controlId='cidade'>
+              <Form.Group style={{ width: '240px' }} controlId='cidade_ag'>
                 <Form.Label>Cidade:</Form.Label>
-                <Form.Control required type='text' id='cidade' value={agencia.cidade} onChange={manipularMudanca} />
+                <Form.Control required type='text' id='cidade_ag' value={agencia.cidade_ag} onChange={manipularMudanca} />
                 <Form.Control.Feedback type='invalid'>Informe a cidade da agência!</Form.Control.Feedback>
               </Form.Group>
             </Col>
             {/********************** UF **********************/}
             <Col xs='auto'>
-              <Form.Group controlId='uf'>
+              <Form.Group controlId='uf_ag'>
                 <Form.Label>UF:</Form.Label>
-                <Form.Select id='uf' required value={agencia.uf} onChange={manipularMudanca}>
+                <Form.Select id='uf_ag' required value={agencia.uf_ag} onChange={manipularMudanca}>
                   <option value=''></option>
                   <option>AC</option>
                   <option>AL</option>

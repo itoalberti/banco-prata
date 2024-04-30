@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 
 import Pagina from '../templates/Pagina';
 const urlCliente = `http://${hostname}:${port}/cliente`;
-// import mockClientes from '../dados/mockClientes';
 
 export default function TelaExibirClientes(props) {
   const [listaClientes, setListaClientes] = useState([]);
@@ -39,10 +38,6 @@ export default function TelaExibirClientes(props) {
   }, []);
 
   let navigate = useNavigate();
-  const routeChange = () => {
-    let path = `newPath`;
-    navigate(path);
-  };
 
   return (
     <Pagina>
@@ -53,7 +48,7 @@ export default function TelaExibirClientes(props) {
             <tr>
               <th style={{ textAlign: 'center' }}>Cód.</th>
               <th style={{ textAlign: 'center' }}>Ag.</th>
-              <th style={{ textAlign: 'center' }}>End. Ag.</th>
+              <th>End. Ag.</th>
               <th>Nome</th>
               <th>CPF</th>
               <th style={{ textAlign: 'center' }}>Data Nasc.</th>
@@ -74,7 +69,7 @@ export default function TelaExibirClientes(props) {
                 <tr key={cliente.cod_cli}>
                   <td style={{ textAlign: 'center' }}>{cliente.cod_cli}</td>
                   <td style={{ textAlign: 'center' }}>{cliente.agencia.cod_ag}</td>
-                  <td style={{ textAlign: 'center' }}>{cliente.agencia.endereco}</td>
+                  <td>{cliente.agencia.endereco_ag}</td>
                   <td>{cliente.nome}</td>
                   <td>{cliente.cpf}</td>
                   <td style={{ textAlign: 'center' }}>{cliente.dataNasc}</td>

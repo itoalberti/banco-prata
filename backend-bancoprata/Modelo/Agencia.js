@@ -3,15 +3,15 @@ import AgenciaBD from '../Persistencia/AgenciaBD.js';
 
 export default class Agencia {
   #cod_ag;
-  #endereco;
-  #cidade;
-  #uf;
+  #endereco_ag;
+  #cidade_ag;
+  #uf_ag;
 
-  constructor(cod_ag, endereco, cidade, uf) {
+  constructor(cod_ag, endereco_ag, cidade_ag, uf_ag) {
     this.#cod_ag = cod_ag;
-    this.#endereco = endereco;
-    this.#cidade = cidade;
-    this.#uf = uf;
+    this.#endereco_ag = endereco_ag;
+    this.#cidade_ag = cidade_ag;
+    this.#uf_ag = uf_ag;
   }
 
   // MÉTODOS PÚBLICOS
@@ -25,35 +25,35 @@ export default class Agencia {
   }
 
   // ENDEREÇO DA AGÊNCIA
-  get endereco() {
-    return this.#endereco;
+  get endereco_ag() {
+    return this.#endereco_ag;
   }
-  set endereco(novoEndereco) {
-    this.#endereco = novoEndereco;
+  set endereco_ag(novoEnd_ag) {
+    this.#endereco_ag = novoEnd_ag;
   }
 
   // CIDADE DA AGÊNCIA
-  get cidade() {
-    return this.#cidade;
+  get cidade_ag() {
+    return this.#cidade_ag;
   }
-  set cidade(novaCidade) {
-    this.#cidade = novaCidade;
+  set cidade_ag(novaCidade_ag) {
+    this.#cidade_ag = novaCidade_ag;
   }
 
   // UF DA AGÊNCIA
-  get uf() {
-    return this.#uf;
+  get uf_ag() {
+    return this.#uf_ag;
   }
-  set uf(novaUf) {
-    this.#uf = novaUf;
+  set uf_ag(novaUf_ag) {
+    this.#uf_ag = novaUf_ag;
   }
 
   toJSON() {
     return {
       cod_ag: this.#cod_ag,
-      endereco: this.#endereco,
-      cidade: this.#cidade,
-      uf: this.#uf,
+      endereco_ag: this.#endereco_ag,
+      cidade_ag: this.#cidade_ag,
+      uf_ag: this.#uf_ag,
     };
   }
 
@@ -83,7 +83,7 @@ export default class Agencia {
       const [rows] = await conexao.query(sql, parametros);
       const listaAgencias = [];
       for (const row of rows) {
-        const agencia = new Agencia(row['cod_ag'], row['endereco'], row['cidade'], row['uf']);
+        const agencia = new Agencia(row['cod_ag'], row['endereco_ag'], row['cidade_ag'], row['uf_ag']);
         listaAgencias.push(agencia);
       }
       return listaAgencias;
@@ -94,7 +94,7 @@ export default class Agencia {
       const [rows] = await conexao.query(sql, parametros);
       const listaAgencias = [];
       for (const row of rows) {
-        const agencia = new Agencia(row['cod_ag'], row['endereco'], row['cidade'], row['uf']);
+        const agencia = new Agencia(row['cod_ag'], row['endereco_ag'], row['cidade_ag'], row['uf_ag']);
         listaAgencias.push(agencia);
       }
       return listaAgencias[0];

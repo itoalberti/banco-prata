@@ -2,8 +2,7 @@ import { Button, Col, Form, Row } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useEffect, useState } from 'react';
 import { hostname, port } from '../dados/dados';
-import { useLocation } from 'react-router-dom';
-import InputMask from 'react-input-mask';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import Pagina from '../templates/Pagina';
 
@@ -13,20 +12,21 @@ export default function TelaAlterarAgencia(props) {
   const [validado, setValidado] = useState(false);
   const [agencia, setAgencia] = useState({
     cod_ag: props.cod_ag,
-    // endereco: props.endereco,
-    cidade: props.cidade,
-    uf: props.uf,
+    cidade_ag: props.cidade_ag,
+    uf_ag: props.uf_ag,
   });
   const location = useLocation();
+
+  let navigate = useNavigate();
 
   useEffect(() => {
     if (location.state) {
       setAgencia({
         ...agencia,
         cod_ag: location.state.cod_ag,
-        endereco: location.state.endereco,
-        cidade: location.state.cidade,
-        uf: location.state.uf,
+        endereco_ag: location.state.endereco_ag,
+        cidade_ag: location.state.cidade_ag,
+        uf_ag: location.state.uf_ag,
       });
     }
   }, [location.state]);
@@ -41,7 +41,7 @@ export default function TelaAlterarAgencia(props) {
 
   function manipulaSubmissao(e) {
     const form = e.currentTarget;
-    if (form.checkValidity() && agencia.uf !== '') {
+    if (form.checkValidity() && agencia.uf_ag !== '') {
       // dados válidos → proceder com o cadastro
       fetch(urlAgencia, {
         method: 'PUT',
@@ -55,7 +55,6 @@ export default function TelaAlterarAgencia(props) {
           let novasAgencias = [...props.listaAgencias, data];
           props.setAgencia(novasAgencias);
           setValidado(false);
-          // props.exibirTabela(true);
         })
         .catch((error) => console.error('Erro ao alterar agência:', error));
     } else {
@@ -64,6 +63,7 @@ export default function TelaAlterarAgencia(props) {
     e.preventDefault();
     e.stopPropagation();
     alert('Agência alterada com sucesso!');
+    navigate('/');
   }
 
   return (
@@ -74,16 +74,16 @@ export default function TelaAlterarAgencia(props) {
         <Row className='mb-3'>
           <Col xs='auto'>
             {/********************** CIDADE **********************/}
-            <Form.Group controlId='ag_cidade'>
+            <Form.Group controlId='cidade_ag'>
               <Form.Label>Cidade:</Form.Label>
-              <Form.Control placeholder={agencia.cidade} disabled />
+              <Form.Control placeholder={agencia.cidade_ag} disabled />
             </Form.Group>
           </Col>
           {/********************** UF **********************/}
           <Col xs='auto'>
-            <Form.Group style={{ width: '50px' }} controlId='uf'>
+            <Form.Group style={{ width: '50px' }} controlId='uf_ag'>
               <Form.Label>UF:</Form.Label>
-              <Form.Control placeholder={agencia.uf} disabled />
+              <Form.Control placeholder={agencia.uf_ag} disabled />
             </Form.Group>
           </Col>
         </Row>
@@ -91,22 +91,13 @@ export default function TelaAlterarAgencia(props) {
           <Row className='mb-3'>
             <Col xs='auto'>
               {/********************** ENDEREÇO *********************/}
-              <Form.Group className='mb-3' style={{ width: '340px' }} controlId='endereco'>
+              <Form.Group className='mb-3' style={{ width: '340px' }} controlId='endereco_ag'>
                 <Form.Label>Endereço:</Form.Label>
-                <Form.Control required type='text' placeholder={agencia.endereco} id='endereco' value={agencia.endereco} onChange={manipularMudanca} />
+                <Form.Control required type='text' placeholder={agencia.endereco_ag} id='endereco_ag' value={agencia.endereco_ag} onChange={manipularMudanca} />
                 <Form.Control.Feedback type='invalid'>Informe o novo endereço da agência!</Form.Control.Feedback>
               </Form.Group>
             </Col>
           </Row>
-
-          {/*********************** PRODUTOS ***********************/}
-          {/* <Row className='mb-3'>
-            <Form.Group className='mb-3' style={{ width: '340px' }} controlId='endereco'>
-              <Form.Label>Produtos:</Form.Label>
-              <Form.Control required type='text' id='produtos' value={agencia.produtos} onChange={manipularMudanca} />
-              <Form.Control.Feedback type='invalid'>Informe os produtos oferecidos pela agência!</Form.Control.Feedback>
-            </Form.Group>
-          </Row> */}
 
           <br />
           <Row className='mb-3'>
@@ -129,25 +120,3 @@ export default function TelaAlterarAgencia(props) {
     </>
   );
 }
-
-// ________________________BACKUP________________________
-// import { useState } from 'react';
-
-// export default function TelaAlterarAgencia() {
-//   const [validado, setValidado] = useState(false);
-//   const [agencia, setAgencia] = useState({
-//     cod_ag: '',
-//     endereco: '',
-//     cidade: '',
-//     uf: '',
-//   });
-
-//   function manipulaMudanca(e) {
-//     const elemForm = e.currentTarget;
-//     const id = elemForm.id;
-//     const valor = elemForm.value;
-//     setAgencia({ ...agencia, [id]: valor });
-//   }
-
-//   return <div>alterar agencia</div>;
-// }
