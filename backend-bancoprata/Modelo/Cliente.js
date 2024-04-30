@@ -1,6 +1,7 @@
 // OK
 import conectar from '../Persistencia/Conexao.js';
 import ClienteBD from '../Persistencia/ClienteBD.js';
+import Agencia from './Agencia.js';
 
 export default class Cliente {
   #cod_cli;
@@ -127,7 +128,7 @@ export default class Cliente {
   // --------------------------------------CADASTRAR CLIENTE--------------------------------------
   async cadastrarBD() {
     const clienteBD = new ClienteBD();
-    this.cod_cli = await clienteBD.cadastrar(this);
+    this.#cod_cli = await clienteBD.cadastrar(this);
   }
 
   // ------------------------------------ALTERAR CLIENTE------------------------------------
@@ -152,27 +153,24 @@ export default class Cliente {
       const [rows] = await conexao.query(sql, parametros);
       const listaClientes = [];
       for (const row of rows) {
-        // const cliente = new Cliente(row['cod_cli'], row['nome'], row['cpf'], row['dataNasc'], row['email'], row['telefone'], row['endereco'], row['cidade'], row['uf'], row['cod_ag']);
-        const cliente = new Cliente(
-          row.cod_cli,
-          row.nome,
-          row.cpf,
-          row.dataNasc,
-          row.email,
-          row.telefone,
-          row.endereco,
-          row.cidade,
-          row.uf,
-          row.cod_ag,
-          row.endereco,
-          row.cidade,
-          row.uf,
-          // row.agencia
-          row.cod_ag
-          // row.agencia.endereco,
-          // row.agencia.cidade,
-          // row.agencia.uf
-        );
+        const agencia = new Agencia(row.cod_ag, row.endereco, row.cidade, row.uf);
+        const cliente = new Cliente(row['cod_cli'], row['nome'], row['cpf'], row['dataNasc'], row['email'], row['telefone'], row['endereco'], row['cidade'], row['uf'], agencia);
+        // const cliente = new Cliente(
+        //   row.cod_cli,
+        //   row.nome,
+        //   row.cpf,
+        //   row.dataNasc,
+        //   row.email,
+        //   row.telefone,
+        //   row.endereco,
+        //   row.cidade,
+        //   row.uf,
+        //   row.cod_ag,
+        //   row.endereco,
+        //   row.cidade,
+        //   row.uf,
+        //   agencia
+        // );
         listaClientes.push(cliente);
       }
       return listaClientes;
@@ -186,6 +184,7 @@ export default class Cliente {
       const listaClientes = [];
       for (const row of rows) {
         // const cliente = new Cliente(row['cod_cli'], row['nome'], row['cpf'], row['dataNasc'], row['email'], row['telefone'], row['endereco'], row['cidade'], row['uf'], row['cod_ag'], row['agencia.endereco'], row['agencia.cidade'], row['uf']);
+        const agencia = new Agencia(row.cod_ag, row.endereco, row.cidade, row.uf);
         const cliente = new Cliente(
           row.cod_cli,
           row.nome,
@@ -196,8 +195,7 @@ export default class Cliente {
           row.endereco,
           row.cidade,
           row.uf,
-          // row.agencia
-          row.cod_ag
+          agencia
           // row.agencia.endereco,
           // row.agencia.cidade,
           // row.agencia.uf

@@ -52,32 +52,46 @@ export default function TelaCadastrarCliente(props) {
   //   setCliente({ ...cliente, [id]: valor });
   // }
 
+  // function manipularMudanca(e) {
+  //   const elemForm = e.currentTarget;
+  //   if (elemForm === 'agencia') {
+  //     setCliente({
+  //       ...cliente,
+  //       agencia: {
+  //         cod_ag: elemForm.value,
+  //         // endereco: elemForm.value,
+  //         // cidade: elemForm.value,
+  //         // uf: elemForm.value,
+  //       },
+  //     });
+  //   } else {
+  //     setCliente({ ...cliente, [elemForm.id]: elemForm.value });
+  //   }
+  //   const id = elemForm.id;
+  //   const valor = elemForm.value;
+  //   setCliente({ ...cliente, [id]: valor });
+  // }
+
   function manipularMudanca(e) {
     const elemForm = e.currentTarget;
-    if (elemForm === 'agencia') {
-      setCliente({
-        ...cliente,
-        agencia: {
-          cod_ag: elemForm.value,
-          // endereco: elemForm.value,
-          // cidade: elemForm.value,
-          // uf: elemForm.value,
-        },
-      });
-    }
     const id = elemForm.id;
     const valor = elemForm.value;
-    setCliente({ ...cliente, [id]: valor });
-  }
 
-  // function manipularMudanca(e) {
-  //   const componente = e.currentTarget;
-  //   if (componente.name === 'agencia') {
-  //     setCliente({ ...cliente, agencia: { cod_ag: componente.value } });
-  //   } else {
-  //     setCliente({ ...cliente, [componente.name]: componente.value });
-  //   }
-  // }
+    if (id === 'cod_ag' || id === 'endereco' || id === 'cidade' || id === 'uf') {
+      setCliente((prevCliente) => ({
+        ...prevCliente,
+        agencia: {
+          ...prevCliente.agencia,
+          [id]: valor,
+        },
+      }));
+    } else {
+      setCliente((prevCliente) => ({
+        ...prevCliente,
+        [id]: valor,
+      }));
+    }
+  }
 
   function manipulaSubmissao(e) {
     const form = e.currentTarget;

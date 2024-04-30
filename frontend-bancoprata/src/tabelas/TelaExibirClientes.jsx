@@ -53,7 +53,7 @@ export default function TelaExibirClientes(props) {
             <tr>
               <th style={{ textAlign: 'center' }}>Cód.</th>
               <th style={{ textAlign: 'center' }}>Ag.</th>
-              {/* <th style={{ textAlign: 'center' }}>End. Ag.</th> */}
+              <th style={{ textAlign: 'center' }}>End. Ag.</th>
               <th>Nome</th>
               <th>CPF</th>
               <th style={{ textAlign: 'center' }}>Data Nasc.</th>
@@ -62,7 +62,6 @@ export default function TelaExibirClientes(props) {
               <th style={{ textAlign: 'center' }}>UF</th>
               <th>Email</th>
               <th>Telefone</th>
-              {/* <th style={{ width: '5%' }}>Senha</th> */}
               <th style={{ textAlign: 'center' }}>Ações</th>
             </tr>
           </thead>
@@ -75,7 +74,7 @@ export default function TelaExibirClientes(props) {
                 <tr key={cliente.cod_cli}>
                   <td style={{ textAlign: 'center' }}>{cliente.cod_cli}</td>
                   <td style={{ textAlign: 'center' }}>{cliente.agencia.cod_ag}</td>
-                  {/* <td style={{ textAlign: 'center' }}>{cliente.agencia.endereco}</td> */}
+                  <td style={{ textAlign: 'center' }}>{cliente.agencia.endereco}</td>
                   <td>{cliente.nome}</td>
                   <td>{cliente.cpf}</td>
                   <td style={{ textAlign: 'center' }}>{cliente.dataNasc}</td>
@@ -93,7 +92,6 @@ export default function TelaExibirClientes(props) {
                         onClick={() => {
                           navigate('/alterarcliente', {
                             state: {
-                              // Dados imutáveis: Tipo, nome, CPF, RG, data de nascimento e gênero
                               cod_cli: cliente.cod_cli,
                               nome: cliente.nome,
                               cpf: cliente.cpf,
@@ -103,7 +101,6 @@ export default function TelaExibirClientes(props) {
                               uf: cliente.uf,
                               telefone: cliente.telefone,
                               email: cliente.email,
-                              // senha: cliente.senha,
                               cod_ag: cliente.agencia.cod_ag,
                             },
                           });

@@ -4,12 +4,10 @@ import ProdutoBD from '../Persistencia/ProdutoBD.js';
 export default class Produto {
   #cod_prod;
   #nome;
-  // #agencia;
 
   constructor(cod_prod, nome) {
     this.#cod_prod = cod_prod;
     this.#nome = nome;
-    // this.#agencia = agencia;
   }
 
   // MÉTODOS PÚBLICOS
@@ -30,14 +28,6 @@ export default class Produto {
     this.#nome = novoNome;
   }
 
-  // AGÊNCIA DO PRODUTO
-  // get agencia() {
-  //   return this.#agencia;
-  // }
-  // set agencia(novaAgencia) {
-  //   this.#agencia = novaAgencia;
-  // }
-
   toJSON() {
     return {
       cod_prod: this.#cod_prod,
@@ -51,11 +41,6 @@ export default class Produto {
     this.#cod_prod = await produtoBD.cadastrar(this);
   }
 
-  // ------------------------------------ALTERAR PRODUTO ------------------------------------
-  // async alterarBD() {
-  //   const produtoBD = new ProdutoBD();
-  //   await produtoBD.alterar(this);
-  // }
   // ------------------------------------EXCLUIR PRODUTO------------------------------------
   async excluirBD() {
     const produtoBD = new ProdutoBD();

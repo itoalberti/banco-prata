@@ -16,9 +16,7 @@ export default class ClienteBD {
       const resultado = await conexao.query(sql, parametros);
       cliente.cod_cli = resultado[0].insertId;
       conexao.release();
-      // return await resultado[0].insertId;
     }
-    // pool.releaseConnection(conexao);
   }
 
   // ------------------------------------ALTERAR CLIENTE NO BANCO DE DADOS------------------------------------
@@ -31,7 +29,6 @@ export default class ClienteBD {
       // Também está correto chamar cliente.agencia.cod_ag em vez de cod_ag nos parâmetros
       const parametros = [cliente.email, cliente.telefone, cliente.endereco, cliente.cidade, cliente.uf, cliente.agencia.cod_ag, cliente.cod_cli];
       await conexao.query(sql, parametros);
-      // pool.releaseConnection();
       conexao.release();
     }
   }
@@ -43,7 +40,6 @@ export default class ClienteBD {
       const sql = 'DELETE FROM Cliente WHERE cod_cli=?';
       const parametros = [cliente.cod_cli];
       await conexao.query(sql, parametros);
-      // pool.releaseConnection(conexao);
       conexao.release();
     }
   }
@@ -53,16 +49,14 @@ export default class ClienteBD {
     const conexao = await conectar();
     const sql = `SELECT * FROM Cliente
     INNER JOIN Agencia
-     ON Cliente.cod_ag = Agencia.cod_ag`;
-    // const parametros = ['%'];
+    ON Cliente.cod_ag = Agencia.cod_ag`;
     const [rows] = await conexao.query(sql);
     const listaClientes = [];
     for (const row of rows) {
       const agencia = new Agencia(row.cod_ag, row.endereco, row.cidade, row.uf);
-      const cliente = new Cliente(row.cod_cli, row.nome, row.cpf, row.dataNasc, row.email, row.telefone, row.endereco, row.cidade, row.uf, row.agencia.cod_ag);
+      const cliente = new Cliente(row.cod_cli, row.nome, row.cpf, row.dataNasc, row.email, row.telefone, row.endereco, row.cidade, row.uf, agencia);
       listaClientes.push(cliente);
     }
-    // pool.releaseConnection(conexao);
     conexao.release();
     return listaClientes;
   }

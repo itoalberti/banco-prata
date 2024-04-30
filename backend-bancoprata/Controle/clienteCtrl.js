@@ -1,4 +1,3 @@
-// OK
 import Cliente from '../Modelo/Cliente.js';
 
 export default class ClienteCtrl {
