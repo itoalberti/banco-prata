@@ -1,3 +1,4 @@
+import Agencia from '../Modelo/Agencia.js';
 import Cliente from '../Modelo/Cliente.js';
 
 export default class ClienteCtrl {
