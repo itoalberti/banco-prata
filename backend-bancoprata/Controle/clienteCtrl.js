@@ -71,7 +71,7 @@ export default class ClienteCtrl {
           .then(() => {
             resp.status(200).json({
               status: true,
-              msg: `Dados do(a) cliente ${cliente.cod_nome} alterados com sucesso!`,
+              msg: `Dados do(a) cliente ${cliente.nome} alterados com sucesso!`,
             });
           })
           .catch((erro) => {
@@ -83,7 +83,7 @@ export default class ClienteCtrl {
       } else {
         resp.status(400).json({
           status: false,
-          msg: 'Informe os novos dados do cliente (email, telefone, endereço, cidade e UF).',
+          msg: 'Informe os novos dados do cliente (email, telefone, endereço, cidade, UF e agência).',
         });
       }
     } else {

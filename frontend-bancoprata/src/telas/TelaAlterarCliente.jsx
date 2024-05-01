@@ -7,9 +7,20 @@ import ReactInputMask from 'react-input-mask';
 
 import Pagina from '../templates/Pagina';
 const urlCliente = `http://${hostname}:${port}/cliente`;
+const urlAgencia = `http://${hostname}:${port}/agencia`;
 
 export default function TelaAlterarCliente(props) {
   const [validado, setValidado] = useState(false);
+  const [listaAgencias, setListaAgencias] = useState([]);
+  useEffect(() => {
+    fetch(urlAgencia)
+      .then((resp) => resp.json())
+      .then((data) => {
+        setListaAgencias(data);
+      })
+      .catch((erro) => console.error('Erro ao buscar agências', erro));
+  }, []);
+
   const [cliente, setCliente] = useState({
     nome: props.nome,
     cpf: props.cpf,
@@ -19,10 +30,11 @@ export default function TelaAlterarCliente(props) {
     uf: props.uf,
     telefone: props.telefone,
     email: props.email,
-    cod_ag: props.cod_ag,
+    // agencia: props.agencia,
+    cod_ag: props.agencia,
   });
-  const location = useLocation();
 
+  const location = useLocation();
   useEffect(() => {
     if (location.state) {
       setCliente({
@@ -36,20 +48,39 @@ export default function TelaAlterarCliente(props) {
         uf: location.state.uf,
         telefone: location.state.telefone,
         email: location.state.email,
-        // cod_ag: location.state.cod_ag,
-        agencia: location.state.agencia,
+        // agencia: location.state.agencia,
+        cod_ag: location.state.agencia,
       });
     }
   }, [location.state]);
 
   let navigate = useNavigate();
-
   function manipularMudanca(e) {
     const elemForm = e.currentTarget;
     const id = elemForm.id;
     const valor = elemForm.value;
-    setCliente({ ...cliente, [id]: valor });
+
+    if (id === 'cod_ag' || id === 'endereco_ag' || id === 'cidade_ag' || id === 'uf_ag') {
+      setCliente((prevCliente) => ({
+        ...prevCliente,
+        agencia: {
+          ...prevCliente.agencia,
+          [id]: valor,
+        },
+      }));
+    } else {
+      setCliente((prevCliente) => ({
+        ...prevCliente,
+        [id]: valor,
+      }));
+    }
   }
+  // function manipularMudanca(e) {
+  //   const elemForm = e.currentTarget;
+  //   const id = elemForm.id;
+  //   const valor = elemForm.value;
+  //   setCliente({ ...cliente, [id]: valor });
+  // }
 
   function manipulaSubmissao(e) {
     const form = e.currentTarget;
@@ -74,55 +105,61 @@ export default function TelaAlterarCliente(props) {
     }
     e.preventDefault();
     e.stopPropagation();
-    alert('Cliente alterado com sucesso!');
+    alert(`Dados do(a) cliente ${cliente.nome} alterados com sucesso!`);
     navigate('/exibirclientes');
   }
 
   return (
     <>
       <Pagina>
-        <h2>Alterar dados do(a) cliente {cliente.nome}</h2>
-        <br />
-        <Row className='mb-3'>
-          {/********************** CÓDIGO **********************/}
-          <Col xs='auto' style={{ width: '150px' }}>
-            <Form.Group controlId='cod_cli' style={{ width: '60px' }}>
-              <Form.Label style={{ width: '150px' }}>Código do cliente:</Form.Label>
-              <Form.Control placeholder={cliente.cod_cli} disabled />
-            </Form.Group>
-          </Col>
-          {/********************** AGÊNCIA **********************/}
-          <Col xs='auto'>
-            <Form.Group controlId='cod_ag' style={{ width: '45px' }}>
-              <Form.Label style={{ width: '150px' }}>Código da agência:</Form.Label>
-              <Form.Control placeholder={cliente.cod_ag} />
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row className='mb-3'>
-          {/********************** NOME **********************/}
-          <Col xs='auto'>
-            <Form.Group controlId='nome' style={{ width: '200px' }}>
-              <Form.Label>Nome:</Form.Label>
-              <Form.Control placeholder={cliente.nome} disabled />
-            </Form.Group>
-          </Col>
-          {/********************** CPF **********************/}
-          <Col xs='auto' style={{ width: '160px' }}>
-            <Form.Group controlId='cpf'>
-              <Form.Label>CPF:</Form.Label>
-              <Form.Control placeholder={cliente.cpf} disabled />
-            </Form.Group>
-          </Col>
-          {/********************** DATA DE NASCIMENTO **********************/}
-          <Col xs='auto'>
-            <Form.Group controlId='dataNasc'>
-              <Form.Label>Data de nascimento:</Form.Label>
-              <Form.Control placeholder={cliente.dataNasc} style={{ width: '110px' }} disabled />
-            </Form.Group>
-          </Col>
-        </Row>
         <Form noValidate validated={validado} onSubmit={manipulaSubmissao}>
+          <h2>Alterar dados do(a) cliente {cliente.nome}</h2>
+          <br />
+          <Row className='mb-3'>
+            {/********************** CÓDIGO **********************/}
+            <Col xs='auto' style={{ width: '150px' }}>
+              <Form.Group controlId='cod_cli' style={{ width: '60px' }}>
+                <Form.Label style={{ width: '150px' }}>Código do cliente:</Form.Label>
+                <Form.Control placeholder={cliente.cod_cli} disabled />
+              </Form.Group>
+            </Col>
+            {/********************** AGÊNCIA **********************/}
+            <Col xs='auto'>
+              <Form.Group controlId='cod_ag' style={{ width: '400px' }}>
+                <Form.Label style={{ width: '150px' }}>Código da agência:</Form.Label>
+                <Form.Select id='cod_ag' required value={cliente.cod_ag} onChange={manipularMudanca}>
+                  {listaAgencias?.map((ag) => (
+                    <option key={ag.cod_ag} value={ag.cod_ag}>
+                      {ag.cod_ag}: {ag.endereco_ag} - {ag.cidade_ag}: ({ag.uf_ag})
+                    </option>
+                  ))}
+                </Form.Select>
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row className='mb-3'>
+            {/********************** NOME **********************/}
+            <Col xs='auto'>
+              <Form.Group controlId='nome' style={{ width: '200px' }}>
+                <Form.Label>Nome:</Form.Label>
+                <Form.Control placeholder={cliente.nome} disabled />
+              </Form.Group>
+            </Col>
+            {/********************** CPF **********************/}
+            <Col xs='auto' style={{ width: '160px' }}>
+              <Form.Group controlId='cpf'>
+                <Form.Label>CPF:</Form.Label>
+                <Form.Control placeholder={cliente.cpf} disabled />
+              </Form.Group>
+            </Col>
+            {/********************** DATA DE NASCIMENTO **********************/}
+            <Col xs='auto'>
+              <Form.Group controlId='dataNasc'>
+                <Form.Label>Data de nascimento:</Form.Label>
+                <Form.Control placeholder={cliente.dataNasc} style={{ width: '110px' }} disabled />
+              </Form.Group>
+            </Col>
+          </Row>
           <Row className='mb-3'>
             {/********************** ENDEREÇO **********************/}
             <Col xs='auto' style={{ width: '350px' }}>
