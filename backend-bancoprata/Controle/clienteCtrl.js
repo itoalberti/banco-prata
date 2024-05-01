@@ -65,6 +65,7 @@ export default class ClienteCtrl {
       const agencia = dados.agencia;
 
       if (cod_cli && nome && cpf && dataNasc && email && telefone && endereco && cidade && uf && agencia) {
+        // const agencia = new Agencia(dados.cod_ag, dados.endereco_ag, dados.cidade_ag, dados.uf_ag);
         const cliente = new Cliente(cod_cli, nome, cpf, dataNasc, email, telefone, endereco, cidade, uf, agencia);
         cliente
           .alterarBD()
@@ -83,7 +84,7 @@ export default class ClienteCtrl {
       } else {
         resp.status(400).json({
           status: false,
-          msg: 'Informe os novos dados do cliente (email, telefone, endereço, cidade, UF e agência).',
+          msg: 'Informe os novos dados do cliente (email, telefone, endereço, cidade, UF e código da agência).',
         });
       }
     } else {
